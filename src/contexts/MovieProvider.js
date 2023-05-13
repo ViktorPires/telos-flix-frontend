@@ -4,6 +4,7 @@ import { MovieContext } from "./MovieContext";
 
 export default function MovieProvider({ children }) {
   const [movies, setMovies] = useState([]);
+  console.log(movies)
   useEffect(() => {
     axios
       .get("https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/db")
