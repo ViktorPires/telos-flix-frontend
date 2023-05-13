@@ -1,0 +1,19 @@
+.containerFilms {
+  margin: auto;
+  width: 1222px;
+  height: 851px;
+
+  position: relative;
+
+  background: radial-gradient(
+    100% 100% at 50% 0%,
+    #2e2e2e 6.79%,
+    #242424 51.92%,
+    #212121 100%
+  );
+
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-color: rgba(238, 238, 238, 0.05);
+  border-radius: 32px 32px 0px 0px;
+}
