@@ -6,12 +6,14 @@ import { Routes } from "./routes";
 
 function App() {
   return (
+    <> 
     <div className="App">
-      <HeaderLogin />
+      <Header />
       <div style={{ marginLeft: "170px" }}>
         <Routes/>
       </div>
     </div>
+    </>
   );
 }
 
