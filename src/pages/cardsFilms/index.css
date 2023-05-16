@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@200;300;400&family=Space+Grotesk:wght@300;400;500&display=swap');
+
+.cardsFilms-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 450px;
+}   
+
+.cardsFilms-container .cardsFilms-content{
+    background-color: transparent;
+    
+}
+
+.cardsFilms-container .cardsFilms-content .grid-cardsFilms{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+}
+
+.cardsFilms-container .cardsFilms-content .grid-cardsFilms > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: 24px;
+    height: 244px;
+    width: 367px;
+    border-radius: 0px;
+    background-color: #292929;
+
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center  ;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center  ;
+    justify-content: start;
+    gap: 22px;
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form > .input-name-cardsFilm{
+
+    width: 366px;
+    height: 42px;
+
+    background: rgba(238, 238, 238, 0.05);
+    border: 1px solid rgba(238, 238, 238, 0.05);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    border: none;
+
+    padding: 10px 16px 10px 16px;
+
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #EEEEEE;
+    
+
+    
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form > .input-name-cardsFilm:focus{
+    outline: none;
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form > .input-name-cardsFilm::placeholder{
+
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #EEEEEE;
+    opacity: 0.5;
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form > .select-category-cardsFilm{
+    display: flex;
+    justify-content: start;
+    width: 364px;
+    height: 39px;
+    background: #292929;
+    border: 1px solid rgba(238, 238, 238, 0.05);
+    border-radius: 20px;
+
+    margin-right: 20px;
+
+
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #EEEEEE;
+    cursor: pointer;
+}
+
+.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form > .select-category-cardsFilm:focus{
+    outline: none;
+}
