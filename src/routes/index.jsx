@@ -1,15 +1,34 @@
-import { BrowserRouter } from 'react-router-dom'
-import { useAuth } from '../hooks/auth';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "../pages/home";
+import HomeLogin from "../pages/homeLogin";
+import Films from "../pages/Films";
+import Video from "../pages/video";
+import MovieProvider from "../contexts/MovieProvider";
 
-import AuthRoutes  from './auth.routes';
-import AppRoutes from './app.routes';
 
-export function Routes(){
-    const { user } = useAuth();
 
-    return(
-        <BrowserRouter>
-         {user ?  <AppRoutes/> : <AuthRoutes/>}
-        </BrowserRouter>
-    )
+
+export default function () {
+  return (
+
+    <BrowserRouter>
+      <Routes>
+        <Route element={
+          <MovieProvider>
+        <Home />
+        </MovieProvider>
+        } path="/" exact />
+        <Route element={<HomeLogin />} path="/homeLogin" exact />
+        <Route element={<Films />} path="/films" exact />
+
+        <Route element={
+          <MovieProvider>
+            <Video />
+          </MovieProvider>
+        } path="/video" exact />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }

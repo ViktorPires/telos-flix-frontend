@@ -1,27 +1,25 @@
 import { CardGiftcardOutlined, SignalCellularAltOutlined } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import MiniVideoCard from "../miniVideoCard";
+import { MovieContext } from "../../contexts/MovieContext";
+import { useParams } from "react-router-dom";
 function EnjoyForFree() {
-  const videos = [
-    {
-      title: "Video 1",
-    },
-    {
-      title: "Video 2",
-    },
-    {
-      title: "Video 3",
-    },
-  ];
+  const [movies, setMovies] = useContext(MovieContext);
+  const { moviesId } = useParams();
+
+
+
   return (
     <div className="enjoyForfreeSection">
       <div className="labelSection">
         <CardGiftcardOutlined /> Aproveite grátis
       </div>
       <div className="enjoyForfreeVideosGrid">
-        {videos.map((video) => (
-          <MiniVideoCard title={video.title} />
+        {movies.map((movie) => (
+          <div className="miniVideoCard">
+            <img style={{width: "200px"}} src={movie.posterImage} alt="" />
+          </div>
         ))}
       </div>
     </div>

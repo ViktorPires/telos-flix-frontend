@@ -7,6 +7,7 @@ import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
 
 import { api } from "../../server/api";
+import { useNavigate } from "react-router-dom";
 
 function CreateAccountModalContent() {
   const [name, setName] = useState("");
@@ -16,6 +17,8 @@ function CreateAccountModalContent() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate()
+
   function handleSignUp(){
          if(!name || !email || !password ){
               return alert("Preencha todos os campos")
@@ -24,12 +27,14 @@ function CreateAccountModalContent() {
          api.post("/users", {name, email, password, phone, birthDate, confirmPassword})
          .then(() => {
           alert("Usuário cadastrado com sucesso!")
+          navigate("/homeLogin")
+      
          })
          .catch(() => {
            if( name || email || password){
             alert("Usuário cadastrado")
            }else{
-            alert("Não foi possível cadastrar, verificar campos preenchidos")
+            
            }
          })
   }
@@ -43,7 +48,7 @@ function CreateAccountModalContent() {
             <label className="inputLabel">Nome</label>
             <CustomOutlinedInput
               setValue={setName}
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => setName(e.target.value)}
               placeholder="Nome"
               type="text"
               startAdornment={

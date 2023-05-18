@@ -11,14 +11,22 @@ import PasswordOutlinedInput from "../passwordOutlinedInput";
 
 import { useAuth } from "../../hooks/auth"
 
+import { useNavigate } from "react-router-dom";
+
+
 export default function LoginModalContent({ setCreateAccountContent }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { signIn } = useAuth();
+  const navigate = useNavigate()
 
   function handleSignIn(){
     signIn({email, password});
+
+    if( email && password){
+       navigate("/homeLogin")
+    }
   }
 
   return (
@@ -52,7 +60,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
             <PasswordOutlinedInput onChange={e => setPassword(e.target.value)} setValue={setPassword} />
           </div>
           <div className="buttonsSection">
-            <PrimaryGradientButton onClick={handleSignIn} text="Entrar" />
+            <PrimaryGradientButton  onClick={handleSignIn} text="Entrar" />
             <SecondaryGradientButton text="Quero criar uma conta" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
           </div>
         </FormControl>

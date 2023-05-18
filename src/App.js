@@ -1,19 +1,16 @@
 import "./App.css";
-import Header from "./components/header";
-import HeaderLogin from "./components/headerLogin";
-import { Routes } from "./routes";
+import AppRoutes from "./routes";
+
 
 
 function App() {
   return (
     <> 
     <div className="App">
-      <Header />
       <div style={{ marginLeft: "170px" }}>
-        <Routes/>
+        <AppRoutes/>
       </div>
     </div>
-
     </>
   );
 }

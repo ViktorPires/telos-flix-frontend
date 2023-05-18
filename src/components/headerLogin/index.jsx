@@ -17,6 +17,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { Home, Search } from "@mui/icons-material";
 import logo from "./Brand.png";
 import arrow from "./arrow.png";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -92,8 +93,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 export default function HeaderLogin() {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [contentToShow, setContentToShow] = useState(<></>);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -110,7 +109,7 @@ export default function HeaderLogin() {
             <h2>
               User
             </h2>
-          <img src={arrow} alt="" />
+         <Link to="/"><img src={arrow} alt="" /></Link> 
           </div>
           
         </Toolbar>
