@@ -1,13 +1,17 @@
 import { CardGiftcardOutlined, SignalCellularAltOutlined } from "@mui/icons-material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.css";
 import MiniVideoCard from "../miniVideoCard";
 import { MovieContext } from "../../contexts/MovieContext";
-import { useParams } from "react-router-dom";
 function EnjoyForFree() {
+  const [list, setList] = useState([]);
   const [movies, setMovies] = useContext(MovieContext);
-  const { moviesId } = useParams();
-
+  
+  useEffect(() => {
+       setList(movies)
+       console.log("list" + list)
+  },[])
+  
 
 
   return (
@@ -18,7 +22,15 @@ function EnjoyForFree() {
       <div className="enjoyForfreeVideosGrid">
         {movies.map((movie) => (
           <div className="miniVideoCard">
-            <img style={{width: "200px"}} src={movie.posterImage} alt="" />
+           <iframe
+              width="800"
+              height="500"
+              src={movie.video}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
           </div>
         ))}
       </div>

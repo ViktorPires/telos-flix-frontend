@@ -5,12 +5,11 @@ import { MovieContext } from "./MovieContext";
 export  default  function MovieProvider({ children })  {
   
   const [movies, setMovies] = useState([]);
-  console.log(movies)
+
   useEffect(() => {
    axios
       .get("http://localhost:3333/movies")
       .then((response) => {
-        console.log(response.data.docs)
         setMovies(response.data.docs);
       })
       .catch((error) => {
