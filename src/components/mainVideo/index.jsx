@@ -6,24 +6,24 @@ function MainVideo() {
   const [movies, setMovies] = useContext(MovieContext);
   const { moviesId } = useParams();
 
-  const filteredMovie = movies.find(movie => movie.id === moviesId);
+  const videoIds = movies.slice(0,9).map((movie) => movie.video.split("v=")[1]);
 
   return (
     <div style={{ marginTop: "284px", position: "relative" }}>
         <img  src={image} alt="Hero" />
-        {filteredMovie && (
-          <div style={{position: "absolute", top: "10%", left: "18%"}}>
+        {videoIds.map((videoId) => (
+         <div style={{position: "absolute", top: "5%", left: "15%"}}>
             <iframe
-              width="800"
-              height="500"
-              src={filteredMovie.video}
+              width="850"
+              height="560"
+              src={`https://www.youtube.com/embed/${videoId}`}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             ></iframe>
           </div>
-        )}
+        ))}
       </div>
   );
 }

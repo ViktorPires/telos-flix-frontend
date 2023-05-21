@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
 import HomeLogin from "../pages/homeLogin";
 import Films from "../pages/Films";
-import Video from "../pages/video";
 import MovieProvider from "../contexts/MovieProvider";
+import Person from "../pages/Person";
+import { AuthProvider } from "../hooks/auth";
 
 
 
@@ -12,10 +13,9 @@ import MovieProvider from "../contexts/MovieProvider";
 export default function () {
   return (
 
-
+    <AuthProvider> 
     <BrowserRouter>
       <Routes>
-
         <Route element={
           <MovieProvider>
             <Home />
@@ -30,13 +30,11 @@ export default function () {
 
         <Route element={<Films />} path="/films" exact />
         <Route element={
-
-          <Video />
-
-        } path="/video" exact />
-
+          <Person />
+        } path="/person" exact />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
 
   );
 }

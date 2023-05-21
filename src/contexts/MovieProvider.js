@@ -5,6 +5,7 @@ import { MovieContext } from "./MovieContext";
 export  default  function MovieProvider({ children })  {
   
   const [movies, setMovies] = useState([]);
+  console.log(movies)
 
   useEffect(() => {
    axios

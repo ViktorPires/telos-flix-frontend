@@ -107,7 +107,7 @@ export default function HeaderLogin() {
           <img src={logo} alt="logo" />
           <div style={{display:"flex", alignItems: "center", gap: "110px"}}>
             <h2>
-              User
+             <Link to="/Person">kkk</Link> 
             </h2>
          <Link to="/"><img src={arrow} alt="" /></Link> 
           </div>

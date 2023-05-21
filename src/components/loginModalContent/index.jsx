@@ -21,11 +21,16 @@ export default function LoginModalContent({ setCreateAccountContent }) {
   const { signIn } = useAuth();
   const navigate = useNavigate()
 
-  function handleSignIn(){
-    signIn({email, password});
-
-    if( email && password){
-       navigate("/homeLogin")
+  async function  handleSignIn(){
+   try{
+    await signIn({email, password})
+    .then(statusCode => {
+      console.log("deu certo :  ", statusCode)
+      navigate("/homeLogin")
+    })
+    }catch(error){
+      console.log("deu erro : ", error)
+      alert("Erro! algo de errado no login")
     }
   }
 

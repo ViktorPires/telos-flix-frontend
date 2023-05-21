@@ -7,13 +7,32 @@ import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 import Logo from './Icon.png'
+import { useAuth } from "../../hooks/auth";
+
 
 export function DadosPerson() {
-    const [name, setname] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthDate, SetBirthDate] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const { updateProfile } = useAuth
+
+    
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [birthDate, setBirthDate] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+
+
+    async function handleUpdate(){
+        const user = {
+            name,
+            email,
+            birthDate,
+            password,
+            confirmPassword
+        }
+        await updateProfile({ user })
+    }
+     
+    
 
 
     return (
@@ -38,7 +57,8 @@ export function DadosPerson() {
                         <div className="inputContainer" style={{ marginTop: "56px" }}>
                             <label className="inputLabel">Nome</label>
                             <CustomOutlinedInput
-                                setValue={setname}
+                                onChange={e => setName(e.target.value)}
+                                setValue={setName}
                                 placeholder="Nome"
                                 type="text"
                                 startAdornment={
@@ -53,6 +73,7 @@ export function DadosPerson() {
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
                             <label className="inputLabel">E-mail</label>
                             <CustomOutlinedInput
+                            onChange={e => setEmail(e.target.value)}
                                 setValue={setEmail}
                                 placeholder="E-mail"
                                 type="text"
@@ -68,7 +89,8 @@ export function DadosPerson() {
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
                             <label className="inputLabel">Data de nascimento</label>
                             <CustomOutlinedInput
-                                setValue={SetBirthDate}
+                            onChange={e => setBirthDate(e.target.value)}
+                                setValue={setBirthDate}
                                 placeholder="Data de nascimento"
                                 type="date"
                             />
@@ -84,17 +106,18 @@ export function DadosPerson() {
                                 icon={<ShowChartOutlined />}
                                 text="Alterar Dados"
                                 img={<EastOutlined />}
+                                onClick={handleUpdate}
                             />
 
                         </div>
                         <div>
                             <div className="inputContainer" style={{ marginTop: "56px" }}>
                                 <label className="inputLabel">Senha atual</label>
-                                <PasswordOutlinedInput setValue={setPassword} />
+                                <PasswordOutlinedInput onChange={e => setPassword(e.target.value)}  setValue={setPassword} />
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
                                 <label className="inputLabel">Nova Senha</label>
-                                <PasswordOutlinedInput setValue={setConfirmPassword} placeholder="Confirmar Senha" />
+                                <PasswordOutlinedInput onChange={e => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Confirmar Senha" />
                             </div>
 
                             <div className="buttonsSection">
