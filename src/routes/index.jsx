@@ -6,6 +6,8 @@ import Films from "../pages/Films";
 import MovieProvider from "../contexts/MovieProvider";
 import Person from "../pages/Person";
 import { AuthProvider } from "../hooks/auth";
+import CreateFilms from "../pages/createFilms";
+import CardsFilms from "../pages/cardsFilms";
 
 
 
@@ -28,10 +30,27 @@ export default function () {
           </MovieProvider>
         } path="/homeLogin" exact />
 
-        <Route element={<Films />} path="/films" exact />
+        <Route element={
+          <MovieProvider>
+        <Films />
+        </MovieProvider>
+        } path="/films" exact />
         <Route element={
           <Person />
         } path="/person" exact />
+
+         <Route element={
+          <MovieProvider>
+            <CreateFilms />
+          </MovieProvider>
+        } path="/createFilms" exact />
+
+       <Route element={
+          <MovieProvider>
+            <CardsFilms />
+          </MovieProvider>
+        } path="/cardsFilms" exact />
+
       </Routes>
     </BrowserRouter>
     </AuthProvider>

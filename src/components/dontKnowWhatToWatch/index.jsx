@@ -28,7 +28,7 @@ function DontKnowWhatToWatch() {
           <Button className="categoryButton">
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <Settings />
-             <Link to="/films" style={{textDecoration: "none", color: "white"}}>{genre}</Link> 
+             <Link to="/cardsFilms" style={{textDecoration: "none", color: "white"}}>{genre}</Link> 
             </div>
             <ArrowForward />
           </Button>

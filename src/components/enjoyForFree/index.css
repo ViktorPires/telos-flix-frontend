@@ -17,6 +17,7 @@
 
 
 .enjoyForfreeSection .enjoyForfreeVideosGrid .miniVideoCard{
+    position: relative;
     box-sizing: border-box;
     width: 367px;
     height: 244.66px;

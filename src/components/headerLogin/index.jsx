@@ -18,6 +18,8 @@ import { Home, Search } from "@mui/icons-material";
 import logo from "./Brand.png";
 import arrow from "./arrow.png";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
+
 
 const drawerWidth = 240;
 
@@ -93,6 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 export default function HeaderLogin() {
   const theme = useTheme();
+  const {user} = useAuth()
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -107,7 +110,7 @@ export default function HeaderLogin() {
           <img src={logo} alt="logo" />
           <div style={{display:"flex", alignItems: "center", gap: "110px"}}>
             <h2>
-             <Link to="/Person">kkk</Link> 
+             <Link style={{textDecoration: "none", color: "white"}} to="/Person">{user?.name}</Link> 
             </h2>
          <Link to="/"><img src={arrow} alt="" /></Link> 
           </div>

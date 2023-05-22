@@ -2,6 +2,7 @@ import { CardGiftcardOutlined } from "@mui/icons-material";
 import React, { useContext } from "react";
 import "./index.css";
 import { MovieContext } from "../../contexts/MovieContext";
+import { Link } from "react-router-dom";
 
 function EnjoyForFree() {
   const [movies, setMovies] = useContext(MovieContext);
@@ -20,15 +21,12 @@ function EnjoyForFree() {
               width="300"
               height="220"
               src={`https://www.youtube.com/embed/${videoId}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
             ></iframe>
+            <div style={{ position: "absolute", zIndex: "1", width: "300px", height: "220px", border: "1px solid red" }}><Link to="/films"><div style={{width: "300px", height: "220px",}}></div></Link></div>
           </div>
         ))}
         {movies.slice(3, 6).map((movie) => (
-          <h1 style={{fontSize: "16px"}}>{movie.title}</h1>
+          <h1 style={{ fontSize: "16px" }}>{movie.title}</h1>
         ))}
       </div>
     </div>

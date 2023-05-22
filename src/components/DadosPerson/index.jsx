@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomOutlinedInput from "../customOutlinedInput";
-import { DnsRounded, EastOutlined, EmailOutlined, InfoRounded, PersonOutlined, ShowChartOutlined, StarBorderOutlined } from "@mui/icons-material";
+import { DnsRounded, EastOutlined, EmailOutlined, InfoRounded, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
 import PasswordOutlinedInput from "../passwordOutlinedInput";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
@@ -11,28 +11,50 @@ import { useAuth } from "../../hooks/auth";
 
 
 export function DadosPerson() {
-    const { updateProfile } = useAuth
-
-    
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [birthDate, setBirthDate] = useState();
     const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();;
 
+    const { updateProfile, updateProfilePassword, user } = useAuth();
 
     async function handleUpdate(){
-        const user = {
+     try{
+        const payload = {
+            id: user._id,
             name,
             email,
-            birthDate,
-            password,
-            confirmPassword
+            birthDate
         }
-        await updateProfile({ user })
+
+      await updateProfile(payload)
+      .then(statusCode => {
+        console.log("deu certo :  ", statusCode)
+      })
+      }catch(error){
+        console.log("deu erro : ", error)
+        alert("Erro! algo de errado no login")
+      }
     }
-     
-    
+
+    async function handleUpdatePassword(){
+        try{
+           const payloadPassword = {
+               id: user._id,
+               password,
+               confirmPassword,
+           }
+   
+         await updateProfilePassword(payloadPassword)
+         .then(statusCode => {
+           console.log("deu certo :  ", statusCode)
+         })
+         }catch(error){
+           console.log("deu erro : ", error)
+           alert("Erro! algo de errado no login")
+         }
+       }
 
 
     return (
@@ -41,7 +63,7 @@ export function DadosPerson() {
                 <div style={{height: "150px", borderBottom: "1px solid #A9A9A9 ", marginTop: "-1rem"}}>
                     <div style={{display: "flex", alignItems: "center"}}>
                         <img src={Logo} alt="" />
-                        <h1>Nome</h1>
+                        <h1>{user?.name}</h1>
                     </div>
                     <div>
                         <SecondaryGradientButton
@@ -113,11 +135,11 @@ export function DadosPerson() {
                         <div>
                             <div className="inputContainer" style={{ marginTop: "56px" }}>
                                 <label className="inputLabel">Senha atual</label>
-                                <PasswordOutlinedInput onChange={e => setPassword(e.target.value)}  setValue={setPassword} />
+                                <PasswordOutlinedInput onChange={e => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Senha" />
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
                                 <label className="inputLabel">Nova Senha</label>
-                                <PasswordOutlinedInput onChange={e => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Confirmar Senha" />
+                                <PasswordOutlinedInput onChange={e => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirmar Senha" />
                             </div>
 
                             <div className="buttonsSection">
@@ -125,8 +147,8 @@ export function DadosPerson() {
                                     icon={<ShowChartOutlined />}
                                     text="Mudar senha"
                                     img={<EastOutlined />}
+                                    onClick={handleUpdatePassword}
                                 />
-
                             </div>
                         </div>
                     </FormControl>

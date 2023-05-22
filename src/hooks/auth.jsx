@@ -6,9 +6,11 @@ export const AuthContext = createContext({})
 function AuthProvider({children}){
   const [data, setData] = useState({});
 
+
   async function signIn({email, password}){
       const response = await api.post("authenticate", {email, password});
-      const {user, token} = response.data;
+      const {_id, name, token} = response.data;
+      const user = {_id, name}
 
       localStorage.setItem("@telosflix:user", JSON.stringify(user));
       localStorage.setItem("telosflix:token", token)
@@ -18,25 +20,39 @@ function AuthProvider({children}){
       console.log(response)
   }
 
+  async function updateProfile({id, name, email, birthDate }){
+    const response = await api.put(`users/${id}`, {name, email, birthDate});
+    const {user, token} = response.data;
+    console.log("user teste" + user)
 
-  async function updateProfile({ user }){
-    try{
-       await api.put("/users", user);
-       localStorage.setItem("telosflix:token", JSON.stringify(user));
-       setData({user, token: data.token});
-       alert("Perfil atualizado!")
+    localStorage.setItem("@telosflix:user", JSON.stringify(user));
+    localStorage.setItem("telosflix:token", token)
 
-    }catch(error){
-      if(error.response){
-        alert(error.response.data.message)
-      }else{
-        alert("Não foi possivel atualizar o perfil")
-      }
-    }
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    setData({user, token})
+    console.log(response)
 }
 
+async function updateProfilePassword({id, password, confirmPassword  }){
+  const response = await api.put(`users/${id}`, {password, confirmPassword});
+  const {user, token} = response.data;
+  console.log("user teste" + user)
+
+  localStorage.setItem("@telosflix:user", JSON.stringify(user));
+  localStorage.setItem("telosflix:token", token)
+
+  api.defaults.headers.authorization = `Bearer ${token}`;
+  setData({user, token})
+  console.log(response)
+}
+
+
+
+
+ 
+
   return(
-     <AuthContext.Provider value={{signIn, updateProfile, user: data.user}}>
+     <AuthContext.Provider value={{signIn, updateProfile, updateProfilePassword, user: data.user}}>
       {children}
      </AuthContext.Provider>
      
