@@ -1,0 +1,40 @@
+.AvaliationButton {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  font-family: 'Plus Jakarta Sans';
+}
+
+.AvaliationButton h1 {
+font-weight: 800;
+font-size: 17px;
+}
+
+.AvaliationButton p {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+}
+.AvaliationButton h2 {
+  font-size: 15px;
+}
+
+
+.AvaliationButton button {
+  background: #3D4757;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  height: 50px;
+  padding: 17px 30px;
+  cursor: pointer;
+}
+
+.AvaliationButton button:nth-child(1){
+  color: #3888FF;
+}
+
+.AvaliationButton button:nth-child(2){
+ color: #FFFFFF;
+
+ background: radial-gradient(34.52% 69% at 50.35% 80%, #31A7FC 0%, #3888FF 100%);
+box-shadow: 0px 22px 53px rgba(56, 136, 255, 0.17), 0px 9.19107px 22.1421px rgba(56, 136, 255, 0.122205), 0px 4.91399px 11.8382px rgba(56, 136, 255, 0.101338), 0px 2.75474px 6.63642px rgba(56, 136, 255, 0.085), 0px 1.46302px 3.52455px rgba(56, 136, 255, 0.0686618), 0px 0.608796px 1.46665px rgba(56, 136, 255, 0.0477948), inset 0px -1.5px 0px rgba(215, 231, 255, 0.25);
+}

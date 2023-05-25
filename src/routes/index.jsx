@@ -34,7 +34,8 @@ export default function () {
           <MovieProvider>
         <Films />
         </MovieProvider>
-        } path="/films" exact />
+        } path="/films/:id" exact />
+
         <Route element={
           <Person />
         } path="/person" exact />

@@ -4,10 +4,9 @@ import "./index.css";
 import { MovieContext } from "../../contexts/MovieContext";
 import { Link } from "react-router-dom";
 
-function EnjoyForFree() {
+function EnjoyForFree({moviesId}) {
   const [movies, setMovies] = useContext(MovieContext);
-
-  const videoIds = movies.slice(3, 6).map((movie) => movie.video.split("v=")[1]);
+  console.log(movies)
 
   return (
     <div className="enjoyForfreeSection">
@@ -15,18 +14,15 @@ function EnjoyForFree() {
         <CardGiftcardOutlined /> Aproveite grátis
       </div>
       <div className="enjoyForfreeVideosGrid">
-        {videoIds.map((videoId) => (
-          <div className="miniVideoCard" key={videoId}>
-            <iframe
-              width="300"
-              height="220"
-              src={`https://www.youtube.com/embed/${videoId}`}
-            ></iframe>
-            <div style={{ position: "absolute", zIndex: "1", width: "300px", height: "220px", border: "1px solid red" }}><Link to="/films"><div style={{width: "300px", height: "220px",}}></div></Link></div>
-          </div>
+        {movies.slice(4, 7).map((movie, index) => (
+          <Link to={`/films/${movie._id}`}>
+            <div className="miniVideoCard" key={index}>
+              <img style={{ width: "400px", height: "220px", objectFit: "cover", borderRadius: "18px" }} src={movie.image} alt="" />
+            </div>
+          </Link>
         ))}
-        {movies.slice(3, 6).map((movie) => (
-          <h1 style={{ fontSize: "16px" }}>{movie.title}</h1>
+        {movies.slice(4, 7).map((movie) => (
+          <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
         ))}
       </div>
     </div>

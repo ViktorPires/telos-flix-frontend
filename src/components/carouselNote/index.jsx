@@ -1,21 +1,28 @@
-import { Star, StarBorderOutlined, StarBorderPurple500Outlined } from "@mui/icons-material";
+import {
+  Star,
+  StarBorderOutlined,
+  StarBorderPurple500Outlined,
+} from "@mui/icons-material";
 import SecondaryGradientButton from "../secondaryGrandientButton";
-import LinearProgress from '@mui/material/LinearProgress';
-import { useKeenSlider } from "keen-slider/react"
-import "keen-slider/keen-slider.min.css"
+import LinearProgress from "@mui/material/LinearProgress";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 import "./index.css";
 import { useState } from "react";
-
+import RatingSIze from "../avaliation";
 
 export function CarouselNote() {
   const [filmsModal, setFilmsModal] = useState(false);
+  const [show, setShow] = useState(false);
 
-  const handleAssessModal = (event) => {
-    setFilmsModal( !filmsModal)
+  const handleClick = () => {
+    setShow(!show);
   };
 
- 
+  const handleAssessModal = (event) => {
+    setFilmsModal(!filmsModal);
+  };
 
   const [sliderRef] = useKeenSlider(
     {
@@ -23,56 +30,71 @@ export function CarouselNote() {
     },
     [
       (slider) => {
-        let timeout
-        let mouseOver = false
+        let timeout;
+        let mouseOver = false;
         function clearNextTimeout() {
-          clearTimeout(timeout)
+          clearTimeout(timeout);
         }
         function nextTimeout() {
-          clearTimeout(timeout)
-          if (mouseOver) return
+          clearTimeout(timeout);
+          if (mouseOver) return;
           timeout = setTimeout(() => {
-            slider.next()
-          }, 8000)
+            slider.next();
+          }, 8000);
         }
         slider.on("created", () => {
           slider.container.addEventListener("mouseover", () => {
-            mouseOver = true
-            clearNextTimeout()
-          })
+            mouseOver = true;
+            clearNextTimeout();
+          });
           slider.container.addEventListener("mouseout", () => {
-            mouseOver = false
-            nextTimeout()
-          })
-          nextTimeout()
-        })
-        slider.on("dragStarted", clearNextTimeout)
-        slider.on("animationEnded", nextTimeout)
-        slider.on("updated", nextTimeout)
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
       },
     ]
-  )
+  );
 
   return (
     <>
-      <div style={{ width: "1222px", margin: "auto", marginBottom: "5rem" }}>
+      <div
+        style={{
+          width: "1222px",
+          position: "relative",
+          margin: "auto",
+          marginBottom: "5rem",
+        }}
+      >
         <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
           <Star />
           <h3>Se liga nessas avaliações</h3>
 
-          <div style={{marginLeft: "120px", marginTop: "-2rem"}}>
+          <div style={{ marginLeft: "130px", marginTop: "5rem" }}>
             <SecondaryGradientButton
-              onClick={filmsModal}
+              onClick={handleClick}
               icon={<StarBorderOutlined />}
               text="Avaliar"
             />
           </div>
         </div>
-
+        {show && <RatingSIze />}
         <div style={{ display: "flex", alignItems: "center", gap: "33px" }}>
-          <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
             <h1 style={{ fontSize: "46px" }}>4.8</h1>
-            <h5 style={{ fontSize: "14px", marginTop: "-2rem" }}>129 avaliações</h5>
+            <h5 style={{ fontSize: "14px", marginTop: "-2rem" }}>
+              129 avaliações
+            </h5>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "21px" }}>
             <div>
@@ -83,7 +105,14 @@ export function CarouselNote() {
               <h6>1</h6>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: "17px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                gap: "17px",
+              }}
+            >
               <Star sx={{ width: "15px" }} />
               <Star sx={{ width: "15px" }} />
               <Star sx={{ width: "15px" }} />
@@ -92,83 +121,106 @@ export function CarouselNote() {
             </div>
 
             <div>
-              <h6><LinearProgress
-                variant="determinate"
-                value={100}
-                sx={{
-                  backgroundColor: "#808080",
-                  width: "200px",
-                  marginTop: "1rem",
-                  height: "5px",
-                  borderRadius: "6px",
-                  boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
-                  '& .MuiLinearProgress-bar': { backgroundColor: `	#d3d3d3` }
-                }}
-              /></h6>
+              <h6>
+                <LinearProgress
+                  variant="determinate"
+                  value={100}
+                  sx={{
+                    backgroundColor: "#808080",
+                    width: "200px",
+                    marginTop: "1rem",
+                    height: "5px",
+                    borderRadius: "6px",
+                    boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
+                    "& .MuiLinearProgress-bar": { backgroundColor: `	#d3d3d3` },
+                  }}
+                />
+              </h6>
 
-              <h6><LinearProgress
-                variant="determinate"
-                value={80}
-                sx={{
-                  backgroundColor: "#808080",
-                  width: "200px",
-                  marginTop: "2.2rem",
-                  height: "5px",
-                  borderRadius: "6px",
-                  boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
-                  '& .MuiLinearProgress-bar': { backgroundColor: `	#d3d3d3` }
-                }}
-              /></h6>
+              <h6>
+                <LinearProgress
+                  variant="determinate"
+                  value={80}
+                  sx={{
+                    backgroundColor: "#808080",
+                    width: "200px",
+                    marginTop: "2.2rem",
+                    height: "5px",
+                    borderRadius: "6px",
+                    boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
+                    "& .MuiLinearProgress-bar": { backgroundColor: `	#d3d3d3` },
+                  }}
+                />
+              </h6>
 
-              <h6><LinearProgress
-                variant="determinate"
-                value={70}
-                sx={{
-                  backgroundColor: "#808080",
-                  width: "200px",
-                  marginTop: "2.2rem",
-                  height: "5px",
-                  borderRadius: "6px",
-                  boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
-                  '& .MuiLinearProgress-bar': { backgroundColor: `	#d3d3d3` }
-                }}
-              /></h6>
+              <h6>
+                <LinearProgress
+                  variant="determinate"
+                  value={70}
+                  sx={{
+                    backgroundColor: "#808080",
+                    width: "200px",
+                    marginTop: "2.2rem",
+                    height: "5px",
+                    borderRadius: "6px",
+                    boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
+                    "& .MuiLinearProgress-bar": { backgroundColor: `	#d3d3d3` },
+                  }}
+                />
+              </h6>
 
-              <h6><LinearProgress
-                variant="determinate"
-                value={50}
-                sx={{
-                  backgroundColor: "#808080",
-                  width: "200px",
-                  height: "5px",
-                  marginTop: "2.2rem",
-                  borderRadius: "6px",
-                  boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
-                  '& .MuiLinearProgress-bar': { backgroundColor: `	#d3d3d3` }
-                }}
-              /></h6>
+              <h6>
+                <LinearProgress
+                  variant="determinate"
+                  value={50}
+                  sx={{
+                    backgroundColor: "#808080",
+                    width: "200px",
+                    height: "5px",
+                    marginTop: "2.2rem",
+                    borderRadius: "6px",
+                    boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
+                    "& .MuiLinearProgress-bar": { backgroundColor: `	#d3d3d3` },
+                  }}
+                />
+              </h6>
 
-              <h6><LinearProgress
-                variant="determinate"
-                value={30}
-                sx={{
-                  backgroundColor: "#808080",
-                  width: "200px",
-                  marginTop: "2.2rem",
-                  height: "5px",
-                  borderRadius: "6px",
-                  boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
-                  '& .MuiLinearProgress-bar': { backgroundColor: `	#d3d3d3` }
-                }}
-              /></h6>
+              <h6>
+                <LinearProgress
+                  variant="determinate"
+                  value={30}
+                  sx={{
+                    backgroundColor: "#808080",
+                    width: "200px",
+                    marginTop: "2.2rem",
+                    height: "5px",
+                    borderRadius: "6px",
+                    boxShadow: "0px 2px 10px rgba(145, 156, 174, 0.25)",
+                    "& .MuiLinearProgress-bar": { backgroundColor: `	#d3d3d3` },
+                  }}
+                />
+              </h6>
             </div>
 
-            <div ref={sliderRef} className="keen-slider">
-              <div className="keen-slider__slide number-slide1" style={{ display: "flex", gap: "20px" }}>
+            <div ref={sliderRef} className="keen-slider" style={{width: "800px"}}>
+              <div
+                className="keen-slider__slide number-slide1"
+                style={{ display: "flex", gap: "20px"}}
+              >
                 <div className="carouselCard" style={{ textAlign: "start" }}>
                   <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
                     <span>4.5</span>
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
@@ -180,64 +232,18 @@ export function CarouselNote() {
 
                 <div className="carouselCard" style={{ textAlign: "start" }}>
                   <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-              </div>
-
-              <div className="keen-slider__slide number-slide1" style={{ display: "flex", gap: "20px" }}>
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-              </div>
-
-              <div className="keen-slider__slide number-slide1" style={{ display: "flex", gap: "20px" }}>
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
                     <span>4.5</span>
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
@@ -248,12 +254,111 @@ export function CarouselNote() {
                 </div>
               </div>
 
+              <div
+                className="keen-slider__slide number-slide1"
+                style={{ display: "flex", gap: "20px" }}
+              >
+                <div className="carouselCard" style={{ textAlign: "start" }}>
+                  <h1>Paula Rust</h1>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
+                    <span>4.5</span>
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                  </div>
+                </div>
+
+                <div className="carouselCard" style={{ textAlign: "start" }}>
+                  <h1>Paula Rust</h1>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
+                    <span>4.5</span>
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="keen-slider__slide number-slide1"
+                style={{ display: "flex", gap: "20px" }}
+              >
+                <div className="carouselCard" style={{ textAlign: "start" }}>
+                  <h1>Paula Rust</h1>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
+                    <span>4.5</span>
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                  </div>
+                </div>
+
+                <div className="carouselCard" style={{ textAlign: "start" }}>
+                  <h1>Paula Rust</h1>
+                  <p style={{ width: "300px" }}>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                    }}
+                  >
+                    <span>4.5</span>
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                    <StarBorderPurple500Outlined />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-
     </>
-  )
+  );
 }

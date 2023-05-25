@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import image from "./Hero.png";
 import { MovieContext } from "../../contexts/MovieContext";
-import { useParams } from "react-router-dom";
 function MainVideo() {
   const [movies, setMovies] = useContext(MovieContext);
 
 
-  const videoIds = movies.slice(0,9).map((movie) => movie.video.split("v=")[1]);
+  const videoIds = movies.slice(1, 1).map((movie) => movie.video?.split("v=")[1]);
 
   return (
     <div style={{ marginTop: "284px", position: "relative" }}>

@@ -1,324 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@200;300;400&display=swap');  
-
-.crateFilms-container{
+.createFilmsContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 690px;
-    margin-bottom: 450px;
-}   
-
-.crateFilms-container .crateFilms-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-
+    align-items: flex-start;
+    text-align: start;
+    font-family: 'Plus Jakarta Sans';
+    width: 1100px;
     background: #292929;
-    width: 1175px;
-    height: 690px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 20px;
+    margin: auto;
 
-    padding: 50px 104px 54px 120px;
 }
 
-.crateFilms-container .crateFilms-content .createFilmsTitle{
-    text-align: left;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 20px;
-    line-height: 20px;
-
+h1 {
     color: rgba(255, 253, 253, 0.65);
+    font-size: 20px;
 }
 
-.crateFilms-container .crateFilms-content > form{
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    
-}
-
-.crateFilms-container .crateFilms-content > form > .input-nameFilm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start ;
-    gap: 5px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-nameFilm > label{
-    font-style: normal;
-    font-weight: 800;
-    font-size: 15px;
-    line-height: 20px;
+label, h2 {
     color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-nameFilm > input{
-    width: 951px;
-    height: 42px;
-    border: none;
-
-    padding-left: 15px;
-    padding-right: 15px;
-
-    background: #292929;
-
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 400;
     font-size: 15px;
-    line-height: 20px;
+    font-weight: 800;
+}
 
+p {
     color: rgba(255, 255, 255, 0.45);
-
-
-}
-
-.crateFilms-container .crateFilms-content > form > .input-nameFilm > input:focus{
-    outline: none;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-nameFilm > a{
-    font-style: normal;
-    font-weight: 400;
     font-size: 13px;
-    line-height: 19px;  
-    
-    color: rgba(255, 255, 255, 0.45);
-
-    margin-top: 15px;
 }
 
-.crateFilms-container .crateFilms-content > form > .input-descriptionFilm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start ;
-    gap: 5px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-descriptionFilm > label{
-    font-style: normal;
-    font-weight: 800;
-    font-size: 15px;
-    line-height: 20px;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-descriptionFilm > textarea{
-    width: 951px;
-    height: 90px;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    
-    background: #292929;
-    border: none;
-    
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20px;
-
-    color: rgba(255, 255, 255, 0.45);
-}
-
-.crateFilms-container .crateFilms-content > form > .input-descriptionFilm > textarea:focus{
-    outline: none;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-descriptionFilm > textarea::placeholder{
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 200;
-    font-size: 15px;
-    line-height: 20px;
-
-    color: rgba(255, 255, 255, 0.27);
-}
-
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    gap: 42px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content label{
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 15px;
-    line-height: 20px;
-    
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-dateFilm, 
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-genderFilm{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 5px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-dateFilm > select, 
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-genderFilm > select{
-
-    border: none;
-    width: 82px;
-    height: 40px;
-    background: #292929;  
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 200;
-    font-size: 15px;
-    line-height: 20px;
-    color: rgba(255, 255, 255, 0.5);
-
-    padding-left: 15px;
-    cursor: pointer;
-    
-}
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-genderFilm > .selectGender{
-    width: 160px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-dateFilm > select:focus, 
-.crateFilms-container .crateFilms-content > form > .input-genderDate-content .input-genderFilm > select:focus{
-    outline: none;
-}
-
-
-.crateFilms-container .crateFilms-content > form > .input-urlContent{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    gap: 25px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-urlContent > div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    gap: 5px;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-urlContent > div > label{
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 15px;
-    line-height: 20px;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-urlContent > div > input{
-    width: 290px;
-    height: 40px;
-    background: #292929;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    border: none;
-}
-
-.crateFilms-container .crateFilms-content > form > .input-urlContent > div input{
-    outline: none;
-
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20px;
-
-    color: rgba(255, 255, 255, 0.45);
-
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.crateFilms-container .crateFilms-content .button-container-createFilms{
+.createFilmsContainer .firstSectionFilms {
+    height: 100%;
     width: 100%;
+    padding: 72px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-   margin-top: 40px;
+    flex-direction: column;
 }
 
-.crateFilms-container .crateFilms-content .button-container-createFilms .cancel-and-return-createFilms{
+.createFilmsContainer .firstSectionFilms .inputContainerFilms {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
 
+.ContainerButtonFilms {
+   display: flex;
+   justify-content: space-between;
+   
+}
+
+.ContainerButtonFilms button {
+    margin-top: 40px;
+    border-radius: 20px;
+    border: none;
     width: 168px;
     height: 50px;
-
-    background: #FFFFFF;
-
-    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.25), 0px 2px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-
-    font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 800;
     font-size: 13px;
-    line-height: 16px;
-    text-align: right;
-
-    color: #212121;
-}
-
-.crateFilms-container .crateFilms-content .button-container-createFilms .register-createFilms{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 154px;
-    height: 50px;
-
-    background: linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
-
-}
-
-.crateFilms-container .crateFilms-content .button-container-createFilms .register-createFilms > span{
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 13px;
-    line-height: 16px;
-    text-align: right;
-
-    color: #212121;
-
-    opacity: 0.5;
-}
-
-.crateFilms-container .crateFilms-content .button-container-createFilms > button{
     cursor: pointer;
+}
+
+.ContainerButtonFilms button:nth-child(2){
+    opacity: 0.5;
+    transition: 0.3s all ease-in-out;
+}
+
+.ContainerButtonFilms button:hover{
+    opacity: 1;
 }

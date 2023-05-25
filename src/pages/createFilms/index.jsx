@@ -1,85 +1,202 @@
-import React from 'react'
-import './index.css'
-import { ArrowForward } from '@mui/icons-material'
+import {
+  Autocomplete,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
+import "./index.css";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import HeaderLogin from "../../components/headerLogin";
 
 export default function CreateFilms() {
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(null);
+  const years = Array.from({ length: 10 }, (_, index) => currentYear - index);
+
+  const handleYearChange = (_, value) => {
+    setSelectedYear(value);
+  };
+
   return (
-    <div className='crateFilms-container'>
-       <div className='crateFilms-content'>
-            <div className='createFilmsTitle'>Cadastrar filme</div>
-            <form action="#" method="post" autoComplete='off'>
-              <div className='input-nameFilm'>
-                <label htmlFor="inameFilm">Nome do filme</label>
-                <input type="text" name='namefilm'id='inameFilm' placeholder='Até 30 caracteres'/>
-                <a>Esse nome será exibido em todos os locais da plataforma</a>
-              </div>
-
-              <div className='input-descriptionFilm'>
-                <label htmlFor="idescriptionFilm">Descrição</label>
-                <textarea name="descriptionFilm" id="idescriptionFilm" maxLength='200' placeholder='Até 200 caracteres'></textarea>
-              </div>
-
-              <div className='input-genderDate-content'>
-                <div className='input-dateFilm'>
-                  <label htmlFor="idateFilm">Ano</label>
-                  <select className='selectDate' name="dateFilm" id="idateFilm">
-                    <option value="2023">2010</option>
-                    <option value="2023">2011</option>
-                    <option value="2023">2012</option>
-                    <option value="2023">2013</option>
-                    <option value="2023">2014</option>
-                    <option value="2023">2015</option>
-                    <option value="2023">2016</option>
-                    <option value="2023">2017</option>
-                    <option value="2023">2018</option>
-                    <option value="2023">2019</option>
-                    <option value="2023">2020</option>
-                    <option value="2023">2021</option>
-                    <option value="2023">2022</option>
-                    <option value="2023">2023</option>
-                  </select>
-                </div>
-                <div className='input-genderFilm'>
-                  <label htmlFor="igenderFilm">Gênero</label>
-                  <select className='selectGender' name="genderFilm" id="igenderFilm">
-                    <option value="Ação">Ação</option>
-                    <option value="Comédia">Comédia</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Fantasia">Fantasia</option>
-                    <option value="FicçãoCiêntifica">Ficção Ciêntifica</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Suspense">Suspense</option>
-                    <option value="Clássico">Clássico</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className='input-urlContent'>
-                <div className='input-urlBanner'>
-                  <label htmlFor="iurlBanner">Url do banner</label>
-                  <input type="url" name="urlBanner" id="iurlBanner" />
-                </div>  
-                <div className='input-urlVideo'>
-                  <label htmlFor="iurlVideo">Url do vídeo</label>
-                  <input type="url" name="urlVideo" id="iurlVideo" />
-                </div>
-              </div>
-            </form>
-
-            <div className='button-container-createFilms'>
-              <button className='cancel-and-return-createFilms'>Cancelar e voltar</button>
-              <button className='register-createFilms'>
-                <span>Cadastrar</span> 
-                <ArrowForward style={
-                  {
-                    color: '#212121',
-                    opacity: '0.5'
-                  }}
-                /> 
-              </button>
+    <>
+    <HeaderLogin/>
+      <div style={{marginBottom: "5rem"}} className="createFilmsContainer">
+        <div className="firstSectionFilms">
+          <h1>Cadastrar filme</h1>
+          <FormControl>
+            <div className="inputContainerFilms" style={{ marginTop: "56px" }}>
+              <label className="inputLabel">Nome do filme</label>
+              <OutlinedInput
+                sx={{
+                  background: "rgba(255, 252, 252, 0.05)",
+                  boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+                  height: "42px",
+                  width: "951px",
+                  borderRadius: "15px;",
+                  border: "none",
+                  color: "rgba(255, 255, 255, 0.5)",
+                }}
+                placeholder="Até 30 caracteres"
+                type="text"
+                startAdornment={
+                  <InputAdornment>
+                    <IconButton></IconButton>
+                  </InputAdornment>
+                }
+              />
+            </div>
+            <p>Esse nome será exibido em todos os locais da plataforma</p>
+            <div className="inputContainerFilms" style={{ marginTop: "46px" }}>
+              <label className="inputLabel">Descrição</label>
+              <OutlinedInput
+                sx={{
+                  background: "rgba(255, 252, 252, 0.05)",
+                  boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+                  height: "90px",
+                  width: "951px",
+                  borderRadius: "15px;",
+                  border: "none",
+                  color: "rgba(255, 255, 255, 0.5)",
+                }}
+                placeholder="Até 200 caracteres"
+                type="text"
+                startAdornment={
+                  <InputAdornment>
+                    <IconButton></IconButton>
+                  </InputAdornment>
+                }
+              />
             </div>
 
+            <div style={{ display: "flex", gap: "42px", margin: "30px 0px" }}>
+              <div>
+                <h2>Ano</h2>
+                <Autocomplete
+                  sx={{
+                    background: "rgba(255, 252, 252, 0.05)",
+                    width: "120px",
+                    height: "55px",
+                    boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                    color: "rgba(255, 255, 255, 0.5)",
+                  }}
+                  ListboxProps={{
+                    style: {
+                      backgroundColor: "#5f5d5d",
+                      color: "#bbbbbb", // Altere a cor de fundo da lista aqui
+                    },
+                  }}
+                  value={selectedYear}
+                  options={years}
+                  getOptionLabel={(year) => year.toString()}
+                  onChange={handleYearChange}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label=""
+                      placeholder="2023"
+                      variant="outlined"
+                    />
+                  )}
+                />
+              </div>
+
+              <div>
+                <div>
+                  <h2>Gênero</h2>
+                  <Autocomplete
+                    sx={{
+                      background: "rgba(255, 252, 252, 0.05)",
+                      width: "120px",
+                      height: "55px",
+                      boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    }}
+                    ListboxProps={{
+                      style: {
+                        backgroundColor: "#5f5d5d",
+                        color: "#bbbbbb", // Altere a cor de fundo da lista aqui
+                      },
+                    }}
+
+                    value={selectedYear}
+                    options={years}
+                    getOptionLabel={(year) => year.toString()}
+                    onChange={handleYearChange}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label=""
+                        placeholder="2023"
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "25px" }}>
+              <div className="inputContainerFilms">
+                <label className="inputLabel">Url do banner</label>
+                <OutlinedInput
+                  sx={{
+                    background: "rgba(255, 252, 252, 0.05)",
+                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+                    height: "42px",
+                    width: "290px",
+                    borderRadius: "15px;",
+                    border: "none",
+                    color: "rgba(255, 255, 255, 0.5)",
+                  }}
+                  placeholder="url"
+                  type="text"
+                  startAdornment={
+                    <InputAdornment>
+                      <IconButton></IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </div>
+
+              <div className="inputContainerFilms">
+                <label className="inputLabel">Url do video</label>
+                <OutlinedInput
+                  sx={{
+                    background: "rgba(255, 252, 252, 0.05)",
+                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+                    height: "42px",
+                    width: "290px",
+                    borderRadius: "15px;",
+                    border: "none",
+                    color: "rgba(255, 255, 255, 0.5)",
+                  }}
+                  placeholder="url"
+                  type="text"
+                  startAdornment={
+                    <InputAdornment>
+                      <IconButton></IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="ContainerButtonFilms">
+              <button style={{ color: "#212121" }}>
+                Cancelar e voltar
+              </button>
+
+              <button className="teste" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", color: "#212121", background: "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)" }}>
+                Cadastrar
+                <ArrowForwardIcon />
+              </button>
+            </div>
+          </FormControl>
         </div>
-    </div>
-  )
+      </div>
+    </>
+  );
 }
