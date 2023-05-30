@@ -5,56 +5,50 @@ import HomeLogin from "../pages/homeLogin";
 import Films from "../pages/Films";
 import MovieProvider from "../contexts/MovieProvider";
 import Person from "../pages/Person";
-import { AuthProvider } from "../hooks/auth";
+import AuthenticateProvider from "../contexts/AuthenticateProvider";
 import CreateFilms from "../pages/createFilms";
 import CardsFilms from "../pages/cardsFilms";
 
 
 
 
-export default function () {
+export default function AppRoutes() {
   return (
 
-    <AuthProvider> 
-    <BrowserRouter>
-      <Routes>
-        <Route element={
-          <MovieProvider>
-            <Home />
-          </MovieProvider>
-        } path="/" exact />
+    <AuthenticateProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={
+            <MovieProvider>
+              <Home />
+            </MovieProvider>
+          } path="/" exact />
 
-        <Route element={
-          <MovieProvider>
-            <HomeLogin />
-          </MovieProvider>
-        } path="/homeLogin" exact />
+          <Route element={
+            <MovieProvider>
+              <HomeLogin />
+            </MovieProvider>
+          } path="/homeLogin" exact />
 
-        <Route element={
-          <MovieProvider>
-        <Films />
-        </MovieProvider>
-        } path="/films/:id" exact />
+          <Route element={
+            <MovieProvider>
+              <Films />
+            </MovieProvider>
+          } path="/films/:id" exact />
 
-        <Route element={
-          <Person />
-        } path="/person" exact />
+          <Route element={
+            <Person />
+          } path="/person" exact />
 
-         <Route element={
-          <MovieProvider>
-            <CreateFilms />
-          </MovieProvider>
-        } path="/createFilms" exact />
+          <Route element={
+            <MovieProvider>
+              <CardsFilms />
+            </MovieProvider>
+          } path="/cardsFilms" exact />
 
-       <Route element={
-          <MovieProvider>
-            <CardsFilms />
-          </MovieProvider>
-        } path="/cardsFilms" exact />
-
-      </Routes>
-    </BrowserRouter>
-    </AuthProvider>
+        </Routes>
+      </BrowserRouter>
+    </AuthenticateProvider>
 
   );
 }

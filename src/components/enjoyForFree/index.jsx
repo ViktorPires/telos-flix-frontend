@@ -4,7 +4,7 @@ import "./index.css";
 import { MovieContext } from "../../contexts/MovieContext";
 import { Link } from "react-router-dom";
 
-function EnjoyForFree({moviesId}) {
+function EnjoyForFree({ moviesId }) {
   const [movies, setMovies] = useContext(MovieContext);
   console.log(movies)
 

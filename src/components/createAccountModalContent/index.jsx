@@ -30,7 +30,7 @@ function CreateAccountModalContent() {
           navigate("/homeLogin")
       
          })
-         .catch(() => {
+         .catch((err) => {
            if( name || email || password){
             alert("Usuário cadastrado")
            }else{

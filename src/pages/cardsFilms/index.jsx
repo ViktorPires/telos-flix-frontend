@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './index.css';
 import { ArrowForward } from '@mui/icons-material';
-import HeaderLogin from '../../components/headerLogin';
+import Header from '../../components/header';
 import { MovieContext } from '../../contexts/MovieContext';
 
 export default function CardsFilms() {
@@ -9,36 +9,14 @@ export default function CardsFilms() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const videoIds = movies.slice(0, 20).map((movie) => movie.video.split("v=")[1]);
-  const titles = movies.slice(0, 20).map((movie) => movie.title);
-  const categories = movies.slice(0, 20).map((movie) => movie.category);
+  console.log(movies)
 
-  const filteredMovies = videoIds.filter((videoId, index) => {
-    const movieTitle = titles[index];
-    const movieCategory = categories[index];
-    const isMatch = movieTitle.toLowerCase().includes(searchTerm.toLowerCase());
-
-    if (selectedCategory === '') {
-      return isMatch;
-    } else {
-      return isMatch && movieCategory === selectedCategory;
-    }
-  });
 
   const genres = [];
 
-  movies.forEach((movie) => {
-    movie.genres.forEach((genre) => {
-      if (!genres.includes(genre)) {
-        genres.push(genre);
-      }
-    });
-  });
-
   return (
     <>
-      <HeaderLogin />
-      <div className='cardsFilms-container'>
+      <Header />      <div className='cardsFilms-container'>
         <div className='cardsFilms-content'>
           <div className='input-content-cardsFilms'>
             <form action="#" method="get" autoComplete='off'>
@@ -67,16 +45,15 @@ export default function CardsFilms() {
             </form>
           </div>
           <div className='grid-cardsFilms'>
-            {filteredMovies.map((videoId, index) => (
-              <div className="miniVideoCard" key={videoId}>
-                <iframe
+            {movies.map((movie, index) => (
+              <div className="miniVideoCard" key={movie.id}>
+                <img
                   style={{ marginTop: "1rem" }}
-                  width="300"
-                  height="220"
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                ></iframe>
-                <div style={{margin: "0 auto"}}> 
-                <p style={{fontSize: "14px"}}>{titles[index]}</p>
+                  src={movie.image}
+                  alt={movie.title}
+                />
+                <div style={{ margin: "0 auto" }}>
+                  <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
                 </div>
               </div>
             ))}

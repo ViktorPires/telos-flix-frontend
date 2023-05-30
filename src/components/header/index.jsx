@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -14,7 +14,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Home, Search } from "@mui/icons-material";
+import { Home, Search, Book } from "@mui/icons-material";
+import arrow from "./arrow.png";
 import logo from "./Brand.png";
 import LoginButton from "../loginButton";
 import CreateAccountButton from "../createAccountButton";
@@ -22,6 +23,9 @@ import AppBarActions from "../appBarActions";
 import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
 import CreateAccountModalContent from "../createAccountModalContent";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
+import { NavButton } from './styles'
+import CreateFilms from '../../pages/createFilms'
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -95,14 +99,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 );
 
 export default function Header() {
+  const { savedUser } = useContext(AuthenticateContext)
+
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
 
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" elevation={0}>
+      <AppBar position="fixed" elevation={0} sx={{ paddingTop: 3 }}>
         <Toolbar
           sx={{
             display: "flex",
@@ -110,28 +117,29 @@ export default function Header() {
           }}
         >
           <img src={logo} alt="logo" />
-          <AppBarActions
-            actions={[
-              <CreateAccountButton
-                onClick={() => {
-                  setContentToShow(<CreateAccountModalContent />);
-                  setOpen(true);
-                }}
-              />,
-              <LoginButton
-                onClick={() => {
-                  setContentToShow(
-                    <LoginModalContent
-                      setCreateAccountContent={() => {
-                        setContentToShow(<CreateAccountModalContent />);
-                      }}
-                    />
-                  );
-                  setOpen(true);
-                }}
-              />,
-            ]}
-          />
+          {savedUser ?
+            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}><h1>{savedUser.name}</h1> <button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+            : (
+              <AppBarActions
+                actions={[
+                  <CreateAccountButton
+                    onClick={() => {
+                      setContentToShow(<CreateAccountModalContent />);
+                      setOpen(true);
+                    }}
+                  />,
+                  <LoginButton
+                    onClick={() => {
+                      setContentToShow(
+                        <LoginModalContent />
+                      );
+                      setOpen(true);
+                    }}
+                  />,
+                ]}
+              />
+            )}
+
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent">
@@ -149,30 +157,28 @@ export default function Header() {
             justifyContent: "center",
           }}
         >
-          {["Home", "Search"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  color: "#fff",
-                  minHeight: 48,
-                  justifyContent: "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    color: "#FAFAFA",
-                    minWidth: 0,
-                    mr: "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <Home /> : <Search />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "column",
+            }}
+          >
+            <NavButton href="/">
+              <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>
+
+            <NavButton>
+              <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>
+
+            {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
+              setOpen(true);
+              setContentToShow(<CreateFilms />)
+            }}>
+              <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>) : ""}
+          </Box>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

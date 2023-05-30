@@ -1,11 +1,11 @@
 import { DadosPerson } from "../../components/DadosPerson";
-import HeaderLogin from "../../components/headerLogin";
-export default function Person(){
-    return(
-        <> 
-        <HeaderLogin/>
-       <DadosPerson/>
-       </>
+import Header from "../../components/header";
+export default function Person() {
+    return (
+        <>
+            <Header />
+            <DadosPerson />
+        </>
     )
 }
 

@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import "./index.css";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import HeaderLogin from "../../components/headerLogin";
 
 export default function CreateFilms() {
   const currentYear = new Date().getFullYear();
@@ -22,12 +21,11 @@ export default function CreateFilms() {
 
   return (
     <>
-    <HeaderLogin/>
-      <div style={{marginBottom: "5rem"}} className="createFilmsContainer">
+      <div style={{ marginBottom: "5rem" }} className="createFilmsContainer">
         <div className="firstSectionFilms">
           <h1>Cadastrar filme</h1>
           <FormControl>
-            <div className="inputContainerFilms" style={{ marginTop: "56px" }}>
+            <div className="inputContainerFilms" style={{ marginTop: "20px" }}>
               <label className="inputLabel">Nome do filme</label>
               <OutlinedInput
                 sx={{

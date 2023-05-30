@@ -9,21 +9,21 @@ function MainVideo() {
 
   return (
     <div style={{ marginTop: "284px", position: "relative" }}>
-        <img  src={image} alt="Hero" />
-        {videoIds.map((videoId) => (
-         <div style={{position: "absolute", top: "0%", left: "3%"}}>
-            <iframe
-              width="1150"
-              height="645"
-              src={`https://www.youtube.com/embed/${videoId}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
-          </div>
-        ))}
-      </div>
+      <img src={image} alt="Hero" />
+      {videoIds.map((videoId) => (
+        <div style={{ position: "absolute", top: "0%", left: "3%" }}>
+          <iframe
+            width="1150"
+            height="645"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ))}
+    </div>
   );
 }
 

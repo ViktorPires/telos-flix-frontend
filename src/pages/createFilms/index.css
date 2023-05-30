@@ -16,7 +16,11 @@ h1 {
     font-size: 20px;
 }
 
-label, h2 {
+label {
+    margin: 10px 0;
+}
+
+h2 {
     color: rgba(255, 255, 255, 0.7);
     font-size: 15px;
     font-weight: 800;
@@ -30,7 +34,7 @@ p {
 .createFilmsContainer .firstSectionFilms {
     height: 100%;
     width: 100%;
-    padding: 72px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
 }
@@ -38,13 +42,12 @@ p {
 .createFilmsContainer .firstSectionFilms .inputContainerFilms {
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .ContainerButtonFilms {
-   display: flex;
-   justify-content: space-between;
-   
+    display: flex;
+    justify-content: space-between;
+
 }
 
 .ContainerButtonFilms button {
@@ -60,11 +63,11 @@ p {
     cursor: pointer;
 }
 
-.ContainerButtonFilms button:nth-child(2){
+.ContainerButtonFilms button:nth-child(2) {
     opacity: 0.5;
     transition: 0.3s all ease-in-out;
 }
 
-.ContainerButtonFilms button:hover{
+.ContainerButtonFilms button:hover {
     opacity: 1;
 }

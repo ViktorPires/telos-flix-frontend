@@ -1,37 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import image from "./image.png";
 import { FormControl, IconButton, InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
-import PrimaryGradientButton from "../primaryGrandientButton";
-import SecondaryGradientButton from "../secondaryGrandientButton";
 import { AddBoxOutlined } from "@mui/icons-material";
+import PrimaryGradientButton from "../primaryGrandientButton";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomOutlinedInput from "../customOutlinedInput";
 import PasswordOutlinedInput from "../passwordOutlinedInput";
-
-import { useAuth } from "../../hooks/auth"
-
-import { useNavigate } from "react-router-dom";
-
+import SecondaryGradientButton from "../secondaryGrandientButton";
 
 export default function LoginModalContent({ setCreateAccountContent }) {
+  const { login } = useContext(AuthenticateContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useAuth();
-  const navigate = useNavigate()
-
-  async function  handleSignIn(){
-   try{
-    await signIn({email, password})
-    .then(statusCode => {
-      console.log("deu certo :  ", statusCode)
-      navigate("/homeLogin")
-    })
-    }catch(error){
-      console.log("deu erro : ", error)
-      alert("Erro! algo de errado no login")
-    }
+  const onLoginButtonClicked = async () => {
+    await login({ email, password })
+    window.location.reload(false)
   }
 
   return (
@@ -43,11 +29,10 @@ export default function LoginModalContent({ setCreateAccountContent }) {
         </div>
       </div>
       <div className="secondSection">
-        <FormControl sx={{ m: 1, width: "366px" }}>
+        <div style={{ m: 1, width: "366px" }} >
           <div className="inputContainer">
             <label className="inputLabel">Email</label>
             <CustomOutlinedInput
-              onChange={e => setEmail(e.target.value)}
               setValue={setEmail}
               placeholder="Email"
               type="text"
@@ -62,13 +47,13 @@ export default function LoginModalContent({ setCreateAccountContent }) {
           </div>
           <div className="inputContainer" style={{ marginTop: "30px" }}>
             <label className="inputLabel">Senha</label>
-            <PasswordOutlinedInput onChange={e => setPassword(e.target.value)} setValue={setPassword} />
+            <PasswordOutlinedInput setValue={setPassword} />
           </div>
           <div className="buttonsSection">
-            <PrimaryGradientButton  onClick={handleSignIn} text="Entrar" />
+            <PrimaryGradientButton text="Entrar" onClick={onLoginButtonClicked} />
             <SecondaryGradientButton text="Quero criar uma conta" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
           </div>
-        </FormControl>
+        </div>
       </div>
     </div>
   );
