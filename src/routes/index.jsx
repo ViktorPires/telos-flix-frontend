@@ -36,7 +36,7 @@ export default function AppRoutes() {
             <MovieProvider>
               <CardsFilms />
             </MovieProvider>
-          } path="/cardsFilms" exact />
+          } path="/cardsFilms/:genre?" exact />
 
         </Routes>
       </BrowserRouter>

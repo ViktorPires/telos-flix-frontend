@@ -4,8 +4,8 @@ import { MovieContext } from "../../contexts/MovieContext";
 
 export default function Video() {
   const { id } = useParams();
-  const [movies, setMovies] = useContext(MovieContext);
-  
+  const { movies } = useContext(MovieContext);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div>

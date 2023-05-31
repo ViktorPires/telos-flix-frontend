@@ -14,7 +14,7 @@ const animation = { duration: 60000, easing: (t) => t }
 
 
 function MainBanner() {
-  const [movies, setMovies] = useContext(MovieContext);
+  const { movies } = useContext(MovieContext);
   console.log(movies)
 
 
@@ -36,8 +36,8 @@ function MainBanner() {
   return (
     <div style={{ marginTop: "284px", position: "relative" }}>
       <img src={image} alt="Hero" />
-      <div style={{ position: "absolute", top: "0", width: "1200px"}}>
-        <div style={{display: "flex" , gap: "2rem"}} ref={sliderRef} className="keen-slider">
+      <div style={{ position: "absolute", top: "0", width: "1200px" }}>
+        <div style={{ display: "flex", gap: "2rem" }} ref={sliderRef} className="keen-slider">
           <div style={{ display: "flex", gap: "2rem" }} className="keen-slider__slide number-slide1">
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={one} alt="" />
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={two} alt="" />
@@ -50,7 +50,7 @@ function MainBanner() {
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={two} alt="" />
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={three} alt="" />
           </div>
-          <div  style={{ display: "flex", gap: "2rem" }} className="keen-slider__slide number-slide4">
+          <div style={{ display: "flex", gap: "2rem" }} className="keen-slider__slide number-slide4">
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={four} alt="" />
             <img style={{ width: "1100px", height: "650px", objectFit: "cover", borderRadius: "18px" }} src={five} alt="" />
           </div>
