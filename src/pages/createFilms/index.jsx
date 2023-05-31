@@ -6,10 +6,11 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { api } from "../../server/api";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 
 export default function CreateFilms() {
   const [title, setTitle] = useState("");
@@ -19,25 +20,27 @@ export default function CreateFilms() {
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
 
-  function addFilms(){
-    if(!title || !description || !year || !genres || !image || !video){
-         return alert("Preencha todos os campos")
+  const { savedUser } = useContext(AuthenticateContext)
+
+  function addFilms() {
+    if (!title || !description || !year || !genres || !image || !video) {
+      return alert("Preencha todos os campos")
     }
-     
-    const movie = {title, description, year, genres, image, video}
-    api.post("/movies", {movie})
-    .then(() => {
-     alert("Usuário cadastrado filmes com sucesso!")
- 
-    })
-    .catch((err) => {
-      if( title || description || year || genres || image || video){
-       alert("Usuário já realizou o  cadastrado de filmes")
-      }else{
-       
-      }
-    })
-}
+
+    const movie = { title, description, year, genres, image, video }
+    api.post("/movies", { ...movie }, { headers: { 'Authorization': 'Bearer ' + savedUser.token } })
+      .then(() => {
+        alert("Usuário cadastrado filmes com sucesso!")
+
+      })
+      .catch((err) => {
+        if (title || description || year || genres || image || video) {
+          alert("Usuário já realizou o  cadastrado de filmes")
+        } else {
+
+        }
+      })
+  }
 
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(null);
@@ -90,7 +93,7 @@ export default function CreateFilms() {
                 placeholder="Até 30 caracteres"
                 type="text"
                 startAdornment={
-                  
+
                   <InputAdornment>
                     <IconButton></IconButton>
                   </InputAdornment>

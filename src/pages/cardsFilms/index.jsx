@@ -16,9 +16,6 @@ export default function CardsFilms() {
 
   console.log(searchTerm, selectedCategory)
 
-
-  const genres = [];
-
   useEffect(() => {
     search(searchTerm, selectedCategory)
   }, [searchTerm, selectedCategory])

@@ -6,6 +6,7 @@ import MovieProvider from "../contexts/MovieProvider";
 import Person from "../pages/Person";
 import AuthenticateProvider from "../contexts/AuthenticateProvider";
 import CardsFilms from "../pages/cardsFilms";
+import Video from "../pages/video";
 
 
 
@@ -37,6 +38,12 @@ export default function AppRoutes() {
               <CardsFilms />
             </MovieProvider>
           } path="/cardsFilms/:genre?" exact />
+
+          <Route element={
+            <MovieProvider>
+              <Video />
+            </MovieProvider>
+          } path="/video/:id" exact />
 
         </Routes>
       </BrowserRouter>

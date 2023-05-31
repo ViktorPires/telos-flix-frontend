@@ -1,16 +1,23 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MovieContext } from "./MovieContext";
+import { AuthenticateContext } from "./AuthenticateContext";
 
 export default function MovieProvider({ children }) {
 
   const [movies, setMovies] = useState([]);
   const [movieGenres, setMovieGenres] = useState([])
+  const { savedUser } = useContext(AuthenticateContext)
+
+  const Authorization = savedUser ? {
+    headers: {
+      'Authorization': 'Bearer ' + savedUser.token
+    }
+  } : {}
 
   const search = (title, genre) => {
-    console.log(genre)
     try {
-      axios.get("http://localhost:3333/movies", { params: { title, genres: genre } }).then((response) => { setMovies(response.data) })
+      axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, Authorization }).then((response) => { console.log(response.data); setMovies(response.data) })
     } catch (err) {
       return console.log(err)
     }
@@ -26,7 +33,7 @@ export default function MovieProvider({ children }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3333/movies")
+      .get("http://localhost:3333/movies", Authorization)
       .then((response) => {
         setMovies(response.data);
       })
