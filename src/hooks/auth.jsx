@@ -47,12 +47,26 @@ async function updateProfilePassword({id, password, confirmPassword  }){
 }
 
 
+async function addMovies({movie}){
+  const response = await api.post(`movies`, movie);
+  const {user, token} = response.data;
+  console.log("user teste" + user)
+
+  localStorage.setItem("@telosflix:user", JSON.stringify(user));
+  localStorage.setItem("telosflix:token", token)
+
+  api.defaults.headers.authorization = `Bearer ${token}`;
+  setData({user, token})
+  console.log(response)
+}
+
+
 
 
  
 
   return(
-     <AuthContext.Provider value={{signIn, updateProfile, updateProfilePassword, user: data.user}}>
+     <AuthContext.Provider value={{signIn, updateProfile, addMovies, updateProfilePassword, user: data.user}}>
       {children}
      </AuthContext.Provider>
      

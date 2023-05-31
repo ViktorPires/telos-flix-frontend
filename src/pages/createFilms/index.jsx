@@ -9,15 +9,63 @@ import {
 import React, { useState } from "react";
 import "./index.css";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { api } from "../../server/api";
 
 export default function CreateFilms() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [year, setYear] = useState("");
+  const [genres, setGenres] = useState("");
+  const [image, setImage] = useState("");
+  const [video, setVideo] = useState("");
+
+  function addFilms(){
+    if(!title || !description || !year || !genres || !image || !video){
+         return alert("Preencha todos os campos")
+    }
+     
+    const movie = {title, description, year, genres, image, video}
+    api.post("/movies", {movie})
+    .then(() => {
+     alert("Usuário cadastrado filmes com sucesso!")
+ 
+    })
+    .catch((err) => {
+      if( title || description || year || genres || image || video){
+       alert("Usuário já realizou o  cadastrado de filmes")
+      }else{
+       
+      }
+    })
+}
+
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(null);
   const years = Array.from({ length: 10 }, (_, index) => currentYear - index);
-
+  console.log("years", years)
   const handleYearChange = (_, value) => {
     setSelectedYear(value);
+    setYear(value)
   };
+
+  const genresList = [
+    "Action",
+    "Adventure",
+    "Crime",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "Romance",
+    "Sci-Fi",
+    "Thriller",
+    "War"
+  ]
+
+  const updateGenres = (_, value) => {
+    setGenres(value);
+    console.log("genres", value)
+  };
+
 
   return (
     <>
@@ -37,9 +85,12 @@ export default function CreateFilms() {
                   border: "none",
                   color: "rgba(255, 255, 255, 0.5)",
                 }}
+                setValue={setTitle}
+                onChange={e => setTitle(e.target.value)}
                 placeholder="Até 30 caracteres"
                 type="text"
                 startAdornment={
+                  
                   <InputAdornment>
                     <IconButton></IconButton>
                   </InputAdornment>
@@ -59,6 +110,8 @@ export default function CreateFilms() {
                   border: "none",
                   color: "rgba(255, 255, 255, 0.5)",
                 }}
+                setValue={setDescription}
+                onChange={e => setDescription(e.target.value)}
                 placeholder="Até 200 caracteres"
                 type="text"
                 startAdornment={
@@ -118,16 +171,15 @@ export default function CreateFilms() {
                         color: "#bbbbbb", // Altere a cor de fundo da lista aqui
                       },
                     }}
-
-                    value={selectedYear}
-                    options={years}
+                    value={genres}
+                    options={genresList}
                     getOptionLabel={(year) => year.toString()}
-                    onChange={handleYearChange}
+                    onChange={updateGenres}
                     renderInput={(params) => (
                       <TextField
                         {...params}
                         label=""
-                        placeholder="2023"
+                        placeholder="genres"
                         variant="outlined"
                       />
                     )}
@@ -149,6 +201,7 @@ export default function CreateFilms() {
                     border: "none",
                     color: "rgba(255, 255, 255, 0.5)",
                   }}
+                  onChange={e => setImage(e.target.value)}
                   placeholder="url"
                   type="text"
                   startAdornment={
@@ -171,6 +224,7 @@ export default function CreateFilms() {
                     border: "none",
                     color: "rgba(255, 255, 255, 0.5)",
                   }}
+                  onChange={e => setVideo(e.target.value)}
                   placeholder="url"
                   type="text"
                   startAdornment={
@@ -187,7 +241,7 @@ export default function CreateFilms() {
                 Cancelar e voltar
               </button>
 
-              <button className="teste" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", color: "#212121", background: "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)" }}>
+              <button onClick={addFilms} className="teste" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", color: "#212121", background: "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)" }}>
                 Cadastrar
                 <ArrowForwardIcon />
               </button>

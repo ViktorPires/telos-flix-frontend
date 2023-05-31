@@ -1,12 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
-import HomeLogin from "../pages/homeLogin";
 import Films from "../pages/Films";
 import MovieProvider from "../contexts/MovieProvider";
 import Person from "../pages/Person";
 import AuthenticateProvider from "../contexts/AuthenticateProvider";
-import CreateFilms from "../pages/createFilms";
 import CardsFilms from "../pages/cardsFilms";
 
 
@@ -23,12 +21,6 @@ export default function AppRoutes() {
               <Home />
             </MovieProvider>
           } path="/" exact />
-
-          <Route element={
-            <MovieProvider>
-              <HomeLogin />
-            </MovieProvider>
-          } path="/homeLogin" exact />
 
           <Route element={
             <MovieProvider>
