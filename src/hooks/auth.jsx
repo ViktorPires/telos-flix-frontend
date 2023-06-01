@@ -9,8 +9,8 @@ function AuthProvider({children}){
 
   async function signIn({email, password}){
       const response = await api.post("authenticate", {email, password});
-      const {_id, name, token} = response.data;
-      const user = {_id, name}
+      const {id, name, token} = response.data;
+      const user = {id, name}
 
       localStorage.setItem("@telosflix:user", JSON.stringify(user));
       localStorage.setItem("telosflix:token", token)
@@ -20,17 +20,12 @@ function AuthProvider({children}){
       console.log(response)
   }
 
-  async function updateProfile({id, name, email, birthDate }){
-    const response = await api.put(`users/${id}`, {name, email, birthDate});
-    const {user, token} = response.data;
-    console.log("user teste" + user)
-
-    localStorage.setItem("@telosflix:user", JSON.stringify(user));
-    localStorage.setItem("telosflix:token", token)
-
-    api.defaults.headers.authorization = `Bearer ${token}`;
-    setData({user, token})
-    console.log(response)
+  async function updateProfile({id, name, email, age }){
+    try{
+     await api.put(`users/${id}`, {name, email, age }).then(response => console.log(response))
+   }catch(error){
+     console.log(error)
+   }
 }
 
 async function updateProfilePassword({id, password, confirmPassword  }){
@@ -49,21 +44,9 @@ async function updateProfilePassword({id, password, confirmPassword  }){
 
 async function addMovies({movie}){
   const response = await api.post(`movies`, movie);
-  const {user, token} = response.data;
-  console.log("user teste" + user)
 
-  localStorage.setItem("@telosflix:user", JSON.stringify(user));
-  localStorage.setItem("telosflix:token", token)
-
-  api.defaults.headers.authorization = `Bearer ${token}`;
-  setData({user, token})
-  console.log(response)
 }
 
-
-
-
- 
 
   return(
      <AuthContext.Provider value={{signIn, updateProfile, addMovies, updateProfilePassword, user: data.user}}>

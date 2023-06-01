@@ -19,33 +19,35 @@ export default function CreateFilms() {
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
 
-  function addFilms(){
-    if(!title || !description || !year || !genres || !image || !video){
-         return alert("Preencha todos os campos")
+  function addFilms() {
+    if (!title || !description || !year || !genres || !image || !video) {
+      return alert("Preencha todos os campos");
     }
-     
-    const movie = {title, description, year, genres, image, video}
-    api.post("/movies", {movie})
-    .then(() => {
-     alert("Usuário cadastrado filmes com sucesso!")
- 
-    })
-    .catch((err) => {
-      if( title || description || year || genres || image || video){
-       alert("Usuário já realizou o  cadastrado de filmes")
-      }else{
-       
-      }
-    })
-}
+  
+    const movie = { title, description, year, genres, image, video };
+    api.post("/movies", { movie })
+      .then(() => {
+        alert("Filme cadastrado com sucesso!");
+      })
+      .catch((err) => {
+        console.log(err); 
+        if (err.response.status === 409) {
+          alert("Usuário já realizou o cadastro de filmes");
+        } else {
+          alert("Ocorreu um erro ao cadastrar o filme");
+        }
+      });
+  }
+
+  console.log(addFilms)
 
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(null);
   const years = Array.from({ length: 10 }, (_, index) => currentYear - index);
-  console.log("years", years)
+
   const handleYearChange = (_, value) => {
     setSelectedYear(value);
-    setYear(value)
+    setYear(value);
   };
 
   const genresList = [
@@ -59,13 +61,11 @@ export default function CreateFilms() {
     "Sci-Fi",
     "Thriller",
     "War"
-  ]
+  ];
 
   const updateGenres = (_, value) => {
     setGenres(value);
-    console.log("genres", value)
   };
-
 
   return (
     <>
@@ -81,16 +81,15 @@ export default function CreateFilms() {
                   boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                   height: "42px",
                   width: "951px",
-                  borderRadius: "15px;",
+                  borderRadius: "15px",
                   border: "none",
                   color: "rgba(255, 255, 255, 0.5)",
                 }}
-                setValue={setTitle}
-                onChange={e => setTitle(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Até 30 caracteres"
                 type="text"
                 startAdornment={
-                  
                   <InputAdornment>
                     <IconButton></IconButton>
                   </InputAdornment>
@@ -106,12 +105,12 @@ export default function CreateFilms() {
                   boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                   height: "90px",
                   width: "951px",
-                  borderRadius: "15px;",
+                  borderRadius: "15px",
                   border: "none",
                   color: "rgba(255, 255, 255, 0.5)",
                 }}
-                setValue={setDescription}
-                onChange={e => setDescription(e.target.value)}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Até 200 caracteres"
                 type="text"
                 startAdornment={
@@ -130,13 +129,13 @@ export default function CreateFilms() {
                     background: "rgba(255, 252, 252, 0.05)",
                     width: "120px",
                     height: "55px",
-                    boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                     color: "rgba(255, 255, 255, 0.5)",
                   }}
                   ListboxProps={{
                     style: {
                       backgroundColor: "#5f5d5d",
-                      color: "#bbbbbb", // Altere a cor de fundo da lista aqui
+                      color: "#bbbbbb",
                     },
                   }}
                   value={selectedYear}
@@ -162,24 +161,24 @@ export default function CreateFilms() {
                       background: "rgba(255, 252, 252, 0.05)",
                       width: "120px",
                       height: "55px",
-                      boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                       color: "rgba(255, 255, 255, 0.5)",
                     }}
                     ListboxProps={{
                       style: {
                         backgroundColor: "#5f5d5d",
-                        color: "#bbbbbb", // Altere a cor de fundo da lista aqui
+                        color: "#bbbbbb",
                       },
                     }}
                     value={genres}
                     options={genresList}
-                    getOptionLabel={(year) => year.toString()}
+                    getOptionLabel={(genre) => genre}
                     onChange={updateGenres}
                     renderInput={(params) => (
                       <TextField
                         {...params}
                         label=""
-                        placeholder="genres"
+                        placeholder="Gênero"
                         variant="outlined"
                       />
                     )}
@@ -197,11 +196,12 @@ export default function CreateFilms() {
                     boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                     height: "42px",
                     width: "290px",
-                    borderRadius: "15px;",
+                    borderRadius: "15px",
                     border: "none",
                     color: "rgba(255, 255, 255, 0.5)",
                   }}
-                  onChange={e => setImage(e.target.value)}
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
                   placeholder="url"
                   type="text"
                   startAdornment={
@@ -220,11 +220,12 @@ export default function CreateFilms() {
                     boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
                     height: "42px",
                     width: "290px",
-                    borderRadius: "15px;",
+                    borderRadius: "15px",
                     border: "none",
                     color: "rgba(255, 255, 255, 0.5)",
                   }}
-                  onChange={e => setVideo(e.target.value)}
+                  value={video}
+                  onChange={(e) => setVideo(e.target.value)}
                   placeholder="url"
                   type="text"
                   startAdornment={
@@ -241,7 +242,19 @@ export default function CreateFilms() {
                 Cancelar e voltar
               </button>
 
-              <button onClick={addFilms} className="teste" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", color: "#212121", background: "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)" }}>
+              <button
+                onClick={addFilms}
+                className="teste"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "15px",
+                  color: "#212121",
+                  background:
+                    "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)",
+                }}
+              >
                 Cadastrar
                 <ArrowForwardIcon />
               </button>

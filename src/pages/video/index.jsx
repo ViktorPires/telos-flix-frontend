@@ -9,12 +9,14 @@ function Video() {
   const { isAuthenticated } = useContext(AuthenticateContext);
 
   const movie = movies.find((movie) => movie._id === id);
+  console.log("movie", movie)
 
   if (!movie) {
     return null;
   }
 
   const videoId = movie.video ? movie.video.split("v=")[1] : "";
+  console.log("video", videoId)
 
   return (
     <div className="videoPage">

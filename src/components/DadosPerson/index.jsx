@@ -1,5 +1,5 @@
 import { FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomOutlinedInput from "../customOutlinedInput";
 import { DnsRounded, EastOutlined, EmailOutlined, InfoRounded, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
 import PasswordOutlinedInput from "../passwordOutlinedInput";
@@ -8,12 +8,15 @@ import "./index.css";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 import Logo from './Icon.png'
 import { useAuth } from "../../hooks/auth";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 
 
 export function DadosPerson() {
+   const {savedUser} = useContext(AuthenticateContext)
+
     const [name, setName] = useState();
     const [email, setEmail] = useState();
-    const [birthDate, setBirthDate] = useState();
+    const [age, setAge] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();;
 
@@ -22,11 +25,13 @@ export function DadosPerson() {
     async function handleUpdate(){
      try{
         const payload = {
-            id: user._id,
+            id: savedUser._id,
             name,
             email,
-            birthDate
+            age
         }
+
+        console.log(payload)
 
       await updateProfile(payload)
       .then(statusCode => {
@@ -41,7 +46,7 @@ export function DadosPerson() {
     async function handleUpdatePassword(){
         try{
            const payloadPassword = {
-               id: user._id,
+               id: savedUser._id,
                password,
                confirmPassword,
            }
@@ -109,12 +114,12 @@ export function DadosPerson() {
                             />
                         </div>
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
-                            <label className="inputLabel">Data de nascimento</label>
+                            <label className="inputLabel">Informe o ano de nascimento</label>
                             <CustomOutlinedInput
-                            onChange={e => setBirthDate(e.target.value)}
-                                setValue={setBirthDate}
-                                placeholder="Data de nascimento"
-                                type="date"
+                            onChange={e => setAge(e.target.value)}
+                                setValue={setAge}
+                                placeholder="ano de nascimento"
+                                type="text"
                             />
                         </div>
                         <FormControlLabel
@@ -139,7 +144,7 @@ export function DadosPerson() {
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
                                 <label className="inputLabel">Nova Senha</label>
-                                <PasswordOutlinedInput onChange={e => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirmar Senha" />
+                                <PasswordOutlinedInput onChange={e => setPassword(e.target.value)} setValue={setPassword} placeholder="Nova Senha" />
                             </div>
 
                             <div className="buttonsSection">
