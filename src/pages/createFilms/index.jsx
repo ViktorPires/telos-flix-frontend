@@ -6,10 +6,11 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { api } from "../../server/api";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 
 export default function CreateFilms() {
   const [title, setTitle] = useState("");

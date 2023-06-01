@@ -8,7 +8,7 @@ import Header from "../../components/header";
 
 function Films() {
 
-  const [movies] = useContext(MovieContext);
+  const { movies } = useContext(MovieContext);
   const { id } = useParams()
   const [movieSelected, setMovieSelected] = useState({
     title: "",

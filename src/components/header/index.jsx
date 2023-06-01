@@ -168,7 +168,7 @@ export default function Header() {
               <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
             </NavButton>
 
-            <NavButton>
+            <NavButton href="/cardsFilms">
               <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
             </NavButton>
 

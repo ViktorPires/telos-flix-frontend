@@ -23,6 +23,10 @@ export function DadosPerson() {
     const { updateProfile, updateProfilePassword, user } = useAuth();
 
     async function handleUpdate(){
+        if(!name || !email || !password ){
+            return alert("Preencha todos os campos")
+       }
+       
      try{
         const payload = {
             id: savedUser._id,

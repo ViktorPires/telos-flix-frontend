@@ -4,7 +4,7 @@ import "./index.css";
 import { MovieContext } from "../../contexts/MovieContext";
 import { Link } from "react-router-dom";
 function Trending() {
-  const [movies, setMovies] = useContext(MovieContext);
+  const { movies } = useContext(MovieContext);
 
 
   return (
@@ -13,10 +13,10 @@ function Trending() {
         <SignalCellularAltOutlined /> Em alta
       </div>
       <div className="trendingVideosGrid">
-      {movies.slice(4, 7).map((movie, index) => (
+        {movies.slice(4, 7).map((movie, index) => (
           <Link to={`/films/${movie._id}`}>
             <div className="miniVideoCard" key={index}>
-              <img style={{ width: "400px", height: "220px", objectFit: "cover", borderRadius: "18px" }} src={movie.image} alt="" />
+              <img style={{ width: "400px", height: "400px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
             </div>
           </Link>
         ))}

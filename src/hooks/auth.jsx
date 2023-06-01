@@ -3,7 +3,7 @@ import { api } from '../server/api'
 
 export const AuthContext = createContext({})
 
-function AuthProvider({children}){
+function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
 
@@ -12,12 +12,12 @@ function AuthProvider({children}){
       const {id, name, token} = response.data;
       const user = {id, name}
 
-      localStorage.setItem("@telosflix:user", JSON.stringify(user));
-      localStorage.setItem("telosflix:token", token)
+    localStorage.setItem("@telosflix:user", JSON.stringify(user));
+    localStorage.setItem("telosflix:token", token)
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-      setData({user, token})
-      console.log(response)
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    setData({ user, token })
+    console.log(response)
   }
 
   async function updateProfile({id, name, email, age }){
@@ -28,18 +28,18 @@ function AuthProvider({children}){
    }
 }
 
-async function updateProfilePassword({id, password, confirmPassword  }){
-  const response = await api.put(`users/${id}`, {password, confirmPassword});
-  const {user, token} = response.data;
-  console.log("user teste" + user)
+  async function updateProfilePassword({ id, password, confirmPassword }) {
+    const response = await api.put(`users/${id}`, { password, confirmPassword });
+    const { user, token } = response.data;
+    console.log("user teste" + user)
 
-  localStorage.setItem("@telosflix:user", JSON.stringify(user));
-  localStorage.setItem("telosflix:token", token)
+    localStorage.setItem("@telosflix:user", JSON.stringify(user));
+    localStorage.setItem("telosflix:token", token)
 
-  api.defaults.headers.authorization = `Bearer ${token}`;
-  setData({user, token})
-  console.log(response)
-}
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    setData({ user, token })
+    console.log(response)
+  }
 
 
 async function addMovies({movie}){
@@ -51,12 +51,12 @@ async function addMovies({movie}){
   return(
      <AuthContext.Provider value={{signIn, updateProfile, addMovies, updateProfilePassword, user: data.user}}>
       {children}
-     </AuthContext.Provider>
-     
+    </AuthContext.Provider>
+
   )
 }
 
-function useAuth(){
+function useAuth() {
   const context = useContext(AuthContext)
   return context;
 }
