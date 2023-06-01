@@ -10,10 +10,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import { Home, Search, Book } from "@mui/icons-material";
 import arrow from "./arrow.png";
 import logo from "./Brand.png";
@@ -26,6 +22,7 @@ import CreateAccountModalContent from "../createAccountModalContent";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import { NavButton } from './styles'
 import CreateFilms from '../../pages/createFilms'
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -58,7 +55,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -116,9 +112,10 @@ export default function Header() {
             justifyContent: "space-between",
           }}
         >
+         
           <img src={logo} alt="logo" />
           {savedUser ?
-            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}><h1>{savedUser.name}</h1> <button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}>  <Link style={{textDecoration: "none"}} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
             : (
               <AppBarActions
                 actions={[

@@ -13,18 +13,19 @@ function EnjoyForFree({ moviesId }) {
       <div className="labelSection">
         <CardGiftcardOutlined /> Aproveite grátis
       </div>
+
       <div className="enjoyForfreeVideosGrid">
-        {movies.slice(6, 9).map((movie, index) => (
-          <Link to={`/films/${movie._id}`}>
-            <div className="miniVideoCard" key={index}>
-              <img style={{ width: "400px", height: "220px", objectFit: "cover", borderRadius: "18px" }} src={movie.image} alt="" />
-            </div>
-          </Link>
-        ))}
-        {movies.slice(6, 9).map((movie) => (
-          <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
-        ))}
-      </div>
+          {movies.slice(6, 9).map((movie, index) => (
+            <Link to={`/films/${movie._id}`}>
+              <div className="miniFilmsCardEnjoyForFree" key={index}>
+                <img style={{ width: "400px", height: "500px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
+              </div>
+            </Link>
+          ))}
+          {movies.slice(6, 9).map((movie) => (
+            <h1 style={{ fontSize: "14px", marginTop: "-3rem" }}>{movie.title}</h1>
+          ))}
+        </div>
     </div>
   );
 }

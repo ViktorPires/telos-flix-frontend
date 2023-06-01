@@ -1,18 +1,18 @@
+import React, { useState } from "react";
 import {
   Autocomplete,
   FormControl,
-  IconButton,
-  InputAdornment,
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
-import "./index.css";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { api } from "../../server/api";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
+import "./index.css";
+import { useContext } from "react";
 
 export default function CreateFilms() {
+  const {savedUser} = useContext(AuthenticateContext)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
@@ -24,14 +24,14 @@ export default function CreateFilms() {
     if (!title || !description || !year || !genres || !image || !video) {
       return alert("Preencha todos os campos");
     }
-  
+
     const movie = { title, description, year, genres, image, video };
-    api.post("/movies", { movie })
+    api.post("/movies", { ...movie }, { headers: { 'Authorization': 'Bearer ' + savedUser.token } })
       .then(() => {
         alert("Filme cadastrado com sucesso!");
       })
       .catch((err) => {
-        console.log(err); 
+        console.log(err);
         if (err.response.status === 409) {
           alert("Usuário já realizou o cadastro de filmes");
         } else {
@@ -39,8 +39,6 @@ export default function CreateFilms() {
         }
       });
   }
-
-  console.log(addFilms)
 
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(null);
@@ -61,7 +59,7 @@ export default function CreateFilms() {
     "Romance",
     "Sci-Fi",
     "Thriller",
-    "War"
+    "War",
   ];
 
   const updateGenres = (_, value) => {
@@ -70,84 +68,62 @@ export default function CreateFilms() {
 
   return (
     <>
-      <div style={{ marginBottom: "5rem" }} className="createFilmsContainer">
+      <div style={{ marginTop: "-5rem"}} className="createFilmsContainer">
         <div className="firstSectionFilms">
           <h1>Cadastrar filme</h1>
           <FormControl>
             <div className="inputContainerFilms" style={{ marginTop: "20px" }}>
               <label className="inputLabel">Nome do filme</label>
               <OutlinedInput
-                sx={{
-                  background: "rgba(255, 252, 252, 0.05)",
-                  boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                  height: "42px",
-                  width: "951px",
-                  borderRadius: "15px",
-                  border: "none",
-                  color: "rgba(255, 255, 255, 0.5)",
-                }}
+                sx={{background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)"}}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Até 30 caracteres"
-                type="text"
-                startAdornment={
-                  <InputAdornment>
-                    <IconButton></IconButton>
-                  </InputAdornment>
-                }
+                variant="outlined"
               />
             </div>
             <p>Esse nome será exibido em todos os locais da plataforma</p>
             <div className="inputContainerFilms" style={{ marginTop: "46px" }}>
               <label className="inputLabel">Descrição</label>
               <OutlinedInput
-                sx={{
-                  background: "rgba(255, 252, 252, 0.05)",
-                  boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                  height: "90px",
-                  width: "951px",
-                  borderRadius: "15px",
-                  border: "none",
-                  color: "rgba(255, 255, 255, 0.5)",
-                }}
+              sx={{background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)", padding: "30px 0px"}}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Até 200 caracteres"
-                type="text"
-                startAdornment={
-                  <InputAdornment>
-                    <IconButton></IconButton>
-                  </InputAdornment>
-                }
+                variant="outlined"
               />
             </div>
 
-            <div style={{ display: "flex", gap: "42px", margin: "30px 0px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "42px",
+                margin: "30px 0px",
+                justifyContent: "space-between",
+              }}
+            >
               <div>
                 <h2>Ano</h2>
                 <Autocomplete
-                  sx={{
-                    background: "rgba(255, 252, 252, 0.05)",
-                    width: "120px",
-                    height: "55px",
-                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                    color: "rgba(255, 255, 255, 0.5)",
-                  }}
-                  ListboxProps={{
-                    style: {
-                      backgroundColor: "#5f5d5d",
-                      color: "#bbbbbb",
-                    },
-                  }}
-                  value={selectedYear}
+                 sx={{
+                  background: "rgba(255, 252, 252, 0.05)",
+                  boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  width: "150px"
+                }}
+                ListboxProps={{
+                  style: {
+                    backgroundColor: "#5f5d5d",
+                    color: "#bbbbbb"
+                  },
+                }}
                   options={years}
-                  getOptionLabel={(year) => year.toString()}
+                  value={selectedYear}
                   onChange={handleYearChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label=""
-                      placeholder="2023"
+                      placeholder="Ano"
                       variant="outlined"
                     />
                   )}
@@ -155,36 +131,30 @@ export default function CreateFilms() {
               </div>
 
               <div>
-                <div>
-                  <h2>Gênero</h2>
-                  <Autocomplete
-                    sx={{
-                      background: "rgba(255, 252, 252, 0.05)",
-                      width: "120px",
-                      height: "55px",
-                      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                      color: "rgba(255, 255, 255, 0.5)",
-                    }}
-                    ListboxProps={{
-                      style: {
-                        backgroundColor: "#5f5d5d",
-                        color: "#bbbbbb",
-                      },
-                    }}
-                    value={genres}
-                    options={genresList}
-                    getOptionLabel={(genre) => genre}
-                    onChange={updateGenres}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label=""
-                        placeholder="Gênero"
-                        variant="outlined"
-                      />
-                    )}
-                  />
-                </div>
+                <h2>Gênero</h2>
+                <Autocomplete
+                sx={{
+                  background: "rgba(255, 252, 252, 0.05)",
+                  boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
+                  color: "rgba(255, 255, 255, 0.5)",
+                }}
+                ListboxProps={{
+                  style: {
+                    backgroundColor: "#5f5d5d",
+                    color: "#bbbbbb"
+                  },
+                }}
+                  multiple
+                  options={genresList}
+                  onChange={updateGenres}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      placeholder="Genres"
+                    />
+                  )}
+                />
               </div>
             </div>
 
@@ -192,56 +162,28 @@ export default function CreateFilms() {
               <div className="inputContainerFilms">
                 <label className="inputLabel">Url do banner</label>
                 <OutlinedInput
-                  sx={{
-                    background: "rgba(255, 252, 252, 0.05)",
-                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                    height: "42px",
-                    width: "290px",
-                    borderRadius: "15px",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.5)",
-                  }}
+                  sx={{background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)"}}
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
-                  placeholder="url"
-                  type="text"
-                  startAdornment={
-                    <InputAdornment>
-                      <IconButton></IconButton>
-                    </InputAdornment>
-                  }
+                  placeholder="Url do banner"
+                  variant="outlined"
                 />
               </div>
 
               <div className="inputContainerFilms">
-                <label className="inputLabel">Url do video</label>
+                <label className="inputLabel">Url do vídeo</label>
                 <OutlinedInput
-                  sx={{
-                    background: "rgba(255, 252, 252, 0.05)",
-                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-                    height: "42px",
-                    width: "290px",
-                    borderRadius: "15px",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.5)",
-                  }}
+                 sx={{background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)"}}
                   value={video}
                   onChange={(e) => setVideo(e.target.value)}
-                  placeholder="url"
-                  type="text"
-                  startAdornment={
-                    <InputAdornment>
-                      <IconButton></IconButton>
-                    </InputAdornment>
-                  }
+                  placeholder="Url do vídeo"
+                  variant="outlined"
                 />
               </div>
             </div>
 
             <div className="ContainerButtonFilms">
-              <button style={{ color: "#212121" }}>
-                Cancelar e voltar
-              </button>
+              <button style={{ color: "#212121" }}>Cancelar e voltar</button>
 
               <button
                 onClick={addFilms}

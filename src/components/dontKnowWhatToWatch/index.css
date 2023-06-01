@@ -1,6 +1,6 @@
 .dontKnowWhatToWatchgrid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template: auto;
   gap: 25px;
   padding-bottom: 20px;
@@ -15,7 +15,7 @@
 }
 
 .dontKnowWhatToWatchgrid .categoryButton {
-  width: 338px;
+  width: 180px;
   height: 60px;
 
   /* Color/Neutral/800 */

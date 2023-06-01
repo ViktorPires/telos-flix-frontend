@@ -8,6 +8,7 @@
   width: 100%;
 }
 
+
 .enjoyForfreeSection .enjoyForfreeVideosGrid {
   display: grid;
   grid-template: auto;
@@ -16,25 +17,25 @@
 }
 
 
-.enjoyForfreeSection .enjoyForfreeVideosGrid .miniVideoCard{
-    position: relative;
-    box-sizing: border-box;
-    width: 367px;
-    height: 244.66px;
-    left: 0%;
-    right: 0%;
-    margin-top: 48px;
-    bottom: 0%;
-    display:flex;
-    align-items: end;
-    justify-content: center;
-  
+
+
+  .miniFilmsCardEnjoyForFree {
+    margin-top: 2.5rem;
+    positon: relative;
     background: #292929;
     border: 1px solid rgba(238, 238, 238, 0.05);
   
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    padding: 10px;
     color: white;
+
+    padding: 2rem 0rem 3.5rem;
   }
 
+  .miniFilmsCardEnjoyForFree img {
+    transition: all 0.3s ease;
+  }
+
+  .miniFilmsCardEnjoyForFree img:hover {
+    transform: scale(1.1);
+  }
