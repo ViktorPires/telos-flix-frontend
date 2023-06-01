@@ -10,14 +10,13 @@ function Video() {
   const { isAuthenticated } = useContext(AuthenticateContext);
 
   const movie = movies.find((movie) => movie._id === id);
-  console.log("movie", movie)
 
   if (!movie) {
     return null;
   }
 
   const videoId = movie.video ? movie.video.split("v=")[1] : "";
-  console.log("video", videoId)
+  console.log(videoId)
 
   return (
     <>
@@ -27,9 +26,9 @@ function Video() {
           <iframe style={{
             display: "block",
             height: "80vh",
-            width: "98%",
+            width: "100%",
             border: "none",
-          }} src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          }} width="100vw" height="100vh" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
     </>
