@@ -112,14 +112,10 @@ export default function Header() {
             justifyContent: "space-between",
           }}
         >
-         
+
           <img src={logo} alt="logo" />
           {savedUser ?
-<<<<<<< HEAD
-            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}>  <Link style={{textDecoration: "none"}} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
-=======
-            (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}><h1 style={{ marginRight: "2rem" }}>{savedUser.name}</h1> <button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
->>>>>>> 442c329e301eb8d8c35b8a049af1f702db688823
+            (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>  <Link style={{ textDecoration: "none" }} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
             : (
               <AppBarActions
                 actions={[

@@ -20,6 +20,7 @@ function Films() {
     const movie = movies.find(item => item._id === id)
 
     setMovieSelected(movie)
+    console.log(movie)
 
     console.log("route" + id)
   }, [])
