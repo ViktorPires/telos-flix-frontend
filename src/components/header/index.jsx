@@ -118,7 +118,7 @@ export default function Header() {
         >
           <img src={logo} alt="logo" />
           {savedUser ?
-            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}><h1>{savedUser.name}</h1> <button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+            (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}><h1 style={{ marginRight: "2rem" }}>{savedUser.name}</h1> <button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
             : (
               <AppBarActions
                 actions={[
