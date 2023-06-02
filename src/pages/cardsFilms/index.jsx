@@ -14,8 +14,6 @@ export default function CardsFilms() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(genre);
 
-  console.log(searchTerm, selectedCategory)
-
   useEffect(() => {
     search(searchTerm, selectedCategory)
   }, [searchTerm, selectedCategory])

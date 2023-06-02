@@ -16,7 +16,6 @@ function Video() {
   }
 
   const videoId = movie.video ? movie.video.split("v=")[1] : "";
-  console.log(videoId)
 
   return (
     <>

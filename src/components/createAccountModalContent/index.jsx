@@ -19,24 +19,24 @@ function CreateAccountModalContent() {
 
   const navigate = useNavigate()
 
-  function handleSignUp(){
-         if(!name || !email || !password ){
-              return alert("Preencha todos os campos")
-         }
-        
-         api.post("/users", {name, email, password, phone, birthDate, confirmPassword})
-         .then(() => {
-          alert("Usuário cadastrado com sucesso!")
-          navigate("/homeLogin")
-      
-         })
-         .catch((err) => {
-           if( name || email || password){
-            alert("Usuário cadastrado")
-           }else{
-            
-           }
-         })
+  function handleSignUp() {
+    if (!name || !email || !password) {
+      return alert("Preencha todos os campos")
+    }
+
+    api.post("/users", { name, email, password, phone, birthDate, confirmPassword })
+      .then(() => {
+        alert("Usuário cadastrado com sucesso!")
+        navigate("/")
+
+      })
+      .catch((err) => {
+        if (name || email || password) {
+          alert("Usuário cadastrado")
+        } else {
+
+        }
+      })
   }
 
   return (
@@ -79,7 +79,7 @@ function CreateAccountModalContent() {
           <div className="inputContainer" style={{ marginTop: "46px" }}>
             <label className="inputLabel">Celular</label>
             <CustomOutlinedInput
-            setValue={setPhone}
+              setValue={setPhone}
               onChange={e => setPhone(e.target.value)}
               placeholder="Celular"
               type="text"
@@ -107,7 +107,7 @@ function CreateAccountModalContent() {
         <FormControl sx={{ m: 1, width: "366px" }}>
           <div className="inputContainer" style={{ marginTop: "56px" }}>
             <label className="inputLabel">Senha</label>
-            <PasswordOutlinedInput setValue={setPassword}  onChange={e => setPassword(e.target.value)}/>
+            <PasswordOutlinedInput setValue={setPassword} onChange={e => setPassword(e.target.value)} />
           </div>
           <div className="inputContainer" style={{ marginTop: "46px" }}>
             <label className="inputLabel">Confirmar Senha</label>

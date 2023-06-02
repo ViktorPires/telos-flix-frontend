@@ -20,6 +20,4 @@ export const NavButton = styled.a`
       color: #252525
     }
   }
-
-
 `

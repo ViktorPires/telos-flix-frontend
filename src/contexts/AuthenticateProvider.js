@@ -6,16 +6,15 @@ export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
 
   const login = async ({ email, password }) => {
-    await axios
-      .post("http://localhost:3333/authenticate", { email, password })
-      .then((response) => {
-        setAuthenticateData(response.data);
-        localStorage.setItem("user", JSON.stringify(response.data));
+    try {
+      const { data } = await axios.post("http://localhost:3333/authenticate", { email, password })
+      setAuthenticateData(data);
+      localStorage.setItem("user", JSON.stringify(data));
 
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      return data
+    } catch (error) {
+      return error
+    };
   }
   const savedUser = localStorage.getItem("user");
 

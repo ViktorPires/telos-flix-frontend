@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
+import { Alert, FormControl, FormControlLabel, IconButton, InputAdornment, Snackbar } from "@mui/material";
 import { DnsRounded, EastOutlined, EmailOutlined, InfoRounded, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import CustomOutlinedInput from "../customOutlinedInput";
@@ -18,7 +18,9 @@ export function Profile() {
     const [age, setAge] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const { updateProfile, updateProfilePassword } = useAuth();
     const navigate = useNavigate();
@@ -33,7 +35,8 @@ export function Profile() {
             };
 
             await updateProfile(payload).then((statusCode) => {
-                console.log("deu certo :  ", statusCode);
+                setSuccessMessage("Usuário alterado com sucesso")
+                setOpen(true)
                 setUpdateTrigger(true);
             });
         } catch (error) {
@@ -51,7 +54,8 @@ export function Profile() {
             };
 
             await updateProfilePassword(payloadPassword).then((statusCode) => {
-                console.log("deu certo :  ", statusCode);
+                setSuccessMessage("Senha alterada com sucesso")
+                setOpen(true)
             });
         } catch (error) {
             console.log("deu erro : ", error);
@@ -67,6 +71,11 @@ export function Profile() {
 
     return (
         <div>
+            <Snackbar open={open} autoHideDuration={6000} onClose={() => { setOpen(false) }}>
+                <Alert onClose={() => { setOpen(false) }} severity="success" sx={{ width: '100%' }}>
+                    {successMessage}
+                </Alert>
+            </Snackbar>
             <div className="modifyPerson">
                 <div style={{ height: "150px", borderBottom: "1px solid #A9A9A9 ", marginTop: "-1rem" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>

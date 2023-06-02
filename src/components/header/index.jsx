@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -23,6 +23,7 @@ import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import { NavButton } from './styles'
 import CreateFilms from '../../pages/createFilms'
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -101,87 +102,95 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
 
+  useEffect(() => {
+    if (savedUser) {
+      setOpen(false)
+
+    }
+  }, [savedUser])
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" elevation={0} sx={{ paddingTop: 3 }}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-
-          <img src={logo} alt="logo" />
-          {savedUser ?
-            (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>  <Link style={{ textDecoration: "none" }} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
-            : (
-              <AppBarActions
-                actions={[
-                  <CreateAccountButton
-                    onClick={() => {
-                      setContentToShow(<CreateAccountModalContent />);
-                      setOpen(true);
-                    }}
-                  />,
-                  <LoginButton
-                    onClick={() => {
-                      setContentToShow(
-                        <LoginModalContent />
-                      );
-                      setOpen(true);
-                    }}
-                  />,
-                ]}
-              />
-            )}
-
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent">
-        <DrawerHeader>
-          <IconButton sx={{ color: "#fff" }}>
-            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-
-        <List
-          sx={{
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Box
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" elevation={0} sx={{ paddingTop: 3 }}>
+          <Toolbar
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              flexDirection: "column",
             }}
           >
-            <NavButton href="/">
-              <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-            </NavButton>
 
-            <NavButton href="/cardsFilms">
-              <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-            </NavButton>
+            <img src={logo} alt="logo" />
+            {savedUser ?
+              (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>  <Link style={{ textDecoration: "none" }} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+              : (
+                <AppBarActions
+                  actions={[
+                    <CreateAccountButton
+                      onClick={() => {
+                        setContentToShow(<CreateAccountModalContent />);
+                        setOpen(true);
+                      }}
+                    />,
+                    <LoginButton
+                      onClick={() => {
+                        setContentToShow(
+                          <LoginModalContent />
+                        );
+                        setOpen(true);
+                      }}
+                    />,
+                  ]}
+                />
+              )}
 
-            {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
-              setOpen(true);
-              setContentToShow(<CreateFilms />)
-            }}>
-              <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-            </NavButton>) : ""}
-          </Box>
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent">
+          <DrawerHeader>
+            <IconButton sx={{ color: "#fff" }}>
+              {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+
+          <List
+            sx={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "column",
+              }}
+            >
+              <NavButton href="/">
+                <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+              </NavButton>
+
+              <NavButton href="/cardsFilms">
+                <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+              </NavButton>
+
+              {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
+                setOpen(true);
+                setContentToShow(<CreateFilms />)
+              }}>
+                <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+              </NavButton>) : ""}
+            </Box>
+          </List>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+        </Box>
+        <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
       </Box>
-      <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
-    </Box>
+    </>
   );
 }

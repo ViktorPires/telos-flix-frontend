@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import React from "react";
 import Trending from "../../components/trending";
 import EnjoyForFree from "../../components/enjoyForFree";
@@ -10,9 +9,9 @@ import MainBanner from "../../components/mainBanner";
 function Home() {
   return (
     <div>
-      <Header/>
+      <Header />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <MainBanner/>
+        <MainBanner />
         <div className="sectionsGrid">
           <Trending />
           <EnjoyForFree />
