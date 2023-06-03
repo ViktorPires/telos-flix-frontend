@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 function CreateAccountModalContent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [age, setAge] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -24,15 +23,14 @@ function CreateAccountModalContent() {
       return alert("Preencha todos os campos")
     }
 
-    api.post("/users", { name, email, password, phone, birthDate, confirmPassword })
+    api.post("/users", { name, email, password, age, confirmPassword })
       .then(() => {
         alert("Usuário cadastrado com sucesso!")
-        navigate("/")
-
+        navigate("/films")
       })
       .catch((err) => {
         if (name || email || password) {
-          alert("Usuário cadastrado")
+          alert("Usuário já está cadastrado")
         } else {
 
         }
@@ -79,8 +77,8 @@ function CreateAccountModalContent() {
           <div className="inputContainer" style={{ marginTop: "46px" }}>
             <label className="inputLabel">Celular</label>
             <CustomOutlinedInput
-              setValue={setPhone}
-              onChange={e => setPhone(e.target.value)}
+              setValue={setAge}
+              onChange={e => setAge(e.target.value)}
               placeholder="Celular"
               type="text"
               startAdornment={
@@ -90,15 +88,6 @@ function CreateAccountModalContent() {
                   </IconButton>
                 </InputAdornment>
               }
-            />
-          </div>
-          <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">Data de nascimento</label>
-            <CustomOutlinedInput
-              setValue={setBirthDate}
-              onChange={e => setBirthDate(e.target.value)}
-              placeholder="Data de nascimento"
-              type="date"
             />
           </div>
         </FormControl>
@@ -119,7 +108,7 @@ function CreateAccountModalContent() {
             label="Aceito os termos de uso da plataforma"
           />
           <div className="buttonsSection">
-            <PrimaryGradientButton onClick={handleSignUp} text="Entrar" />
+            <PrimaryGradientButton onClick={handleSignUp} text="Cadastre-se" />
           </div>
         </FormControl>
       </div>

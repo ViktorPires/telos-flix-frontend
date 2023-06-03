@@ -16,6 +16,7 @@
   line-height: 38px;
   display: flex;
   flex-direction: column;
+  color: #fff;
 }
 
 .loginModalContent .firstSection .imageContainer {
@@ -29,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+ 
 }
 
 .loginModalContent .secondSection .inputLabel {

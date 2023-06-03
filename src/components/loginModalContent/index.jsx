@@ -11,7 +11,7 @@ import PasswordOutlinedInput from "../passwordOutlinedInput";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 
 export default function LoginModalContent({ setCreateAccountContent }) {
-  const { login, savedUser } = useContext(AuthenticateContext)
+  const { login} = useContext(AuthenticateContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("teste");
   const [errorMessage, setErrorMessage] = React.useState('');

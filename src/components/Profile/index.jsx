@@ -98,7 +98,7 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setName(e.target.value)}
                                 setValue={setName}
-                                placeholder="Nome"
+                                placeholder={savedUser?.name}
                                 type="text"
                                 startAdornment={
                                     <InputAdornment>
@@ -114,7 +114,7 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setEmail(e.target.value)}
                                 setValue={setEmail}
-                                placeholder="E-mail"
+                                placeholder={savedUser?.email}
                                 type="text"
                                 startAdornment={
                                     <InputAdornment>
@@ -126,16 +126,16 @@ export function Profile() {
                             />
                         </div>
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
-                            <label className="inputLabel">Informe o ano de nascimento</label>
+                            <label className="inputLabel">Celular</label>
                             <CustomOutlinedInput
                                 onChange={(e) => setAge(e.target.value)}
                                 setValue={setAge}
-                                placeholder="ano de nascimento"
+                                placeholder={savedUser?.age}
                                 type="text"
                             />
                         </div>
                         <FormControlLabel
-                            sx={{ marginTop: "42px", width: "700px", textAlign: "start", fontSize: "14px", display: "flex", gap: "10px" }}
+                            sx={{ marginTop: "42px", width: "700px", textAlign: "start", fontSize: "14px", display: "flex", gap: "10px", color: "#fff" }}
                             control={<InfoRounded />}
                             label="Please see our privacy statement to learn more about how we use this information."
                         />

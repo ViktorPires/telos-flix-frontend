@@ -1,7 +1,6 @@
-import { PlayArrowOutlined, StarBorderOutlined } from '@mui/icons-material'
+import { PlayArrowOutlined} from '@mui/icons-material'
 import PrimaryGradientButton from '../primaryGrandientButton'
 import './index.css'
-import SecondaryGradientButton from '../secondaryGrandientButton'
 import { Link } from 'react-router-dom'
 
 

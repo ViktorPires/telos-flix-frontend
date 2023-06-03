@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Home, Search, Book } from "@mui/icons-material";
-import arrow from "./arrow.png";
 import logo from "./Brand.png";
 import LoginButton from "../loginButton";
 import CreateAccountButton from "../createAccountButton";
@@ -24,6 +23,11 @@ import { NavButton } from './styles'
 import CreateFilms from '../../pages/createFilms'
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -102,6 +106,13 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+
   useEffect(() => {
     if (savedUser) {
       setOpen(false)
@@ -120,10 +131,35 @@ export default function Header() {
               justifyContent: "space-between",
             }}
           >
-
-            <img src={logo} alt="logo" />
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem"}}>
+              <img src={logo} alt="logo" />
+              <h1 style={{ fontWeight: "400", letterSpacing: "5px" }}>Télos</h1>
+            </div>
             {savedUser ?
-              (<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>  <Link style={{ textDecoration: "none" }} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+              (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative"}}> <h1 style={{marginRight: "5rem"}}>{savedUser.name}</h1> 
+                <div style={{position: "absolute", right:"0", marginLeft: "0.5rem"}}>
+                  <Accordion sx={{backgroundColor: "#737070", borderRadius: "18px"}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1bh-content"
+                      id="panel1bh-header"
+                    >
+                    </AccordionSummary>
+                    <div style={{marginTop: "-1rem"}}> 
+                      <Typography 
+                      sx={{padding: "0.8rem 0rem"}}
+                      >
+                      <Link style={{textDecoration: "none", color: "#ffff"}} to="/Person"> Perfil </Link>   
+                      </Typography>
+                      <Typography
+                      sx={{padding: "0.2rem 0rem 0.8rem"}}
+                      >
+                      <Link style={{textDecoration: "none", color: "#ffff"}} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>   
+                      </Typography>
+                      </div>
+                  </Accordion>
+                </div>
+                </Box>)
               : (
                 <AppBarActions
                   actions={[
@@ -136,7 +172,7 @@ export default function Header() {
                     <LoginButton
                       onClick={() => {
                         setContentToShow(
-                          <LoginModalContent />
+                          <LoginModalContent setCreateAccountContent={() => { setContentToShow(<CreateAccountModalContent />) }} />
                         );
                         setOpen(true);
                       }}
@@ -144,7 +180,6 @@ export default function Header() {
                   ]}
                 />
               )}
-
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent">

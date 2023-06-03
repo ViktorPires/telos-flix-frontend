@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Autocomplete,
   FormControl,
   OutlinedInput,
-  Snackbar,
   TextField,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -21,8 +19,8 @@ export default function CreateFilms() {
   const [genres, setGenres] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
-  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({})
+  const [showModal, setShowModal] = useState(true);
 
   async function addFilms() {
     if (!title || !description || !year || !genres || !image || !video) {
@@ -41,7 +39,6 @@ export default function CreateFilms() {
         setMessage({ message: "Ocorreu um erro ao criar o filme", color: "	#cc3300" })
       }
     }
-
 
   }
 
@@ -69,6 +66,10 @@ export default function CreateFilms() {
 
   const updateGenres = (_, value) => {
     setGenres(value);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
   };
 
   return (
@@ -104,12 +105,12 @@ export default function CreateFilms() {
                 display: "flex",
                 gap: "42px",
                 margin: "30px 0px",
-                justifyContent: "space-between",
               }}
             >
               <div>
                 <h2>Ano</h2>
                 <Autocomplete
+                  className="color"
                   sx={{
                     background: "rgba(255, 252, 252, 0.05)",
                     boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
@@ -138,10 +139,15 @@ export default function CreateFilms() {
               <div>
                 <h2>Gênero</h2>
                 <Autocomplete
+                  className="color"
                   sx={{
                     background: "rgba(255, 252, 252, 0.05)",
                     boxShadow: " 0px 1px 3px rgba(0, 0, 0, 0.25)",
                     color: "rgba(255, 255, 255, 0.5)",
+                    minWidth: "150px",
+                    "& .MuiAutocomplete-tag": {
+                      color: "rgba(255, 255, 255, 0.5)"
+                    }
                   }}
                   ListboxProps={{
                     style: {
@@ -191,7 +197,7 @@ export default function CreateFilms() {
             </span>
 
             <div className="ContainerButtonFilms">
-              <button style={{ color: "#212121" }}>Cancelar e voltar</button>
+              <button onClick={handleCancel} style={{ color: "#212121" }}>Cancelar e voltar</button>
 
               <button
                 onClick={addFilms}
@@ -213,7 +219,7 @@ export default function CreateFilms() {
           </FormControl>
         </div>
       </div>
-
+       
     </>
   );
 }

@@ -1,3 +1,9 @@
+.dontKnowWhatToWatchContainer {
+  margin-top: 5rem;
+  margin-bottom: 3rem
+}
+
+
 .dontKnowWhatToWatchgrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -5,6 +11,21 @@
   gap: 25px;
   padding-bottom: 20px;
 }
+
+.arrowForward {
+  color: #fff;
+}
+
+.categoryButton:hover > .arrowForward{
+  color: #FFFF00 !important;
+}
+
+.labelSection {
+  font-size: 25px;
+  color: #fff
+}
+
+
 
 .dontKnowWhatToWatch .labelSection {
   display: flex;
@@ -14,11 +35,10 @@
   margin-bottom: 40px;
 }
 
+
 .dontKnowWhatToWatchgrid .categoryButton {
   width: 180px;
   height: 60px;
-
-  /* Color/Neutral/800 */
 
   background: #292929;
   border: 1px solid rgba(238, 238, 238, 0.05);
@@ -27,5 +47,4 @@
   justify-content: space-between;
   padding-left: 22px;
   padding-right: 22px;
-  color: white;
 }
