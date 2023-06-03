@@ -131,35 +131,35 @@ export default function Header() {
               justifyContent: "space-between",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem"}}>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
               <img src={logo} alt="logo" />
               <h1 style={{ fontWeight: "400", letterSpacing: "5px" }}>Télos</h1>
             </div>
             {savedUser ?
-              (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative"}}> <h1 style={{marginRight: "5rem"}}>{savedUser.name}</h1> 
-                <div style={{position: "absolute", right:"0", marginLeft: "0.5rem"}}>
-                  <Accordion sx={{backgroundColor: "#737070", borderRadius: "18px"}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+              (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}> <h1 style={{ marginRight: "5rem" }}>{savedUser.name}</h1>
+                <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>
+                  <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1bh-content"
                       id="panel1bh-header"
                     >
                     </AccordionSummary>
-                    <div style={{marginTop: "-1rem"}}> 
-                      <Typography 
-                      sx={{padding: "0.8rem 0rem"}}
+                    <div style={{ marginTop: "-1rem" }}>
+                      <Typography
+                        sx={{ padding: "0.8rem 0rem" }}
                       >
-                      <Link style={{textDecoration: "none", color: "#ffff"}} to="/Person"> Perfil </Link>   
+                        <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Perfil </Link>
                       </Typography>
                       <Typography
-                      sx={{padding: "0.2rem 0rem 0.8rem"}}
+                        sx={{ padding: "0.2rem 0rem 0.8rem" }}
                       >
-                      <Link style={{textDecoration: "none", color: "#ffff"}} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>   
+                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>
                       </Typography>
-                      </div>
+                    </div>
                   </Accordion>
                 </div>
-                </Box>)
+              </Box>)
               : (
                 <AppBarActions
                   actions={[

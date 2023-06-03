@@ -1,40 +1,41 @@
 import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CustomOutlinedInput from "../customOutlinedInput";
 import { EmailOutlined, PersonOutlined, PhoneOutlined } from "@mui/icons-material";
 import PasswordOutlinedInput from "../passwordOutlinedInput";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
 
-import { api } from "../../server/api";
 import { useNavigate } from "react-router-dom";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 
 function CreateAccountModalContent() {
+  const { createUser } = useContext(AuthenticateContext)
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = React.useState('');
 
-  const navigate = useNavigate()
 
-  function handleSignUp() {
+  async function handleSignUp() {
+
     if (!name || !email || !password) {
-      return alert("Preencha todos os campos")
+      setErrorMessage('Preencha todos os campos')
+    }
+    if (confirmPassword !== password) {
+      setErrorMessage('As senhas precisam ser iguais')
+    }
+    try {
+      await createUser({ name, email, password, age, confirmPassword })
+      window.location.reload(false);
+
+    } catch (err) {
+
     }
 
-    api.post("/users", { name, email, password, age, confirmPassword })
-      .then(() => {
-        alert("Usuário cadastrado com sucesso!")
-        navigate("/films")
-      })
-      .catch((err) => {
-        if (name || email || password) {
-          alert("Usuário já está cadastrado")
-        } else {
-
-        }
-      })
   }
 
   return (
@@ -102,6 +103,8 @@ function CreateAccountModalContent() {
             <label className="inputLabel">Confirmar Senha</label>
             <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha" />
           </div>
+          <span style={{ color: "red" }}>{errorMessage}</span>
+
           <FormControlLabel
             sx={{ marginTop: "42px" }}
             control={<Checkbox style={{ color: "#404040" }} defaultChecked />}

@@ -19,6 +19,14 @@ export default function MovieProvider({ children }) {
     }
   }
 
+  const searchById = async (id) => {
+    try {
+      return await axios.get(`http://localhost:3333/movies/${id}`, { headers: Authorization })
+    } catch (err) {
+      return console.log(err)
+    }
+  }
+
   useEffect(() => {
     try {
       axios.get("http://localhost:3333/movies/genres").then((response) => { setMovieGenres(response.data) })
@@ -44,6 +52,7 @@ export default function MovieProvider({ children }) {
     setMovies: setMovies,
     movies: movies,
     movieGenres: movieGenres,
+    searchById: searchById,
   }
 
   return <MovieContext.Provider value={values}>{children}</MovieContext.Provider>;

@@ -5,6 +5,11 @@ import { AuthenticateContext } from "./AuthenticateContext";
 export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
 
+  const createUser = async ({ name, email, password, age }) => {
+    const response = await axios.post("http://localhost:3333/users", { name, email, password, age })
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+
   const login = async ({ email, password }) => {
     try {
       const { data } = await axios.post("http://localhost:3333/authenticate", { email, password })
@@ -21,7 +26,8 @@ export default function AuthenticateProvider({ children }) {
   const values = {
     login: login,
     authenticateData: authenticateData,
-    savedUser: JSON.parse(savedUser)
+    savedUser: JSON.parse(savedUser),
+    createUser: createUser,
   }
 
   return <AuthenticateContext.Provider value={values}>{children}</AuthenticateContext.Provider>;

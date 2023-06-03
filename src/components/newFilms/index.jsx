@@ -1,11 +1,10 @@
-import { PlayArrowOutlined} from '@mui/icons-material'
+import { PlayArrowOutlined } from '@mui/icons-material'
 import PrimaryGradientButton from '../primaryGrandientButton'
 import './index.css'
 import { Link } from 'react-router-dom'
 
 
 export function NewFilms({ movie }) {
-
   return (
     <>
       <div className="containerFilms">
