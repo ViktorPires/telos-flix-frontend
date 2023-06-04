@@ -4,6 +4,8 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/system";
 import "./index.css";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { useContext, useState } from "react";
+import { MovieContext } from "../../contexts/MovieContext";
 
 const CenteredContainer = styled("div")`
   position: absolute;
@@ -49,11 +51,20 @@ const StyledRating = styled(Rating)`
   }
 `;
 
-export default function RatingSize() {
-  const [show, setShow] = React.useState(true);
-  const handleClick = () => {
+export default function RatingModal({movieId}) {
+  const { createComment } = useContext(MovieContext);
+  const [show, setShow] = useState(true);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const handleClose = () => {
     setShow(!show);
   };
+
+  const handleClick = () => {
+    console.log (movieId) 
+    createComment(comment, rating, movieId)
+  };
+  
 
   return (
     <>
@@ -68,6 +79,7 @@ export default function RatingSize() {
             flexDirection: "column",
           }}
         >
+<>    {movieId.toString}</>
           <h1>O que você achou do filme ? </h1>
           <p>
             Dê cinco estrelas se recomendaria para seus amigos e uma caso possa
@@ -75,7 +87,9 @@ export default function RatingSize() {
           </p>
         </div>
         <Stack spacing={1}>
-          <StyledRating name="size-large" defaultValue={2} size="large" />
+          <StyledRating  value={rating}  onChange={(event, newValue) => {
+          setRating(newValue);
+        }} name="size-large" defaultValue={2} size="large" />
         </Stack>
 
         <div>
@@ -91,6 +105,7 @@ export default function RatingSize() {
               border: "none",
               color: "rgba(255, 255, 255, 0.5)",
             }}
+            onChange={(event)=> setComment(event.target.value)}
             placeholder="Placeholder"
             type="text"
             startAdornment={
@@ -101,9 +116,9 @@ export default function RatingSize() {
           />
 
           <div className="AvaliationButton">
-            <button onClick={handleClick}>Não to afim agora</button>
+            <button onClick={handleClose}>Não to afim agora</button>
 
-            <button>Enviar</button>
+            <button onClick={handleClick}>Enviar</button>
           </div>
         </div>
       </CenteredContainer>

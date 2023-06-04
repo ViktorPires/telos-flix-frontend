@@ -7,6 +7,7 @@ export default function MovieProvider({ children }) {
 
   const [movies, setMovies] = useState([]);
   const [movieGenres, setMovieGenres] = useState([])
+  const [movieComments, setMovieComments] = useState([])
   const { savedUser } = useContext(AuthenticateContext)
 
   const Authorization = savedUser ? {
@@ -14,7 +15,26 @@ export default function MovieProvider({ children }) {
       'Authorization': 'Bearer ' + savedUser.token
     }
   } : {}
-
+  const apiUrl = "http://localhost:3333"
+  const createComment = (content, rating, id) => { 
+    try {
+      axios.post(`${apiUrl}/comments/movie/${id}`, {content, rating}, Authorization).then((response) => { console.log(response.data); 
+        setMovieComments([...movieComments, response.data]) })
+    } catch (err) {
+      return console.log(err)
+    }
+  }
+  const getComments = (id) => { 
+    try {
+      axios.get(`${apiUrl}/comments/movie/${id}`, Authorization).then((response) => { 
+        console.log(response.data); 
+        setMovieComments(response.data) 
+        return response.data
+      })
+    } catch (err) {
+      return console.log(err)
+    }
+  }
   const search = (title, genre) => {
     try {
       axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, Authorization }).then((response) => { console.log(response.data); setMovies(response.data) })
@@ -47,7 +67,10 @@ export default function MovieProvider({ children }) {
     search: search,
     setMovies: setMovies,
     movies: movies,
-    movieGenres: movieGenres,
+    movieGenres: movieGenres, 
+    createComment: createComment,
+    comments: movieComments,
+    getComments: getComments,
   }
 
   return <MovieContext.Provider value={values}>{children}</MovieContext.Provider>;

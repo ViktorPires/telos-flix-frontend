@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { CarouselNote } from "../../components/carouselNote";
-import { NewFilms } from "../../components/newFilms";
+import { FilmDescription } from "../../components/newFilms";
 import { useParams } from "react-router-dom";
 import { MovieContext } from "../../contexts/MovieContext";
 import { useEffect } from "react";
@@ -8,7 +8,7 @@ import Header from "../../components/header";
 
 function Films() {
 
-  const { movies } = useContext(MovieContext);
+  const { movies, createComment, comments, getComments } = useContext(MovieContext);
   const { id } = useParams()
   const [movieSelected, setMovieSelected] = useState({
     title: "",
@@ -18,9 +18,9 @@ function Films() {
   useEffect(() => {
 
     const movie = movies.find(item => item._id === id)
-
+    console.log(comments)
     setMovieSelected(movie)
-
+    getComments(id)
     console.log("route" + id)
   }, [])
 
@@ -28,8 +28,8 @@ function Films() {
   return (
     <>
       <Header />
-      <NewFilms movie={movieSelected} />
-      <CarouselNote />
+      <FilmDescription movie={movieSelected} />
+      <CarouselNote comments={comments} movieId={id} />
     </>
   );
 }

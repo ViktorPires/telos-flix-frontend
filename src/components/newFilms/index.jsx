@@ -5,7 +5,7 @@ import SecondaryGradientButton from '../secondaryGrandientButton'
 import { Link } from 'react-router-dom'
 
 
-export function NewFilms({ movie }) {
+export function FilmDescription({ movie }) {
 
   return (
     <>

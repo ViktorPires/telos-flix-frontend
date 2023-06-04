@@ -10,12 +10,12 @@ import "keen-slider/keen-slider.min.css";
 
 import "./index.css";
 import { useState } from "react";
-import RatingSIze from "../avaliation";
+import RatingModal from "../avaliation";
 
-export function CarouselNote() {
+export function CarouselNote({ comments, movieId }) {
   const [filmsModal, setFilmsModal] = useState(false);
   const [show, setShow] = useState(false);
-
+  console.log("comments", comments)
   const handleClick = () => {
     setShow(!show);
   };
@@ -82,7 +82,8 @@ export function CarouselNote() {
             />
           </div>
         </div>
-        {show && <RatingSIze />}
+        {show && <RatingModal movieId={movieId} />}
+
         <div style={{ display: "flex", alignItems: "center", gap: "33px" }}>
           <div
             style={{
@@ -202,68 +203,16 @@ export function CarouselNote() {
               </h6>
             </div>
 
-            <div ref={sliderRef} className="keen-slider" style={{width: "800px"}}>
-              <div
-                className="keen-slider__slide number-slide1"
-                style={{ display: "flex", gap: "20px"}}
-              >
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-              </div>
-
+            <div ref={sliderRef} className="keen-slider" style={{ width: "800px" }}>
               <div
                 className="keen-slider__slide number-slide1"
                 style={{ display: "flex", gap: "20px" }}
               >
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
+                { comments?.map(el => {
+                  return (<div className="carouselCard" style={{ textAlign: "start" }}>
+                  <h1>{el.user_id.name}</h1>
                   <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
+                   {el.content}
                   </p>
                   <div
                     style={{
@@ -272,88 +221,15 @@ export function CarouselNote() {
                       gap: "15px",
                     }}
                   >
-                    <span>4.5</span>
+                    <span>{el.rating}</span>
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
                     <StarBorderPurple500Outlined />
                   </div>
-                </div>
-
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="keen-slider__slide number-slide1"
-                style={{ display: "flex", gap: "20px" }}
-              >
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
-
-                <div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>Paula Rust</h1>
-                  <p style={{ width: "300px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>4.5</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>
+                </div>)
+                })}
               </div>
             </div>
           </div>
