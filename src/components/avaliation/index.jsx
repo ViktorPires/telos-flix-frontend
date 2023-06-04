@@ -51,7 +51,7 @@ const StyledRating = styled(Rating)`
   }
 `;
 
-export default function RatingModal({movieId}) {
+export default function RatingModal({ movieId }) {
   const { createComment } = useContext(MovieContext);
   const [show, setShow] = useState(true);
   const [comment, setComment] = useState("");
@@ -61,67 +61,65 @@ export default function RatingModal({movieId}) {
   };
 
   const handleClick = () => {
-    console.log (movieId) 
     createComment(comment, rating, movieId)
   };
-  
+
 
   return (
     <>
-    {show &&
-      <CenteredContainer>
-        <div
-          style={{
-            width: "350px",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-<>    {movieId.toString}</>
-          <h1>O que você achou do filme ? </h1>
-          <p>
-            Dê cinco estrelas se recomendaria para seus amigos e uma caso possa
-            até falar mal para eles.
-          </p>
-        </div>
-        <Stack spacing={1}>
-          <StyledRating  value={rating}  onChange={(event, newValue) => {
-          setRating(newValue);
-        }} name="size-large" defaultValue={2} size="large" />
-        </Stack>
-
-        <div>
-          <h2>Tem algum comentário ?</h2>
-
-          <OutlinedInput
-            sx={{
-              background: "#3D4757",
-              boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
-              height: "75px",
-              width: "370px",
-              borderRadius: "15px;",
-              border: "none",
-              color: "rgba(255, 255, 255, 0.5)",
+      {show &&
+        <CenteredContainer>
+          <div
+            style={{
+              width: "350px",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "center",
+              flexDirection: "column",
             }}
-            onChange={(event)=> setComment(event.target.value)}
-            placeholder="Placeholder"
-            type="text"
-            startAdornment={
-              <InputAdornment>
-                <IconButton></IconButton>
-              </InputAdornment>
-            }
-          />
-
-          <div className="AvaliationButton">
-            <button onClick={handleClose}>Não to afim agora</button>
-
-            <button onClick={handleClick}>Enviar</button>
+          >
+            <h1>O que você achou do filme ? </h1>
+            <p>
+              Dê cinco estrelas se recomendaria para seus amigos e uma caso possa
+              até falar mal para eles.
+            </p>
           </div>
-        </div>
-      </CenteredContainer>
+          <Stack spacing={1}>
+            <StyledRating value={rating} onChange={(event, newValue) => {
+              setRating(newValue);
+            }} name="size-large" defaultValue={2} size="large" />
+          </Stack>
+
+          <div>
+            <h2>Tem algum comentário ?</h2>
+
+            <OutlinedInput
+              sx={{
+                background: "#3D4757",
+                boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+                height: "75px",
+                width: "370px",
+                borderRadius: "15px;",
+                border: "none",
+                color: "rgba(255, 255, 255, 0.5)",
+              }}
+              onChange={(event) => setComment(event.target.value)}
+              placeholder="Placeholder"
+              type="text"
+              startAdornment={
+                <InputAdornment>
+                  <IconButton></IconButton>
+                </InputAdornment>
+              }
+            />
+
+            <div className="AvaliationButton">
+              <button onClick={handleClose}>Não to afim agora</button>
+
+              <button onClick={handleClick}>Enviar</button>
+            </div>
+          </div>
+        </CenteredContainer>
       }
     </>
   );

@@ -23,8 +23,8 @@ import { NavButton } from './styles'
 import CreateFilms from '../../pages/createFilms'
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import arrow from './arrow.png'
 import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -121,7 +121,7 @@ export default function Header() {
   }, [savedUser])
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <><Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" elevation={0} sx={{ paddingTop: 3 }}>
         <Toolbar
@@ -130,10 +130,33 @@ export default function Header() {
             justifyContent: "space-between",
           }}
         >
-         
+
           <img src={logo} alt="logo" />
           {savedUser ?
-            (<Box sx={{ display: "flex", alignItems: "center", width: 150, justifyContent: "space-between" }}>  <Link style={{textDecoration: "none"}} to="/Person"> <h1>{savedUser.name}</h1> </Link><button onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} style={{ background: "none", border: "none", cursor: "Pointer" }} to="/"><img src={arrow} alt="Log out" /></button></Box>)
+            (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}> <h1 style={{ marginRight: "5rem", background: "red", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "18px", marginTop: "-0.1rem" }}>{savedUser.name.charAt(0).toUpperCase()}</h1>
+              <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>
+                <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                  >
+                  </AccordionSummary>
+                  <div style={{ marginTop: "-1rem" }}>
+                    <Typography
+                      sx={{ padding: "0.8rem 0rem" }}
+                    >
+                      <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Perfil </Link>
+                    </Typography>
+                    <Typography
+                      sx={{ padding: "0.2rem 0rem 0.8rem" }}
+                    >
+                      <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>
+                    </Typography>
+                  </div>
+                </Accordion>
+              </div>
+            </Box>)
             : (
               <AppBarActions
                 actions={[
@@ -141,18 +164,15 @@ export default function Header() {
                     onClick={() => {
                       setContentToShow(<CreateAccountModalContent />);
                       setOpen(true);
-                    }}
-                  />,
+                    }} />,
                   <LoginButton
                     onClick={() => {
                       setContentToShow(
                         <LoginModalContent />
                       );
                       setOpen(true);
-                    }}
-                  />,
-                ]}
-              />
+                    }} />,
+                ]} />
             )}
 
         </Toolbar>
@@ -163,7 +183,6 @@ export default function Header() {
             {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
-
         <List
           sx={{
             height: "100%",
@@ -201,7 +220,7 @@ export default function Header() {
                       <Typography
                         sx={{ padding: "0.2rem 0rem 0.8rem" }}
                       >
-                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>
+                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false); }} to="/"> Sair </Link>
                       </Typography>
                     </div>
                   </Accordion>
@@ -214,65 +233,65 @@ export default function Header() {
                       onClick={() => {
                         setContentToShow(<CreateAccountModalContent />);
                         setOpen(true);
-                      }}
-                    />,
+                      }} />,
                     <LoginButton
                       onClick={() => {
                         setContentToShow(
-                          <LoginModalContent setCreateAccountContent={() => { setContentToShow(<CreateAccountModalContent />) }} />
+                          <LoginModalContent setCreateAccountContent={() => { setContentToShow(<CreateAccountModalContent />); }} />
                         );
                         setOpen(true);
-                      }}
-                    />,
-                  ]}
-                />
+                      }} />,
+                  ]} />
               )}
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent">
-          <DrawerHeader>
-            <IconButton sx={{ color: "#fff" }}>
-              {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </DrawerHeader>
+          </Box>
+        </List>
+      </Drawer>
 
-          <List
+
+      <Drawer variant="permanent">
+        <DrawerHeader>
+          <IconButton sx={{ color: "#fff" }}>
+            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+
+        <List
+          sx={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <Box
             sx={{
-              height: "100%",
               display: "flex",
+              justifyContent: "space-between",
               flexDirection: "column",
-              justifyContent: "center",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexDirection: "column",
-              }}
-            >
-              <NavButton href="/">
-                <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-              </NavButton>
+            <NavButton href="/">
+              <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>
 
-              <NavButton href="/cardsFilms">
-                <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-              </NavButton>
+            <NavButton href="/cardsFilms">
+              <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>
 
-              {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
-                setOpen(true);
-                setContentToShow(<CreateFilms />)
-              }}>
-                <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-              </NavButton>) : ""}
-            </Box>
-          </List>
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-        </Box>
-        <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
+            {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
+              setOpen(true);
+              setContentToShow(<CreateFilms />);
+            }}>
+              <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+            </NavButton>) : ""}
+          </Box>
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
       </Box>
+      <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
+    </Box >
     </>
   );
 }

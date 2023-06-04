@@ -10,7 +10,7 @@ import { PlayArrowOutlined } from "@mui/icons-material";
 
 function Films() {
 
-  const { movies, createComment, comments, getComments } = useContext(MovieContext);
+  const { movies, createComment, comments, getComments, searchById } = useContext(MovieContext);
   const { id } = useParams()
   const [movie, setMovie] = useState({
     title: "",
@@ -25,18 +25,16 @@ function Films() {
     fetchData()
   }, [id, searchById])
 
-    const movie = movies.find(item => item._id === id)
-    console.log(comments)
-    setMovieSelected(movie)
-    getComments(id)
-    console.log("route" + id)
+  useEffect(() => {
+    const teste = getComments(id)
+    console.log(teste)
   }, [])
 
 
   return (
     <>
       <Header />
-      <FilmDescription movie={movieSelected} />
+      <FilmDescription movie={movie} />
       <CarouselNote comments={comments} movieId={id} />
     </>
   );

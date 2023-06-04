@@ -15,7 +15,6 @@ import RatingModal from "../avaliation";
 export function CarouselNote({ comments, movieId }) {
   const [filmsModal, setFilmsModal] = useState(false);
   const [show, setShow] = useState(false);
-  console.log("comments", comments)
   const handleClick = () => {
     setShow(!show);
   };
@@ -208,27 +207,27 @@ export function CarouselNote({ comments, movieId }) {
                 className="keen-slider__slide number-slide1"
                 style={{ display: "flex", gap: "20px" }}
               >
-                { comments?.map(el => {
+                {comments?.map(el => {
                   return (<div className="carouselCard" style={{ textAlign: "start" }}>
-                  <h1>{el.user_id.name}</h1>
-                  <p style={{ width: "300px" }}>
-                   {el.content}
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>{el.rating}</span>
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                    <StarBorderPurple500Outlined />
-                  </div>
-                </div>)
+                    <h1>{el.user_id.name}</h1>
+                    <p style={{ width: "300px" }}>
+                      {el.content}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                      }}
+                    >
+                      <span>{el.rating}</span>
+                      <StarBorderPurple500Outlined />
+                      <StarBorderPurple500Outlined />
+                      <StarBorderPurple500Outlined />
+                      <StarBorderPurple500Outlined />
+                      <StarBorderPurple500Outlined />
+                    </div>
+                  </div>)
                 })}
               </div>
             </div>
