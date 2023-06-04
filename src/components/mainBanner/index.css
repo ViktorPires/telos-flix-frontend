@@ -1,7 +1,5 @@
 .slider {
-  heigth: 250px;
   margin: auto;
-  positon: relative;
   width: 90%;
   display: grid;
   place-items: center;
@@ -30,7 +28,6 @@
 }
 
 .slide {
-  heigth: 200px;
   width: 250px;
   display: flex;
   align-items: center;
@@ -50,8 +47,6 @@
 .slider::before,
 .slider::after {
   content: "";
-  heigth: 100%;
-  positon: absolute;
   width: 15%;
   z-index: 2;
 }

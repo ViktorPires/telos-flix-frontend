@@ -7,7 +7,6 @@ import "./index.css";
 
 function MainBanner() {
   const { movies } = useContext(MovieContext);
-  console.log(movies)
 
   return (
     <div className="slider">

@@ -23,8 +23,9 @@ function AuthProvider({ children }) {
   async function updateProfile({ id, name, email, age }) {
     try {
       await api.put(`users/${id}`, { name, email, age, password: null }).then(response => {
-        const user = localStorage.getItem("user");
-        console.log(JSON.parse(user))
+        const { token } = JSON.parse(localStorage.getItem("user"));
+        response.data.token = token
+
         localStorage.setItem("user", JSON.stringify(response.data))
       })
     } catch (error) {
