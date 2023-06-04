@@ -5,6 +5,7 @@
   height: 100%;
   padding: 0 !important;
 }
+
 .loginModalContent .firstSection {
   background: rgba(238, 238, 238, 0.05);
   height: 100%;
@@ -15,18 +16,23 @@
   line-height: 38px;
   display: flex;
   flex-direction: column;
+  color: #fff;
 }
+
 .loginModalContent .firstSection .imageContainer {
   margin-top: 96px;
   width: 100%;
   display: flex;
   justify-content: end;
 }
+
 .loginModalContent .secondSection {
   display: flex;
   justify-content: center;
   align-items: center;
+ 
 }
+
 .loginModalContent .secondSection .inputLabel {
   font-style: normal;
   font-weight: 800;
@@ -34,18 +40,21 @@
   line-height: 20px;
   color: #eeeeee;
 }
+
 .loginModalContent .secondSection .inputContainer {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.loginModalContent .secondSection .buttonsSection{
-  margin-top: 88px;
+
+.loginModalContent .secondSection .buttonsSection {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.loginModalContent .secondSection .buttonsSection .primaryGrandientButton, .secondSection .buttonsSection .secondaryGrandientButton{
-  height: 50px!important;
+
+.loginModalContent .secondSection .buttonsSection .primaryGrandientButton,
+.secondSection .buttonsSection .secondaryGrandientButton {
+  height: 50px !important;
   border-radius: 20px;
 }

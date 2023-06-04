@@ -4,6 +4,7 @@
   width: 100%;
   height: 100%;
   padding: 0 !important;
+  color: #fff;
 }
 .createAccountModalContent .firstSection {
   height: 100%;
@@ -12,8 +13,8 @@
   flex-direction: column;
 }
 .createAccountModalContent .secondSection {
-  height: 100%;
   padding: 15px 40px;
+  margin-top: 5.8rem;
 }
 
 .createAccountModalContent .firstSection > span {

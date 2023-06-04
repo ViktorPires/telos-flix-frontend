@@ -37,7 +37,15 @@ export default function MovieProvider({ children }) {
   }
   const search = (title, genre) => {
     try {
-      axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, Authorization }).then((response) => { console.log(response.data); setMovies(response.data) })
+      axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, headers: Authorization }).then((response) => { console.log(response.data); setMovies(response.data) })
+    } catch (err) {
+      return console.log(err)
+    }
+  }
+
+  const searchById = async (id) => {
+    try {
+      return await axios.get(`http://localhost:3333/movies/${id}`, { headers: Authorization })
     } catch (err) {
       return console.log(err)
     }
@@ -53,7 +61,7 @@ export default function MovieProvider({ children }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3333/movies", Authorization)
+      .get("http://localhost:3333/movies", { headers: Authorization })
       .then((response) => {
         setMovies(response.data);
       })

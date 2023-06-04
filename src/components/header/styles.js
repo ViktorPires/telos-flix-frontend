@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const NavButton = styled.a`
   display: flex;
@@ -6,7 +6,6 @@ export const NavButton = styled.a`
   align-items: center;
   padding: 0.75rem;
   margin: 0.5rem;
-
 
   border: none;
   background: none;
@@ -17,9 +16,7 @@ export const NavButton = styled.a`
     background-color: #fff;
 
     svg {
-      color: #252525
+      color: #252525;
     }
   }
-
-
-`
+`;

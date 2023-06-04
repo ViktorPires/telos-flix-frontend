@@ -6,6 +6,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  margin-top: 5rem
 }
 
 .slideTrack {

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
+import { Alert, FormControl, FormControlLabel, IconButton, InputAdornment, Snackbar } from "@mui/material";
 import { DnsRounded, EastOutlined, EmailOutlined, InfoRounded, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import CustomOutlinedInput from "../customOutlinedInput";
@@ -18,7 +18,9 @@ export function Profile() {
     const [age, setAge] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const { updateProfile, updateProfilePassword } = useAuth();
     const navigate = useNavigate();
@@ -33,7 +35,8 @@ export function Profile() {
             };
 
             await updateProfile(payload).then((statusCode) => {
-                console.log("deu certo :  ", statusCode);
+                setSuccessMessage("Usuário alterado com sucesso")
+                setOpen(true)
                 setUpdateTrigger(true);
             });
         } catch (error) {
@@ -51,7 +54,8 @@ export function Profile() {
             };
 
             await updateProfilePassword(payloadPassword).then((statusCode) => {
-                console.log("deu certo :  ", statusCode);
+                setSuccessMessage("Senha alterada com sucesso")
+                setOpen(true)
             });
         } catch (error) {
             console.log("deu erro : ", error);
@@ -67,6 +71,11 @@ export function Profile() {
 
     return (
         <div>
+            <Snackbar open={open} autoHideDuration={6000} onClose={() => { setOpen(false) }}>
+                <Alert onClose={() => { setOpen(false) }} severity="success" sx={{ width: '100%' }}>
+                    {successMessage}
+                </Alert>
+            </Snackbar>
             <div className="modifyPerson">
                 <div style={{ height: "150px", borderBottom: "1px solid #A9A9A9 ", marginTop: "-1rem" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
@@ -89,7 +98,7 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setName(e.target.value)}
                                 setValue={setName}
-                                placeholder="Nome"
+                                placeholder={savedUser?.name}
                                 type="text"
                                 startAdornment={
                                     <InputAdornment>
@@ -105,7 +114,7 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setEmail(e.target.value)}
                                 setValue={setEmail}
-                                placeholder="E-mail"
+                                placeholder={savedUser?.email}
                                 type="text"
                                 startAdornment={
                                     <InputAdornment>
@@ -117,16 +126,16 @@ export function Profile() {
                             />
                         </div>
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
-                            <label className="inputLabel">Informe o ano de nascimento</label>
+                            <label className="inputLabel">Celular</label>
                             <CustomOutlinedInput
                                 onChange={(e) => setAge(e.target.value)}
                                 setValue={setAge}
-                                placeholder="ano de nascimento"
+                                placeholder={savedUser?.age}
                                 type="text"
                             />
                         </div>
                         <FormControlLabel
-                            sx={{ marginTop: "42px", width: "700px", textAlign: "start", fontSize: "14px", display: "flex", gap: "10px" }}
+                            sx={{ marginTop: "42px", width: "700px", textAlign: "start", fontSize: "14px", display: "flex", gap: "10px", color: "#fff" }}
                             control={<InfoRounded />}
                             label="Please see our privacy statement to learn more about how we use this information."
                         />
