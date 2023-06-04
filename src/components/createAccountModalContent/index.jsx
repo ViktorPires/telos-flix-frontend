@@ -24,9 +24,11 @@ function CreateAccountModalContent() {
 
     if (!name || !email || !password) {
       setErrorMessage('Preencha todos os campos')
+      return
     }
     if (confirmPassword !== password) {
       setErrorMessage('As senhas precisam ser iguais')
+      return
     }
     try {
       await createUser({ name, email, password, age, confirmPassword })

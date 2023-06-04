@@ -11,7 +11,7 @@ import PasswordOutlinedInput from "../passwordOutlinedInput";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 
 export default function LoginModalContent({ setCreateAccountContent }) {
-  const { login} = useContext(AuthenticateContext)
+  const { login } = useContext(AuthenticateContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("teste");
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -19,7 +19,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
   const onLoginButtonClicked = async () => {
     const { response } = await login({ email, password });
     if (response.status === 400) {
-      setErrorMessage('Algo deu errado, tente novamente')
+      setErrorMessage('Email ou senha invalidos')
     }
   }
 

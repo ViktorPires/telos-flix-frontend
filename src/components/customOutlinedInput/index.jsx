@@ -7,6 +7,7 @@ export default function CustomOutlinedInput({
   placeholder,
   type,
   setValue,
+  defaultValue = "",
 }) {
   const onChangedValue = (event) => {
     setValue(event.target.value);
@@ -26,6 +27,7 @@ export default function CustomOutlinedInput({
       type={type}
       startAdornment={startAdornment}
       endAdornment={endAdornment}
+      defaultValue={defaultValue}
     ></OutlinedInput>
   );
 }

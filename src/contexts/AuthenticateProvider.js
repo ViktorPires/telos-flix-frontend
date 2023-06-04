@@ -6,8 +6,7 @@ export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
 
   const createUser = async ({ name, email, password, age }) => {
-    const response = await axios.post("http://localhost:3333/users", { name, email, password, age })
-    localStorage.setItem("user", JSON.stringify(response.data));
+    await axios.post("http://localhost:3333/users", { name, email, password, age })
   }
 
   const login = async ({ email, password }) => {

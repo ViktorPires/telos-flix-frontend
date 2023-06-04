@@ -131,7 +131,10 @@ export default function Header() {
           }}
         >
 
-          <img src={logo} alt="logo" />
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <img src={logo} alt="logo" />
+            <h1>Télos <span style={{ textTransform: 'uppercase', color: "#fff" }}>FLIX</span></h1>
+          </div>
           {savedUser ?
             (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}> <h1 style={{ marginRight: "5rem", background: "red", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "18px", marginTop: "-0.1rem" }}>{savedUser.name.charAt(0).toUpperCase()}</h1>
               <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>

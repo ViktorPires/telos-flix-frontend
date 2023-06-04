@@ -12,8 +12,8 @@ function MainBanner() {
   return (
     <div className="slider">
       <div className="slideTrack">
-        <div  className="slide">
-          {movies.slice(1, 12).map((movie) => (
+        <div className="slide">
+          {movies.slice(1, 25).map((movie) => (
             <Link to={`/films/${movie._id}`}>
               <img style={{ width: "400px", height: "500px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
             </Link>

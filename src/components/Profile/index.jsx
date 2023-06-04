@@ -98,8 +98,9 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setName(e.target.value)}
                                 setValue={setName}
-                                placeholder={savedUser?.name}
+                                placeholder="Insira seu nome"
                                 type="text"
+                                defaultValue={savedUser?.name}
                                 startAdornment={
                                     <InputAdornment>
                                         <IconButton>
@@ -114,8 +115,9 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setEmail(e.target.value)}
                                 setValue={setEmail}
-                                placeholder={savedUser?.email}
+                                placeholder="Insira seu email"
                                 type="text"
+                                defaultValue={savedUser?.email}
                                 startAdornment={
                                     <InputAdornment>
                                         <IconButton>
@@ -130,7 +132,8 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setAge(e.target.value)}
                                 setValue={setAge}
-                                placeholder={savedUser?.age}
+                                defaultValue={savedUser?.age}
+                                placeholder="Insira seu celular"
                                 type="text"
                             />
                         </div>

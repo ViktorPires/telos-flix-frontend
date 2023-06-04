@@ -23,7 +23,8 @@
   0% {
     transform: translateX(0);
   }
-  100%{
+
+  100% {
     transform: translateX(calc(-250px * 9));
   }
 }
@@ -37,7 +38,7 @@
   perspective: 100px;
 }
 
-.slide  img {
+.slide img {
   width: 100%;
   transition: all 0.3s ease;
 }

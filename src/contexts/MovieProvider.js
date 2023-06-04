@@ -37,7 +37,7 @@ export default function MovieProvider({ children }) {
   }
   const search = (title, genre) => {
     try {
-      axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, headers: Authorization }).then((response) => { console.log(response.data); setMovies(response.data) })
+      axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, headers: Authorization }).then((response) => { setMovies(response.data) })
     } catch (err) {
       return console.log(err)
     }
