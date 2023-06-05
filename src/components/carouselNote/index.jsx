@@ -26,9 +26,11 @@ export function CarouselNote({ comments, movieId }) {
       ]
     }
     const counts = [0, 0, 0, 0, 0];
+
     comments.forEach(({ rating }) => {
       counts[rating - 1]++;
     });
+
     const percentage = counts.map((count) => (count / totalVotes) * 100);
     const values = [
       { rate: 1, percentage: percentage[0] },
@@ -53,7 +55,7 @@ export function CarouselNote({ comments, movieId }) {
 
   const getAverageRating = () => {
     const total = comments.reduce((sum, { rating }) => sum + rating, 0);
-    return comments.length? total / comments.length:0.0;
+    return comments.length ? total / comments.length : 0.0;
   };
 
   const getAmountOfRating = (ratingValue) => {
@@ -219,7 +221,6 @@ export function CarouselNote({ comments, movieId }) {
                     >
                       <span>{el.rating.toFixed(1)}</span>
                       {mountStars(el.rating)}
-
                     </div>
                   </div>)
                 })}
