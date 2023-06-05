@@ -10,12 +10,18 @@ import { Link, useParams } from 'react-router-dom';
 export default function CardsFilms() {
   const { genre } = useParams();
 
-  const { movies, search, movieGenres } = useContext(MovieContext);
+  const { search, movieGenres } = useContext(MovieContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(genre);
+  const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    search(searchTerm, selectedCategory)
+    async function handleMovies() {
+      const movies = await search(searchTerm, selectedCategory)
+      console.log(movies)
+      setMovies(movies)
+    }
+    handleMovies()
   }, [searchTerm, selectedCategory])
 
   return (
