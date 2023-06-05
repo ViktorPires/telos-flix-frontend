@@ -6,6 +6,7 @@ import { ArrowForward } from '@mui/icons-material';
 import Header from '../../components/header';
 import { MovieContext } from '../../contexts/MovieContext';
 import { Link, useParams } from 'react-router-dom';
+import { Zoom } from 'react-reveal';
 
 export default function CardsFilms() {
   const { genre } = useParams();
@@ -56,23 +57,27 @@ export default function CardsFilms() {
             </form>
           </div>
           <div className='grid-cardsFilms'>
+
             {movies.map(movie => (
-              <Link to={`/films/${movie._id}`} key={movie._id}>
-                <div className="miniVideoCard">
-                  <img
-                    style={{ marginTop: "1rem", objectFit: "cover", height: "100%", borderRadius: 12 }}
-                    src={movie.image}
-                    alt={movie.title}
-                  />
-                  <div style={{ margin: "0 auto" }}>
-                    <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
+              <Zoom top distance="30%" duraction={1500}>
+                <Link to={`/films/${movie._id}`} key={movie._id} style={{ textDecoration: "none" }}>
+                  <div className="miniVideoCard">
+
+                    <img
+                      style={{ marginTop: "1rem", objectFit: "cover", height: "100%", borderRadius: 12 }}
+                      src={movie.image}
+                      alt={movie.title}
+                    />
+                    <div style={{ margin: "0 auto" }}>
+                      <h1 style={{ fontSize: "14px", }}>{movie.title}</h1>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </Zoom>
             ))}
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }
