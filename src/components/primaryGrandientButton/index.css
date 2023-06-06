@@ -31,4 +31,6 @@ button.primaryGrandientButton {
   align-items: center;
 
   color: #212121;
+
+  min-width: 180px;
 }

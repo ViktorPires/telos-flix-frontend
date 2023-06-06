@@ -4,14 +4,14 @@ import EnjoyForFree from "../../components/enjoyForFree";
 import './index.css'
 import DontKnowWhatToWatch from "../../components/dontKnowWhatToWatch";
 import Header from "../../components/header";
-import MainBanner from "../../components/mainBanner";
+import HomeCarousel from "../../components/HomeCarousel";
 
 function Home() {
   return (
     <div>
       <Header />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <MainBanner />
+        <HomeCarousel />
         <div className="sectionsGrid">
           <Trending />
           <EnjoyForFree />

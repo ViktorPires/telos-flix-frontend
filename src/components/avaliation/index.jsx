@@ -1,10 +1,9 @@
-import * as React from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/system";
 import "./index.css";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
-import { useContext, useState } from "react";
 import { MovieContext } from "../../contexts/MovieContext";
 
 const CenteredContainer = styled("div")`
@@ -56,19 +55,34 @@ export default function RatingModal({ movieId }) {
   const [show, setShow] = useState(true);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
+  const modalRef = useRef(null); // Referência para o elemento do modal
+
   const handleClose = () => {
-    setShow(!show);
+    setShow(false);
   };
 
   const handleClick = () => {
-    createComment(comment, rating, movieId)
+    createComment(comment, rating, movieId);
   };
 
+  const handleOutsideClick = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      // Verifica se o alvo do clique está fora do modal
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <>
-      {show &&
-        <CenteredContainer>
+      {show && (
+        <CenteredContainer ref={modalRef}>
           <div
             style={{
               width: "350px",
@@ -78,20 +92,25 @@ export default function RatingModal({ movieId }) {
               flexDirection: "column",
             }}
           >
-            <h1>O que você achou do filme ? </h1>
+            <h1>What did you think of the movie?</h1>
             <p>
-              Dê cinco estrelas se recomendaria para seus amigos e uma caso possa
-              até falar mal para eles.
+              Give five stars if you recommend it to your friends and one if you can even speak ill of the
             </p>
           </div>
           <Stack spacing={1}>
-            <StyledRating value={rating} onChange={(event, newValue) => {
-              setRating(newValue);
-            }} name="size-large" defaultValue={2} size="large" />
+            <StyledRating
+              value={rating}
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+              name="size-large"
+              defaultValue={2}
+              size="large"
+            />
           </Stack>
 
           <div>
-            <h2>Tem algum comentário ?</h2>
+            <h2>Do you have any comments?</h2>
 
             <OutlinedInput
               sx={{
@@ -104,7 +123,7 @@ export default function RatingModal({ movieId }) {
                 color: "rgba(255, 255, 255, 0.5)",
               }}
               onChange={(event) => setComment(event.target.value)}
-              placeholder="Placeholder"
+              placeholder="inform evaluation"
               type="text"
               startAdornment={
                 <InputAdornment>
@@ -114,13 +133,13 @@ export default function RatingModal({ movieId }) {
             />
 
             <div className="AvaliationButton">
-              <button onClick={handleClose}>Não to afim agora</button>
+              <button onClick={handleClose}>Close</button>
 
-              <button onClick={handleClick}>Enviar</button>
+              <button onClick={handleClick}>Send</button>
             </div>
           </div>
         </CenteredContainer>
-      }
+      )}
     </>
   );
 }

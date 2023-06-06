@@ -23,11 +23,11 @@ import { NavButton } from './styles'
 import CreateFilms from '../../pages/createFilms'
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import arrow from './arrow.png'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -139,9 +139,9 @@ export default function Header(setCreateAccountContent) {
             {savedUser ?
               (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}>
                 <h1 style={{ marginRight: "1rem", background: "red", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "18px", marginTop: "-0.1rem" }}>{savedUser.name.charAt(0).toUpperCase()}</h1>
-                <h1 style={{ marginRight: "5rem" }}>{savedUser.name}</h1>
+                <h1 style={{ marginRight: "6rem" }}>{savedUser.name}</h1>
                 <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>
-                  <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                  <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px", padding: "0rem 0.5rem" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1bh-content"

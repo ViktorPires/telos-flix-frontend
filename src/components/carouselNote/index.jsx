@@ -1,4 +1,5 @@
 import {
+  PlayArrowOutlined,
   Star,
   StarBorderOutlined,
   StarBorderPurple500Outlined,
@@ -11,8 +12,17 @@ import "keen-slider/keen-slider.min.css";
 import "./index.css";
 import { useState, useEffect } from "react";
 import RatingModal from "../avaliation";
+import { Link } from "react-router-dom";
+import PrimaryGradientButton from "../primaryGrandientButton";
+import CreateAccountModalContent from "../createAccountModalContent";
+import { useContext } from "react";
+import { AuthenticateContext } from "../../contexts/AuthenticateContext";
+import CustomModal from "../customModal";
 
 export function CarouselNote({ comments, movieId }) {
+  const { savedUser } = useContext(AuthenticateContext)
+  const [open, setOpen] = useState(false);
+  const [contentToShow, setContentToShow] = useState(<></>);
 
   const getPercentage = () => {
     const totalVotes = comments.length;
@@ -143,13 +153,26 @@ export function CarouselNote({ comments, movieId }) {
           <Star />
           <h3>Rating</h3>
 
-          <div style={{ marginLeft: "105px", }}>
-            <SecondaryGradientButton
-              onClick={handleClick}
-              icon={<StarBorderOutlined />}
-              text="Review"
-            />
-          </div>
+
+          {savedUser ?
+            (<div style={{ marginLeft: "105px", }}>
+              <SecondaryGradientButton
+                onClick={handleClick}
+                icon={<StarBorderOutlined />}
+                text="Review"
+              />
+            </div>
+            ) : (
+              <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<CreateAccountModalContent />); setOpen(true) }}>
+                <div style={{ marginLeft: "105px", }}>
+                  <SecondaryGradientButton
+                    onClick={handleClick}
+                    icon={<StarBorderOutlined />}
+                    text="Review"
+                  />
+                </div>
+              </Link>
+            )}
         </div>
         {show && <RatingModal movieId={movieId} />}
 
@@ -201,13 +224,13 @@ export function CarouselNote({ comments, movieId }) {
 
             </div>
 
-            <div ref={sliderRef} className="keen-slider" style={{ width: "800px", overflow: 'scroll' }}>
+            <div ref={sliderRef} className="keen-slider" style={{ width: "100%" }}>
               <div
                 className="keen-slider__slide number-slide1"
                 style={{ display: "flex", gap: "20px" }}
               >
                 {comments?.map(el => {
-                  return (<div className="carouselCard" style={{ textAlign: "start" }}>
+                  return (<div className="carouselCard" style={{ textAlign: "start", }}>
                     <h1>{el?.user_id?.name}</h1>
                     <p style={{ width: "300px" }}>
                       {el.content}
@@ -225,10 +248,12 @@ export function CarouselNote({ comments, movieId }) {
                   </div>)
                 })}
               </div>
+
             </div>
           </div>
         </div>
       </div>
+      <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
     </>
   );
 }

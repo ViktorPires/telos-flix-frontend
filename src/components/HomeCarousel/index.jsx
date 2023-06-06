@@ -7,7 +7,7 @@ import Slide from 'react-reveal/Slide';
 
 
 
-function MainBanner() {
+function HomeCarousel() {
   const { movies } = useContext(MovieContext);
 
   return (
@@ -28,4 +28,4 @@ function MainBanner() {
   );
 }
 
-export default MainBanner;
+export default HomeCarousel;
