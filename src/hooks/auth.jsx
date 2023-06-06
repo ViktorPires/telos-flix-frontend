@@ -1,10 +1,16 @@
 import { createContext, useContext, useState } from "react";
 import { api } from '../server/api'
+import { AuthenticateContext } from "../contexts/AuthenticateContext";
 
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
+  const { savedUser } = useContext(AuthenticateContext)
   const [data, setData] = useState({});
+
+  const Authorization = savedUser ? {
+    'Authorization': 'Bearer ' + savedUser.token
+  } : {}
 
 
   async function signIn({ email, password }) {
@@ -20,27 +26,7 @@ function AuthProvider({ children }) {
     console.log(response)
   }
 
-  async function updateProfile({ id, name, email, age }) {
-    try {
-      await api.put(`users/${id}`, { name, email, age, password: null }).then(response => {
-        const { token } = JSON.parse(localStorage.getItem("user"));
-        response.data.token = token
 
-        localStorage.setItem("user", JSON.stringify(response.data))
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function updateProfilePassword({ id, password, confirmPassword }) {
-    try {
-      await api.put(`users/${id}`, { password, confirmPassword });
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
 
   async function addMovies({ movie }) {
@@ -52,7 +38,7 @@ function AuthProvider({ children }) {
     }
   }
   return (
-    <AuthContext.Provider value={{ signIn, updateProfile, addMovies, updateProfilePassword, user: data.user }}>
+    <AuthContext.Provider value={{ signIn, addMovies, user: data.user }}>
       {children}
     </AuthContext.Provider>
 

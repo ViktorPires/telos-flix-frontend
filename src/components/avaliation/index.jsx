@@ -68,7 +68,6 @@ export default function RatingModal({ movieId }) {
 
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
-      // Verifica se o alvo do clique está fora do modal
       handleClose();
     }
   };

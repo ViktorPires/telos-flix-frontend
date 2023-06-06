@@ -12,17 +12,16 @@ import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import "./index.css";
 
 export function Profile() {
-    const { savedUser } = useContext(AuthenticateContext);
+    const { savedUser, updateProfile, updateProfilePassword } = useContext(AuthenticateContext);
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [age, setAge] = useState("");
+    const [email, setEmail] = useState(savedUser?.email);
+    const [cellphone, setCellphone] = useState(savedUser?.cellphone);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const { updateProfile, updateProfilePassword } = useAuth();
     const navigate = useNavigate();
 
     async function handleUpdate() {
@@ -31,7 +30,7 @@ export function Profile() {
                 id: savedUser._id,
                 name,
                 email,
-                age
+                cellphone
             };
 
             await updateProfile(payload).then((statusCode) => {
@@ -91,7 +90,7 @@ export function Profile() {
                 </div>
 
                 <div className="firstSection">
-                    <span>Dados Pessoais</span>
+                    <span style={{ letterSpacing: "1rem" }}>PROFILE</span>
                     <FormControl sx={{ m: 1, width: "366px" }}>
                         <div className="inputContainer" style={{ marginTop: "56px" }}>
                             <label className="inputLabel">Name</label>
@@ -130,9 +129,9 @@ export function Profile() {
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
                             <label className="inputLabel">Cellphone</label>
                             <CustomOutlinedInput
-                                onChange={(e) => setAge(e.target.value)}
-                                setValue={setAge}
-                                defaultValue={savedUser?.age}
+                                onChange={(e) => setCellphone(e.target.value)}
+                                setValue={setCellphone}
+                                defaultValue={savedUser?.cellphone}
                                 placeholder="Cellphone"
                                 type="text"
                             />
@@ -155,11 +154,11 @@ export function Profile() {
                         <div>
                             <div className="inputContainer" style={{ marginTop: "56px" }}>
                                 <label className="inputLabel">New password</label>
-                                <PasswordOutlinedInput onChange={(e) => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Nova senha" />
+                                <PasswordOutlinedInput onChange={(e) => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="New password" />
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
                                 <label className="inputLabel">Confirm password</label>
-                                <PasswordOutlinedInput onChange={(e) => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirme Senha" />
+                                <PasswordOutlinedInput onChange={(e) => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirm password" />
                             </div>
 
                             <div className="buttonsSection">

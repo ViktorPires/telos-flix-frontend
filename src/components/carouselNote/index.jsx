@@ -18,6 +18,7 @@ import CreateAccountModalContent from "../createAccountModalContent";
 import { useContext } from "react";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomModal from "../customModal";
+import LoginModalContent from "../loginModalContent";
 
 export function CarouselNote({ comments, movieId }) {
   const { savedUser } = useContext(AuthenticateContext)
@@ -103,11 +104,17 @@ export function CarouselNote({ comments, movieId }) {
     setFilmsModal(!filmsModal);
   };
 
-  const [sliderRef] = useKeenSlider({
+  const [sliderRef, internalSlider] = useKeenSlider({
     slides: {
       perView: 2,
+      spacing: 15
     },
+
   })
+
+  useEffect(() => {
+    internalSlider?.current?.update()
+  }, [comments, internalSlider])
 
   return (
     <>
@@ -133,7 +140,7 @@ export function CarouselNote({ comments, movieId }) {
               />
             </div>
             ) : (
-              <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<CreateAccountModalContent />); setOpen(true) }}>
+              <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<LoginModalContent setCreateAccountContent={() => setContentToShow(<CreateAccountModalContent />)} />); setOpen(true) }}>
                 <div style={{ marginLeft: "105px", }}>
                   <SecondaryGradientButton
                     onClick={handleClick}
@@ -191,34 +198,32 @@ export function CarouselNote({ comments, movieId }) {
                   </div>
                 )
               })}
-
             </div>
-
-            <div ref={sliderRef} className="keen-slider" style={{ width: "100%" }}>
-
-              {comments?.map(el => {
-                return (<div className="carouselCard keen-slider__slide" style={{ textAlign: "start", }}>
-                  <h1>{el?.user_id?.name}</h1>
-                  <p style={{ width: "300px" }}>
-                    {el.content}
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                    }}
-                  >
-                    <span>{el.rating.toFixed(1)}</span>
-                    {mountStars(el.rating)}
-                  </div>
-                </div>)
-              })}
-
-            </div>
+            {comments &&
+              <div ref={sliderRef} className="keen-slider" style={{ width: "800px" }}>
+                {comments?.map(el => {
+                  return (<div className="carouselCard keen-slider__slide" style={{ textAlign: "start" }}>
+                    <h1>{el?.user_id?.name}</h1>
+                    <p style={{ width: "300px" }}>
+                      {el.content}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                      }}
+                    >
+                      <span>{el.rating.toFixed(1)}</span>
+                      {mountStars(el.rating)}
+                    </div>
+                  </div>)
+                })}
+              </div>
+            }
           </div>
         </div>
-      </div >
+      </div>
       <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
     </>
   );

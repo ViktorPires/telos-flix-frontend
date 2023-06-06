@@ -5,6 +5,12 @@ import { AuthenticateContext } from "./AuthenticateContext";
 export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
 
+  const savedUser = JSON.parse(localStorage.getItem("user"));
+
+  const Authorization = savedUser ? {
+    'Authorization': 'Bearer ' + savedUser.token
+  } : {}
+
   const createUser = async ({ name, email, password, age }) => {
     await axios.post("http://localhost:3333/users", { name, email, password, age })
   }
@@ -20,13 +26,38 @@ export default function AuthenticateProvider({ children }) {
       return error
     };
   }
-  const savedUser = localStorage.getItem("user");
+
+  async function updateProfile({ id, name, email, cellphone }) {
+    try {
+      await axios.put(`http://localhost:3333/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization }).then(response => {
+        console.log(savedUser)
+        const { token } = JSON.parse(localStorage.getItem("user"));
+        console.log(Authorization)
+        response.data.token = token
+
+        localStorage.setItem("user", JSON.stringify(response.data))
+      })
+    } catch (error) {
+      console.log(Authorization)
+    }
+  }
+
+  async function updateProfilePassword({ id, password, confirmPassword }) {
+    try {
+      await axios.put(`http://localhost:3333/users/${id}`, { password, confirmPassword }, { headers: Authorization });
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const values = {
     login: login,
     authenticateData: authenticateData,
-    savedUser: JSON.parse(savedUser),
+    savedUser: savedUser,
     createUser: createUser,
+    updateProfile: updateProfile,
+    updateProfilePassword: updateProfilePassword,
   }
 
   return <AuthenticateContext.Provider value={values}>{children}</AuthenticateContext.Provider>;

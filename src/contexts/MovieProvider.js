@@ -10,11 +10,11 @@ export default function MovieProvider({ children }) {
   const [movieComments, setMovieComments] = useState([])
   const { savedUser } = useContext(AuthenticateContext)
 
+
   const Authorization = savedUser ? {
-
     'Authorization': 'Bearer ' + savedUser.token
-
   } : {}
+
   const apiUrl = "http://localhost:3333"
   const createComment = (content, rating, id) => {
     try {
