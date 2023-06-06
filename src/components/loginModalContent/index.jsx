@@ -19,7 +19,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
   const onLoginButtonClicked = async () => {
     const { response } = await login({ email, password });
     if (response.status === 400) {
-      setErrorMessage('Email ou senha invalidos')
+      setErrorMessage('Email or password invalid')
     }
   }
 
@@ -29,7 +29,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
         <div className="firstSection">
           Login
           <div className="imageContainer">
-            <img width="295px" height="127px" src={image} alt=""></img>
+            <img width="295px" height="127px" src={image} alt="" />
           </div>
         </div>
         <div className="secondSection">
@@ -50,13 +50,13 @@ export default function LoginModalContent({ setCreateAccountContent }) {
               />
             </div>
             <div className="inputContainer" style={{ marginTop: "30px", marginBottom: 80 }}>
-              <label className="inputLabel">Senha</label>
+              <label className="inputLabel">Password</label>
               <PasswordOutlinedInput setValue={setPassword} />
               <span style={{ color: "red" }}>{errorMessage}</span>
             </div>
             <div className="buttonsSection">
-              <PrimaryGradientButton text="Entrar" onClick={onLoginButtonClicked} />
-              <SecondaryGradientButton text="Quero criar uma conta" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
+              <PrimaryGradientButton text="Login" onClick={onLoginButtonClicked} />
+              <SecondaryGradientButton text="Create account" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
             </div>
           </div>
         </div>

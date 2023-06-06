@@ -152,12 +152,12 @@ export default function Header(setCreateAccountContent) {
                       <Typography
                         sx={{ padding: "0.8rem 0rem" }}
                       >
-                        <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Perfil </Link>
+                        <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Profile </Link>
                       </Typography>
                       <Typography
                         sx={{ padding: "0.2rem 0rem 0.8rem" }}
                       >
-                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Sair </Link>
+                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Log out </Link>
                       </Typography>
                     </div>
                   </Accordion>

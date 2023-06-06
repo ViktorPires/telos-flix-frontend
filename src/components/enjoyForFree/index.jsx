@@ -11,7 +11,7 @@ function EnjoyForFree() {
     <div className="enjoyForContainer">
       <div className="enjoyForfreeSection">
         <div className="labelSection">
-          <CardGiftcardOutlined /> Aproveite grátis
+          <CardGiftcardOutlined /> Popular
         </div>
 
         <div className="enjoyForfreeVideosGrid">

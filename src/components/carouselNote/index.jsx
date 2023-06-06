@@ -9,15 +9,15 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 import "./index.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import RatingModal from "../avaliation";
 
 export function CarouselNote({ comments, movieId }) {
 
   const getPercentage = () => {
     const totalVotes = comments.length;
-    if(!totalVotes){
-    return   [
+    if (!totalVotes) {
+      return [
         { rate: 1, percentage: 0 },
         { rate: 2, percentage: 0 },
         { rate: 3, percentage: 0 },
@@ -48,10 +48,10 @@ export function CarouselNote({ comments, movieId }) {
   const [totalVotes, setTotalVotes] = useState(comments.length ?? 0);
   const [show, setShow] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     setPercentage(getPercentage() ?? [])
     setTotalVotes(comments.length ?? 0)
-  },[comments])
+  }, [comments])
 
   const getAverageRating = () => {
     const total = comments.reduce((sum, { rating }) => sum + rating, 0);
@@ -139,9 +139,9 @@ export function CarouselNote({ comments, movieId }) {
           marginBottom: "5rem",
         }}
       >
-        <div style={{ display: "flex",flexDirection:'row', alignItems: "center",alignContent:'center', gap: "18px", color:'white' }}>
+        <div style={{ display: "flex", flexDirection: 'row', alignItems: "center", alignContent: 'center', gap: "18px", color: 'white' }}>
           <Star />
-          <h3>Check those reviews out!</h3>
+          <h3>Rating</h3>
 
           <div style={{ marginLeft: "105px", }}>
             <SecondaryGradientButton
@@ -153,7 +153,7 @@ export function CarouselNote({ comments, movieId }) {
         </div>
         {show && <RatingModal movieId={movieId} />}
 
-        <div style={{ display: "flex", alignItems: "center", gap: "33px", color: 'white' , marginTop:'10px'}}>
+        <div style={{ display: "flex", alignItems: "center", gap: "33px", color: 'white', marginTop: '10px' }}>
           <div
             style={{
               display: "flex",
@@ -161,7 +161,7 @@ export function CarouselNote({ comments, movieId }) {
               flexDirection: "column",
             }}
           >
-            <h1 style={{ fontSize: "46px" }}>{getAverageRating().toFixed(1) }</h1>
+            <h1 style={{ fontSize: "46px" }}>{getAverageRating().toFixed(1)}</h1>
             <h5 style={{ fontSize: "14px", marginTop: "-2rem" }}>
               {`${totalVotes} ${totalVotes == 1 ? 'Review' : 'Reviews'} `}
             </h5>
@@ -201,7 +201,7 @@ export function CarouselNote({ comments, movieId }) {
 
             </div>
 
-            <div ref={sliderRef} className="keen-slider" style={{ width: "800px", overflow:'scroll' }}>
+            <div ref={sliderRef} className="keen-slider" style={{ width: "800px", overflow: 'scroll' }}>
               <div
                 className="keen-slider__slide number-slide1"
                 style={{ display: "flex", gap: "20px" }}

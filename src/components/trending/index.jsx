@@ -10,7 +10,7 @@ function Trending() {
   return (
     <div className="trendingSection">
       <div className="labelSection">
-        <SignalCellularAltOutlined /> Em alta
+        <SignalCellularAltOutlined /> Trending
       </div>
       <div className="trendingVideosGrid">
         {movies.slice(4, 7).map((movie, index) => (

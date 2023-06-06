@@ -14,7 +14,7 @@ function DontKnowWhatToWatch() {
     <div className="dontKnowWhatToWatchContainer">
       <div className="dontKnowWhatToWatch">
         <div className="labelSection">
-          <InsightsOutlinedIcon /> Confira por Gênero
+          <InsightsOutlinedIcon /> Find by genre
         </div>
         <div className="dontKnowWhatToWatchgrid">
           {movieGenres.map((genre) => (

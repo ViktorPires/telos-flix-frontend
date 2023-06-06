@@ -23,11 +23,11 @@ function CreateAccountModalContent() {
   async function handleSignUp() {
 
     if (!name || !email || !password) {
-      setErrorMessage('Preencha todos os campos')
+      setErrorMessage('Fill all fields')
       return
     }
     if (confirmPassword !== password) {
-      setErrorMessage('As senhas precisam ser iguais')
+      setErrorMessage('the passwords must match')
       return
     }
     try {
@@ -43,10 +43,10 @@ function CreateAccountModalContent() {
   return (
     <div className="createAccountModalContent">
       <div className="firstSection">
-        <span>Crie sua conta</span>
+        <span>Create your account</span>
         <FormControl sx={{ m: 1, width: "366px" }}>
           <div className="inputContainer" style={{ marginTop: "56px" }}>
-            <label className="inputLabel">Nome</label>
+            <label className="inputLabel">Name</label>
             <CustomOutlinedInput
               setValue={setName}
               onChange={e => setName(e.target.value)}
@@ -78,7 +78,7 @@ function CreateAccountModalContent() {
             />
           </div>
           <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">Celular</label>
+            <label className="inputLabel">Cellphone</label>
             <CustomOutlinedInput
               setValue={setAge}
               onChange={e => setAge(e.target.value)}
@@ -98,11 +98,11 @@ function CreateAccountModalContent() {
       <div className="secondSection">
         <FormControl sx={{ m: 1, width: "366px" }}>
           <div className="inputContainer" style={{ marginTop: "56px" }}>
-            <label className="inputLabel">Senha</label>
+            <label className="inputLabel">Password</label>
             <PasswordOutlinedInput setValue={setPassword} onChange={e => setPassword(e.target.value)} />
           </div>
           <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">Confirmar Senha</label>
+            <label className="inputLabel">Confirm password</label>
             <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha" />
           </div>
           <span style={{ color: "red" }}>{errorMessage}</span>
@@ -110,10 +110,10 @@ function CreateAccountModalContent() {
           <FormControlLabel
             sx={{ marginTop: "42px" }}
             control={<Checkbox style={{ color: "#404040" }} defaultChecked />}
-            label="Aceito os termos de uso da plataforma"
+            label="I agree with terms and service of the plataform"
           />
           <div className="buttonsSection">
-            <PrimaryGradientButton onClick={handleSignUp} text="Cadastre-se" />
+            <PrimaryGradientButton onClick={handleSignUp} text="Register" />
           </div>
         </FormControl>
       </div>

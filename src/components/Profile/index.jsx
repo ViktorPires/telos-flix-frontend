@@ -35,13 +35,13 @@ export function Profile() {
             };
 
             await updateProfile(payload).then((statusCode) => {
-                setSuccessMessage("Usuário alterado com sucesso")
+                setSuccessMessage("User changed with success")
                 setOpen(true)
                 setUpdateTrigger(true);
             });
         } catch (error) {
             console.log("deu erro : ", error);
-            alert("Erro! Algo deu errado na atualização");
+            alert("Error! something went wrong");
         }
     }
 
@@ -85,7 +85,7 @@ export function Profile() {
                     <div>
                         <SecondaryGradientButton
                             icon={<DnsRounded />}
-                            text="Dados pessoais"
+                            text="Personal data"
                         />
                     </div>
                 </div>
@@ -94,11 +94,11 @@ export function Profile() {
                     <span>Dados Pessoais</span>
                     <FormControl sx={{ m: 1, width: "366px" }}>
                         <div className="inputContainer" style={{ marginTop: "56px" }}>
-                            <label className="inputLabel">Nome</label>
+                            <label className="inputLabel">Name</label>
                             <CustomOutlinedInput
                                 onChange={(e) => setName(e.target.value)}
                                 setValue={setName}
-                                placeholder="Insira seu nome"
+                                placeholder="Name"
                                 type="text"
                                 defaultValue={savedUser?.name}
                                 startAdornment={
@@ -115,8 +115,8 @@ export function Profile() {
                             <CustomOutlinedInput
                                 onChange={(e) => setEmail(e.target.value)}
                                 setValue={setEmail}
-                                placeholder="Insira seu email"
-                                type="text"
+                                placeholder="Email"
+                                type="email"
                                 defaultValue={savedUser?.email}
                                 startAdornment={
                                     <InputAdornment>
@@ -128,12 +128,12 @@ export function Profile() {
                             />
                         </div>
                         <div className="inputContainer" style={{ marginTop: "46px" }}>
-                            <label className="inputLabel">Celular</label>
+                            <label className="inputLabel">Cellphone</label>
                             <CustomOutlinedInput
                                 onChange={(e) => setAge(e.target.value)}
                                 setValue={setAge}
                                 defaultValue={savedUser?.age}
-                                placeholder="Insira seu celular"
+                                placeholder="Cellphone"
                                 type="text"
                             />
                         </div>
@@ -146,7 +146,7 @@ export function Profile() {
                         <div className="buttonsSection">
                             <PrimaryGradientButton
                                 icon={<ShowChartOutlined />}
-                                text="Alterar Dados"
+                                text="Edit"
                                 img={<EastOutlined />}
                                 onClick={handleUpdate}
                             />
@@ -154,18 +154,18 @@ export function Profile() {
 
                         <div>
                             <div className="inputContainer" style={{ marginTop: "56px" }}>
-                                <label className="inputLabel">Nova senha</label>
+                                <label className="inputLabel">New password</label>
                                 <PasswordOutlinedInput onChange={(e) => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Nova senha" />
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
-                                <label className="inputLabel">Confirme senha</label>
+                                <label className="inputLabel">Confirm password</label>
                                 <PasswordOutlinedInput onChange={(e) => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirme Senha" />
                             </div>
 
                             <div className="buttonsSection">
                                 <PrimaryGradientButton
                                     icon={<ShowChartOutlined />}
-                                    text="Mudar senha"
+                                    text="Change password"
                                     img={<EastOutlined />}
                                     onClick={handleUpdatePassword}
                                 />

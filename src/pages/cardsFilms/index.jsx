@@ -37,7 +37,7 @@ export default function CardsFilms() {
                 type="text"
                 name='nameFilm'
                 id='inameFilm'
-                placeholder='Nome'
+                placeholder='Title'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
