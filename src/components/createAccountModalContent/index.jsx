@@ -50,7 +50,7 @@ function CreateAccountModalContent() {
             <CustomOutlinedInput
               setValue={setName}
               onChange={e => setName(e.target.value)}
-              placeholder="Nome"
+              placeholder="Name"
               type="text"
               startAdornment={
                 <InputAdornment>
@@ -82,7 +82,7 @@ function CreateAccountModalContent() {
             <CustomOutlinedInput
               setValue={setAge}
               onChange={e => setAge(e.target.value)}
-              placeholder="Celular"
+              placeholder="Cellphone"
               type="text"
               startAdornment={
                 <InputAdornment>
@@ -99,11 +99,11 @@ function CreateAccountModalContent() {
         <FormControl sx={{ m: 1, width: "366px" }}>
           <div className="inputContainer" style={{ marginTop: "56px" }}>
             <label className="inputLabel">Password</label>
-            <PasswordOutlinedInput setValue={setPassword} onChange={e => setPassword(e.target.value)} />
+            <PasswordOutlinedInput setValue={setPassword} onChange={e => setPassword(e.target.value)} placeholder="Password" />
           </div>
           <div className="inputContainer" style={{ marginTop: "46px" }}>
             <label className="inputLabel">Confirm password</label>
-            <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha" />
+            <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirm password" />
           </div>
           <span style={{ color: "red" }}>{errorMessage}</span>
 

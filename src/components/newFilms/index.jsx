@@ -7,6 +7,7 @@ import { useContext, useState } from 'react'
 import { AuthenticateContext } from '../../contexts/AuthenticateContext'
 import CreateAccountModalContent from '../createAccountModalContent'
 import CustomModal from '../customModal'
+import LoginModalContent from '../loginModalContent'
 
 
 export function FilmDescription({ movie }) {
@@ -29,7 +30,7 @@ export function FilmDescription({ movie }) {
                   />
                 </Link>
                 ) : (
-                  <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<CreateAccountModalContent />); setOpen(true) }}>
+                  <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<LoginModalContent setCreateAccountContent={() => setContentToShow(<CreateAccountModalContent />)} />); setOpen(true) }}>
                     <PrimaryGradientButton
                       icon={<PlayArrowOutlined />}
                       text="Watch"

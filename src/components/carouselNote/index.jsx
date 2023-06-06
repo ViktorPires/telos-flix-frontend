@@ -225,11 +225,12 @@ export function CarouselNote({ comments, movieId }) {
             </div>
 
             <div ref={sliderRef} className="keen-slider" style={{ width: "100%" }}>
-              <div
-                className="keen-slider__slide number-slide1"
-                style={{ display: "flex", gap: "20px" }}
-              >
-                {comments?.map(el => {
+              {comments?.map(el => {
+                <div
+                  className="keen-slider__slide number-slide1"
+                  style={{ display: "flex", gap: "20px" }}
+                >
+
                   return (<div className="carouselCard" style={{ textAlign: "start", }}>
                     <h1>{el?.user_id?.name}</h1>
                     <p style={{ width: "300px" }}>
@@ -246,9 +247,9 @@ export function CarouselNote({ comments, movieId }) {
                       {mountStars(el.rating)}
                     </div>
                   </div>)
-                })}
-              </div>
 
+                </div>
+              })}
             </div>
           </div>
         </div>

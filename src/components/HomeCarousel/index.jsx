@@ -15,7 +15,7 @@ function HomeCarousel() {
       <div className="slideTrack">
         <Slide top>
           <div className="slide">
-            {movies.slice(1, 25).map((movie) => (
+            {movies.slice(1, 9).map((movie) => (
               <Link to={`/films/${movie._id}`}>
                 <img style={{ width: "400px", height: "500px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
               </Link>

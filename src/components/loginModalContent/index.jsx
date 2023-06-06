@@ -51,7 +51,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
             </div>
             <div className="inputContainer" style={{ marginTop: "30px", marginBottom: 80 }}>
               <label className="inputLabel">Password</label>
-              <PasswordOutlinedInput setValue={setPassword} />
+              <PasswordOutlinedInput setValue={setPassword} placeholder="Password" />
               <span style={{ color: "red" }}>{errorMessage}</span>
             </div>
             <div className="buttonsSection">
