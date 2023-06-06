@@ -63,6 +63,7 @@ export default function RatingModal({ movieId }) {
 
   const handleClick = () => {
     createComment(comment, rating, movieId);
+    setShow(false);
   };
 
   const handleOutsideClick = (event) => {
