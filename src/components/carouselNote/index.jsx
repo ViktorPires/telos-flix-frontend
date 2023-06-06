@@ -18,6 +18,7 @@ import CreateAccountModalContent from "../createAccountModalContent";
 import { useContext } from "react";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomModal from "../customModal";
+import LoginModalContent from "../loginModalContent";
 
 export function CarouselNote({ comments, movieId }) {
   const { savedUser } = useContext(AuthenticateContext)
@@ -103,41 +104,13 @@ export function CarouselNote({ comments, movieId }) {
     setFilmsModal(!filmsModal);
   };
 
-  const [sliderRef] = useKeenSlider(
-    {
-      loop: true,
+  const [sliderRef] = useKeenSlider({
+    slides: {
+      perView: 2,
+      spacing: 15
     },
-    [
-      (slider) => {
-        let timeout;
-        let mouseOver = false;
-        function clearNextTimeout() {
-          clearTimeout(timeout);
-        }
-        function nextTimeout() {
-          clearTimeout(timeout);
-          if (mouseOver) return;
-          timeout = setTimeout(() => {
-            slider.next();
-          }, 8000);
-        }
-        slider.on("created", () => {
-          slider.container.addEventListener("mouseover", () => {
-            mouseOver = true;
-            clearNextTimeout();
-          });
-          slider.container.addEventListener("mouseout", () => {
-            mouseOver = false;
-            nextTimeout();
-          });
-          nextTimeout();
-        });
-        slider.on("dragStarted", clearNextTimeout);
-        slider.on("animationEnded", nextTimeout);
-        slider.on("updated", nextTimeout);
-      },
-    ]
-  );
+
+  })
 
   return (
     <>
@@ -163,7 +136,7 @@ export function CarouselNote({ comments, movieId }) {
               />
             </div>
             ) : (
-              <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<CreateAccountModalContent />); setOpen(true) }}>
+              <Link style={{ textDecoration: "none" }} onClick={() => { setContentToShow(<LoginModalContent setCreateAccountContent={() => setContentToShow(<CreateAccountModalContent />)} />); setOpen(true) }}>
                 <div style={{ marginLeft: "105px", }}>
                   <SecondaryGradientButton
                     onClick={handleClick}
@@ -221,17 +194,11 @@ export function CarouselNote({ comments, movieId }) {
                   </div>
                 )
               })}
-
             </div>
 
-            <div ref={sliderRef} className="keen-slider" style={{ width: "100%" }}>
-              {comments?.map(el => {
-                <div
-                  className="keen-slider__slide number-slide1"
-                  style={{ display: "flex", gap: "20px" }}
-                >
-
-                  return (<div className="carouselCard" style={{ textAlign: "start", }}>
+              <div ref={sliderRef} className="keen-slider" style={{ width: "800px"}}>
+                {comments?.map(el => {
+                  return (<div className="carouselCard keen-slider__slide" style={{ textAlign: "start" }}>
                     <h1>{el?.user_id?.name}</h1>
                     <p style={{ width: "300px" }}>
                       {el.content}
@@ -247,13 +214,11 @@ export function CarouselNote({ comments, movieId }) {
                       {mountStars(el.rating)}
                     </div>
                   </div>)
-
-                </div>
-              })}
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
     </>
   );

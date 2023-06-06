@@ -91,7 +91,7 @@ export function Profile() {
                 </div>
 
                 <div className="firstSection">
-                    <span>Dados Pessoais</span>
+                    <span style={{letterSpacing: "1rem"}}>PROFILE</span>
                     <FormControl sx={{ m: 1, width: "366px" }}>
                         <div className="inputContainer" style={{ marginTop: "56px" }}>
                             <label className="inputLabel">Name</label>
@@ -155,11 +155,11 @@ export function Profile() {
                         <div>
                             <div className="inputContainer" style={{ marginTop: "56px" }}>
                                 <label className="inputLabel">New password</label>
-                                <PasswordOutlinedInput onChange={(e) => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="Nova senha" />
+                                <PasswordOutlinedInput onChange={(e) => setConfirmPassword(e.target.value)} setValue={setConfirmPassword} placeholder="New password" />
                             </div>
                             <div className="inputContainer" style={{ marginTop: "46px" }}>
                                 <label className="inputLabel">Confirm password</label>
-                                <PasswordOutlinedInput onChange={(e) => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirme Senha" />
+                                <PasswordOutlinedInput onChange={(e) => setPassword(e.target.value)} setValue={setPassword} placeholder="Confirm password" />
                             </div>
 
                             <div className="buttonsSection">

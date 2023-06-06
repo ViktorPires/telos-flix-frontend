@@ -76,26 +76,26 @@ export default function CreateFilms() {
     <>
       <div style={{ marginTop: "-5rem" }} className="createFilmsContainer">
         <div className="firstSectionFilms">
-          <h1>Cadastrar filme</h1>
+          <h1>Register movie</h1>
           <FormControl>
             <div className="inputContainerFilms" style={{ marginTop: "20px", position: "relative" }}>
-              <label className="inputLabel">Nome do filme</label>
+              <label className="inputLabel">Name films</label>
               <OutlinedInput
                 sx={{ background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)" }}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Até 30 caracteres"
+                placeholder="up to 30 characters"
                 variant="outlined"
               />
             </div>
-            <p>Esse nome será exibido em todos os locais da plataforma</p>
+            <p>This name will be displayed everywhere on the platform</p>
             <div className="inputContainerFilms" style={{ marginTop: "46px" }}>
-              <label className="inputLabel">Descrição</label>
+              <label className="inputLabel">Description</label>
               <OutlinedInput
                 sx={{ background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)", padding: "30px 0px" }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Até 200 caracteres"
+                placeholder="up to 200 characters"
                 variant="outlined"
               />
             </div>
@@ -108,7 +108,7 @@ export default function CreateFilms() {
               }}
             >
               <div>
-                <h2>Ano</h2>
+                <h2>Year</h2>
                 <Autocomplete
                   className="color"
                   sx={{
@@ -129,7 +129,7 @@ export default function CreateFilms() {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      placeholder="Ano"
+                      placeholder="Year"
                       variant="outlined"
                     />
                   )}
@@ -137,7 +137,7 @@ export default function CreateFilms() {
               </div>
 
               <div>
-                <h2>Gênero</h2>
+                <h2>Genres</h2>
                 <Autocomplete
                   className="color"
                   sx={{
@@ -197,11 +197,8 @@ export default function CreateFilms() {
             </span>
 
             <div className="ContainerButtonFilms">
-              <button onClick={handleCancel} style={{ color: "#212121" }}>Cancelar e voltar</button>
-
               <button
                 onClick={addFilms}
-                className="teste"
                 style={{
                   display: "flex",
                   alignItems: "center",

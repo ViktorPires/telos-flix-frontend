@@ -55,7 +55,7 @@ export default function RatingModal({ movieId }) {
   const [show, setShow] = useState(true);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  const modalRef = useRef(null); // Referência para o elemento do modal
+  const modalRef = useRef(null); 
 
   const handleClose = () => {
     setShow(false);
@@ -67,7 +67,6 @@ export default function RatingModal({ movieId }) {
 
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
-      // Verifica se o alvo do clique está fora do modal
       handleClose();
     }
   };
