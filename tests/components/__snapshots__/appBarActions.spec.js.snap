@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppBarActions should render all actions passed as props in a row 1`] = `
+<div
+  style={
+    {
+      "display": "flex",
+      "flexDirection": "row",
+      "gap": "30px",
+    }
+  }
+>
+  <div>
+    <button>
+      Button 1
+    </button>
+  </div>
+  <div>
+    <button>
+      Button 2
+    </button>
+  </div>
+</div>
+`;
