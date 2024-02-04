@@ -33,7 +33,7 @@
     "start": "react-scripts start",
     "cm": "cz",
     "build": "react-scripts build",
-    "test": "jest test --transformIgnorePatterns \"node_modules/(?!telos-flix)/\" --env=jsdom",
+    "test": "jest test --maxWorkers=1 --transformIgnorePatterns \"node_modules/(?!telos-flix)/\" --env=jsdom",
     "test scripts": "react-scripts test",
     "eject": "react-scripts eject"
   },

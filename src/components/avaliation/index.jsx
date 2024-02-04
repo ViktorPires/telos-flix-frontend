@@ -126,7 +126,7 @@ export default function RatingModal({ movieId }) {
               placeholder="inform evaluation"
               type="text"
               startAdornment={
-                <InputAdornment>
+                <InputAdornment position='start'>
                   <IconButton></IconButton>
                 </InputAdornment>
               }
