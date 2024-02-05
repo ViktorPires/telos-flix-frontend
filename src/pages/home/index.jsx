@@ -8,7 +8,7 @@ import HomeCarousel from "../../components/HomeCarousel";
 
 function Home() {
   return (
-    <div>
+    <div data-testid="home-component">
       <Header />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <HomeCarousel />

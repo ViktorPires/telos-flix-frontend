@@ -24,19 +24,19 @@ export default function CreateFilms() {
 
   async function addFilms() {
     if (!title || !description || !year || !genres || !image || !video) {
-      return alert("Preencha todos os campos");
+      return alert("Fill in all the fields");
     }
 
     const movie = { title, description, year, genres, image, video };
     try {
       api.post("/movies", { ...movie }, { headers: { 'Authorization': 'Bearer ' + savedUser.token } })
-      setMessage({ message: "Filme criado com sucesso", color: "#5cb85c" })
+      setMessage({ message: "Movie created successfully", color: "#5cb85c" })
 
     } catch (err) {
       if (err.response.status === 409) {
-        setMessage({ message: "Filme já existe", color: "	#ffcc00" })
+        setMessage({ message: "Movie already exists", color: "	#ffcc00" })
       } else {
-        setMessage({ message: "Ocorreu um erro ao criar o filme", color: "	#cc3300" })
+        setMessage({ message: "An error occurred while creating the movie", color: "	#cc3300" })
       }
     }
 
@@ -171,23 +171,23 @@ export default function CreateFilms() {
 
             <div style={{ display: "flex", gap: "25px" }}>
               <div className="inputContainerFilms">
-                <label className="inputLabel">Url do banner</label>
+                <label className="inputLabel">Banner URL</label>
                 <OutlinedInput
                   sx={{ background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)" }}
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
-                  placeholder="Url do banner"
+                  placeholder="Banner URL"
                   variant="outlined"
                 />
               </div>
 
               <div className="inputContainerFilms">
-                <label className="inputLabel">Url do vídeo</label>
+                <label className="inputLabel">Video URL</label>
                 <OutlinedInput
                   sx={{ background: "rgba(255, 252, 252, 0.05)", boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)", borderRadius: "15px", color: "rgba(255, 255, 255, 0.45)" }}
                   value={video}
                   onChange={(e) => setVideo(e.target.value)}
-                  placeholder="Url do vídeo"
+                  placeholder="Video URL"
                   variant="outlined"
                 />
               </div>
@@ -209,14 +209,13 @@ export default function CreateFilms() {
                     "linear-gradient(270deg, #BFC3FC 3.25%, #E0C3FC 51.62%, #FAE69F 100%)",
                 }}
               >
-                Cadastrar
+                Register
                 <ArrowForwardIcon />
               </button>
             </div>
           </FormControl>
         </div>
       </div>
-
     </>
   );
 }

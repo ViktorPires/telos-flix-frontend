@@ -28,7 +28,7 @@ export default function CardsFilms() {
   return (
     <>
       <Header />
-      <div className='cardsFilms-container'>
+      <div data-testid="cards-films-component" className='cardsFilms-container'>
         <div className='cardsFilms-content'>
           <div className='input-content-cardsFilms'>
             <form action="#" method="get" autoComplete='off'>
@@ -45,11 +45,11 @@ export default function CardsFilms() {
                 className='select-category-cardsFilm'
                 name="category"
                 id="icategory"
-                placeholder='Categoria'
+                placeholder='Category'
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
-                <option value="" disabled>Categoria <ArrowForward /></option>
+                <option value="" disabled>Category <ArrowForward /></option>
                 {movieGenres.map((genre) => (
                   <option key={genre} value={genre}>{genre}</option>
                 ))}

@@ -9,7 +9,6 @@ import PrimaryGradientButton from "../../components/primaryGrandientButton";
 import { PlayArrowOutlined } from "@mui/icons-material";
 
 function Films() {
-
   const { movies, createComment, comments, getComments, searchById } = useContext(MovieContext);
   const { id } = useParams()
   const [movie, setMovie] = useState({
@@ -25,18 +24,12 @@ function Films() {
     fetchData()
   }, [id, searchById])
 
-  useEffect(() => {
-    const teste = getComments(id)
-    console.log(teste)
-  }, [])
-
-
   return (
-    <>
+    <div data-testid="films-component">
       <Header />
       <FilmDescription movie={movie} />
       <CarouselNote comments={comments} movieId={id} />
-    </>
+    </div>
   );
 }
 
