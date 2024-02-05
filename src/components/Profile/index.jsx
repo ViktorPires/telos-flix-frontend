@@ -39,8 +39,8 @@ export function Profile() {
                 setUpdateTrigger(true);
             });
         } catch (error) {
-            console.log("deu erro : ", error);
-            alert("Error! something went wrong");
+            console.log("Error: ", error);
+            alert("Error! Something went wrong");
         }
     }
 
@@ -53,12 +53,12 @@ export function Profile() {
             };
 
             await updateProfilePassword(payloadPassword).then((statusCode) => {
-                setSuccessMessage("Senha alterada com sucesso")
+                setSuccessMessage("Password successfully changed")
                 setOpen(true)
             });
         } catch (error) {
-            console.log("deu erro : ", error);
-            alert("Erro! Algo deu errado na atualização da senha");
+            console.log("Error: ", error);
+            alert("Error! Something went wrong while updating the password");
         }
     }
 

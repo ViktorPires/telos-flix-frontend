@@ -8,7 +8,7 @@ function EnjoyForFree() {
   const { movies } = useContext(MovieContext);
 
   return (
-    <div className="enjoyForContainer">
+    <div data-testid="enjoy-for-free-component" className="enjoyForContainer">
       <div className="enjoyForfreeSection">
         <div className="labelSection">
           <CardGiftcardOutlined /> Popular

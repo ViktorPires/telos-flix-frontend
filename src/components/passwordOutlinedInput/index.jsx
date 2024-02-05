@@ -14,7 +14,7 @@ export default function PasswordOutlinedInput({ setValue, placeholder }) {
   return (
     <CustomOutlinedInput
       setValue={setValue}
-      placeholder={placeholder ?? "Senha"}
+      placeholder={placeholder ?? "Password"}
       type={shouldShowPassword ? "text" : "password"}
       startAdornment={
         <InputAdornment>

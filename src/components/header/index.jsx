@@ -19,14 +19,14 @@ import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
 import CreateAccountModalContent from "../createAccountModalContent";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
-import { NavButton } from './styles'
-import CreateFilms from '../../pages/createFilms'
+import { NavButton } from "./styles";
+import CreateFilms from "../../pages/createFilms";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const drawerWidth = 240;
 
@@ -82,25 +82,25 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-    boxSizing: "border-box",
-    ...(open && {
-      ...openedMixin(theme),
-      "& .MuiDrawer-paper": openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      "& .MuiDrawer-paper": closedMixin(theme),
-    }),
-  })
-);
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
 
 export default function Header(setCreateAccountContent) {
-  const { savedUser } = useContext(AuthenticateContext)
+  const { savedUser } = useContext(AuthenticateContext);
 
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -112,16 +112,14 @@ export default function Header(setCreateAccountContent) {
     setExpanded(isExpanded ? panel : false);
   };
 
-
   useEffect(() => {
     if (savedUser) {
-      setOpen(false)
-
+      setOpen(false);
     }
-  }, [savedUser])
+  }, [savedUser]);
 
   return (
-    <>
+    <div data-testid="header-component">
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" elevation={0} sx={{ paddingTop: 3 }}>
@@ -131,62 +129,122 @@ export default function Header(setCreateAccountContent) {
               justifyContent: "space-between",
             }}
           >
-
             <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
               <img src={logo} alt="logo" />
-              <h1>Télos <span style={{ textTransform: 'uppercase', color: "#fff" }}>FLIX</span></h1>
+              <h1>
+                Télos{" "}
+                <span style={{ textTransform: "uppercase", color: "#fff" }}>
+                  FLIX
+                </span>
+              </h1>
             </div>
-            {savedUser ?
-              (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}>
-                <h1 style={{ marginRight: "1rem", background: "red", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "18px", marginTop: "-0.1rem" }}>{savedUser.name.charAt(0).toUpperCase()}</h1>
+            {savedUser ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  position: "relative",
+                }}
+              >
+                <h1
+                  style={{
+                    marginRight: "1rem",
+                    background: "red",
+                    width: "50px",
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "18px",
+                    marginTop: "-0.1rem",
+                  }}
+                >
+                  {savedUser.name.charAt(0).toUpperCase()}
+                </h1>
                 <h1 style={{ marginRight: "6rem" }}>{savedUser.name}</h1>
-                <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>
-                  <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px", padding: "0rem 0.5rem" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <div
+                  style={{
+                    position: "absolute",
+                    right: "0",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  <Accordion
+                    sx={{
+                      backgroundColor: "#737070",
+                      borderRadius: "18px",
+                      padding: "0rem 0.5rem",
+                    }}
+                    expanded={expanded === "panel1"}
+                    onChange={handleChange("panel1")}
+                  >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1bh-content"
                       id="panel1bh-header"
-                    >
-                    </AccordionSummary>
+                    ></AccordionSummary>
                     <div style={{ marginTop: "-1rem" }}>
-                      <Typography
-                        sx={{ padding: "0.8rem 0rem" }}
-                      >
-                        <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Profile </Link>
+                      <Typography sx={{ padding: "0.8rem 0rem" }}>
+                        <Link
+                          style={{ textDecoration: "none", color: "#ffff" }}
+                          to="/Person"
+                        >
+                          {" "}
+                          Profile{" "}
+                        </Link>
                       </Typography>
-                      <Typography
-                        sx={{ padding: "0.2rem 0rem 0.8rem" }}
-                      >
-                        <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false) }} to="/"> Log out </Link>
+                      <Typography sx={{ padding: "0.2rem 0rem 0.8rem" }}>
+                        <Link
+                          style={{ textDecoration: "none", color: "#ffff" }}
+                          onClick={() => {
+                            localStorage.removeItem("user");
+                            window.location.reload(false);
+                          }}
+                          to="/"
+                        >
+                          {" "}
+                          Log out{" "}
+                        </Link>
                       </Typography>
                     </div>
                   </Accordion>
                 </div>
-              </Box>)
-              : (
-                <AppBarActions
-                  actions={[
-                    <CreateAccountButton
-                      onClick={() => {
-                        setContentToShow(<CreateAccountModalContent />);
-                        setOpen(true);
-                      }} />,
-                    <LoginButton
-                      onClick={() => {
-                        setContentToShow(
-                          <LoginModalContent setCreateAccountContent={() => setContentToShow(<CreateAccountModalContent />)} />
-                        );
-                        setOpen(true);
-                      }} />,
-                  ]} />
-              )}
-
+              </Box>
+            ) : (
+              <AppBarActions
+                actions={[
+                  <CreateAccountButton
+                    onClick={() => {
+                      setContentToShow(<CreateAccountModalContent />);
+                      setOpen(true);
+                    }}
+                  />,
+                  <LoginButton
+                    onClick={() => {
+                      setContentToShow(
+                        <LoginModalContent
+                          setCreateAccountContent={() =>
+                            setContentToShow(<CreateAccountModalContent />)
+                          }
+                        />
+                      );
+                      setOpen(true);
+                    }}
+                  />,
+                ]}
+              />
+            )}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent">
           <DrawerHeader>
             <IconButton sx={{ color: "#fff" }}>
-              {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </DrawerHeader>
           <List
@@ -203,61 +261,105 @@ export default function Header(setCreateAccountContent) {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+              >
                 <img src={logo} alt="logo" />
-                <h1 style={{ fontWeight: "400", letterSpacing: "5px" }}>Télos</h1>
+                <h1 style={{ fontWeight: "400", letterSpacing: "5px" }}>
+                  Télos
+                </h1>
               </div>
-              {savedUser ?
-                (<Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", position: "relative" }}> <h1 style={{ marginRight: "5rem" }}>{savedUser.name}</h1>
-                  <div style={{ position: "absolute", right: "0", marginLeft: "0.5rem" }}>
-                    <Accordion sx={{ backgroundColor: "#737070", borderRadius: "18px" }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+              {savedUser ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    position: "relative",
+                  }}
+                >
+                  {" "}
+                  <h1 style={{ marginRight: "5rem" }}>{savedUser.name}</h1>
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "0",
+                      marginLeft: "0.5rem",
+                    }}
+                  >
+                    <Accordion
+                      sx={{ backgroundColor: "#737070", borderRadius: "18px" }}
+                      expanded={expanded === "panel1"}
+                      onChange={handleChange("panel1")}
+                    >
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
-                      >
-                      </AccordionSummary>
+                      ></AccordionSummary>
                       <div style={{ marginTop: "-1rem" }}>
-                        <Typography
-                          sx={{ padding: "0.8rem 0rem" }}
-                        >
-                          <Link style={{ textDecoration: "none", color: "#ffff" }} to="/Person"> Perfil </Link>
+                        <Typography sx={{ padding: "0.8rem 0rem" }}>
+                          <Link
+                            style={{ textDecoration: "none", color: "#ffff" }}
+                            to="/Person"
+                          >
+                            {" "}
+                            Perfil{" "}
+                          </Link>
                         </Typography>
-                        <Typography
-                          sx={{ padding: "0.2rem 0rem 0.8rem" }}
-                        >
-                          <Link style={{ textDecoration: "none", color: "#ffff" }} onClick={() => { localStorage.removeItem("user"); window.location.reload(false); }} to="/"> Sair </Link>
+                        <Typography sx={{ padding: "0.2rem 0rem 0.8rem" }}>
+                          <Link
+                            style={{ textDecoration: "none", color: "#ffff" }}
+                            onClick={() => {
+                              localStorage.removeItem("user");
+                              window.location.reload(false);
+                            }}
+                            to="/"
+                          >
+                            {" "}
+                            Sair{" "}
+                          </Link>
                         </Typography>
                       </div>
                     </Accordion>
                   </div>
-                </Box>)
-                : (
-                  <AppBarActions
-                    actions={[
-                      <CreateAccountButton
-                        onClick={() => {
-                          setContentToShow(<CreateAccountModalContent />);
-                          setOpen(true);
-                        }} />,
-                      <LoginButton
-                        onClick={() => {
-                          setContentToShow(
-                            <LoginModalContent setCreateAccountContent={() => { setContentToShow(<CreateAccountModalContent />); }} />
-                          );
-                          setOpen(true);
-                        }} />,
-                    ]} />
-                )}
+                </Box>
+              ) : (
+                <AppBarActions
+                  actions={[
+                    <CreateAccountButton
+                      onClick={() => {
+                        setContentToShow(<CreateAccountModalContent />);
+                        setOpen(true);
+                      }}
+                    />,
+                    <LoginButton
+                      onClick={() => {
+                        setContentToShow(
+                          <LoginModalContent
+                            setCreateAccountContent={() => {
+                              setContentToShow(<CreateAccountModalContent />);
+                            }}
+                          />
+                        );
+                        setOpen(true);
+                      }}
+                    />,
+                  ]}
+                />
+              )}
             </Box>
           </List>
         </Drawer>
 
-
         <Drawer variant="permanent">
           <DrawerHeader>
             <IconButton sx={{ color: "#fff" }}>
-              {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </DrawerHeader>
 
@@ -281,15 +383,28 @@ export default function Header(setCreateAccountContent) {
               </NavButton>
 
               <NavButton href="/cardsFilms">
-                <Search className="svg" color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
+                <Search
+                  className="svg"
+                  color="#fff"
+                  sx={{ height: 23, width: 23, color: "#EEEEEE" }}
+                />
               </NavButton>
 
-              {savedUser && savedUser.role === "admin" ? (<NavButton onClick={() => {
-                setOpen(true);
-                setContentToShow(<CreateFilms />);
-              }}>
-                <Book color="#fff" sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-              </NavButton>) : ""}
+              {savedUser && savedUser.role === "admin" ? (
+                <NavButton
+                  onClick={() => {
+                    setOpen(true);
+                    setContentToShow(<CreateFilms />);
+                  }}
+                >
+                  <Book
+                    color="#fff"
+                    sx={{ height: 23, width: 23, color: "#EEEEEE" }}
+                  />
+                </NavButton>
+              ) : (
+                ""
+              )}
             </Box>
           </List>
         </Drawer>
@@ -297,7 +412,7 @@ export default function Header(setCreateAccountContent) {
           <DrawerHeader />
         </Box>
         <CustomModal open={open} setOpen={setOpen} content={contentToShow} />
-      </Box >
-    </>
+      </Box>
+    </div>
   );
 }
