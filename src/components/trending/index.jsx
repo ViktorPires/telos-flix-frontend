@@ -1,7 +1,7 @@
 import { SignalCellularAltOutlined } from "@mui/icons-material";
 import React, { useContext } from "react";
 import "./index.css";
-import { MovieContext } from "../../src/contexts/MovieContext";
+import { MovieContext } from "../../contexts/MovieContext";
 import { Link } from "react-router-dom";
 function Trending() {
   const { movies } = useContext(MovieContext);
