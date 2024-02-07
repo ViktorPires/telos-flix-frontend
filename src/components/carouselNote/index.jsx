@@ -163,7 +163,7 @@ export function CarouselNote({ comments, movieId }) {
           >
             <h1 style={{ fontSize: "46px" }}>{getAverageRating().toFixed(1)}</h1>
             <h5 style={{ fontSize: "14px", marginTop: "-2rem" }}>
-              {`${totalVotes} ${totalVotes == 1 ? 'Review' : 'Reviews'} `}
+              {`${totalVotes} ${totalVotes === 1 ? 'Review' : 'Reviews'} `}
             </h5>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "21px" }}>
