@@ -129,14 +129,31 @@ export default function Header(setCreateAccountContent) {
               justifyContent: "space-between",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-              <img src={logo} alt="logo" />
-              <h1>
-                Télos{" "}
-                <span style={{ textTransform: "uppercase", color: "#fff" }}>
-                  FLIX
-                </span>
-              </h1>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                flexWrap: "nowrap",
+              }}
+            >
+              <Link
+                to="/"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                }}
+              >
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{ verticalAlign: "middle" }}
+                />
+                <h1 style={{ marginLeft: "1rem", color: "#fff" }}>
+                  Télos<span style={{ textTransform: "uppercase" }}>FLIX</span>
+                </h1>
+              </Link>
             </div>
             {savedUser ? (
               <Box
@@ -378,11 +395,11 @@ export default function Header(setCreateAccountContent) {
                 flexDirection: "column",
               }}
             >
-              <NavButton href="/">
+              <NavButton to="/">
                 <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
               </NavButton>
 
-              <NavButton href="/cardsFilms">
+              <NavButton to="/cardsFilms">
                 <Search
                   className="svg"
                   color="#fff"

@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
-export const NavButton = styled.a`
+export const NavButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
