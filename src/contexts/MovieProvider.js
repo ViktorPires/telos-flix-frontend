@@ -8,6 +8,7 @@ export default function MovieProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [movieGenres, setMovieGenres] = useState([])
   const [movieComments, setMovieComments] = useState([])
+  const [freeMovies, setFreeMovies] = useState([])
   const { savedUser } = useContext(AuthenticateContext)
 
 
@@ -59,6 +60,14 @@ export default function MovieProvider({ children }) {
     } catch (err) {
       return console.log(err)
     }
+  }, []);
+
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:3333/movies/free").then((response) => { setFreeMovies(response.data) })
+    } catch (err) {
+      return console.log(err)
+    }
   }, [])
 
   useEffect(() => {
@@ -77,6 +86,7 @@ export default function MovieProvider({ children }) {
     search: search,
     setMovies: setMovies,
     movies: movies,
+    freeMovies: freeMovies,
     movieGenres: movieGenres,
     createComment: createComment,
     comments: movieComments,

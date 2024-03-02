@@ -5,25 +5,24 @@ import { MovieContext } from "../../contexts/MovieContext";
 import { Link } from "react-router-dom";
 
 function EnjoyForFree() {
-  const { movies } = useContext(MovieContext);
+  const { freeMovies } = useContext(MovieContext);
 
   return (
     <div data-testid="enjoy-for-free-component" className="enjoyForContainer">
       <div className="enjoyForfreeSection">
         <div className="labelSection">
-          <CardGiftcardOutlined /> Popular
+          <CardGiftcardOutlined /> Enjoy For Free
         </div>
 
         <div className="enjoyForfreeVideosGrid">
-          {movies.slice(14, 17).map((movie, index) => (
+          {freeMovies.map((movie, index) => (
             <Link to={`/films/${movie._id}`}>
               <div className="miniFilmsCardEnjoyForFree" key={index}>
+                {console.log(index)}
                 <img style={{ width: "400px", height: "500px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
               </div>
+              <h1 style={{ fontSize: "14px", marginTop: "-3rem" }}>{movie.title}</h1>
             </Link>
-          ))}
-          {movies.slice(14, 17).map((movie) => (
-            <h1 style={{ fontSize: "14px", marginTop: "-3rem" }}>{movie.title}</h1>
           ))}
         </div>
       </div>
