@@ -18,10 +18,20 @@ function EnjoyForFree() {
           {freeMovies.map((movie, index) => (
             <Link to={`/films/${movie._id}`}>
               <div className="miniFilmsCardEnjoyForFree" key={index}>
-                {console.log(index)}
-                <img style={{ width: "400px", height: "500px", objectFit: "contain", borderRadius: "18px" }} src={movie.image} alt="" />
+                <img
+                  style={{
+                    width: "400px",
+                    height: "500px",
+                    objectFit: "contain",
+                    borderRadius: "18px",
+                  }}
+                  src={movie.image}
+                  alt={movie.title}
+                />
+                <div className="cardFilmsContainer">
+                  <h1 className="cardFilmsTitle">{movie.title}</h1>
+                </div>
               </div>
-              <h1 style={{ fontSize: "14px", marginTop: "-3rem" }}>{movie.title}</h1>
             </Link>
           ))}
         </div>
