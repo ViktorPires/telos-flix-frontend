@@ -28,9 +28,6 @@ function EnjoyForFree() {
                   src={movie.image}
                   alt={movie.title}
                 />
-                <div className="cardFilmsContainer">
-                  <h1 className="cardFilmsTitle">{movie.title}</h1>
-                </div>
               </div>
             </Link>
           ))}

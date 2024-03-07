@@ -36,7 +36,7 @@ a {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   color: white;
-  padding: 2rem 0rem 0.5rem;
+  padding: 2rem 0rem 2rem;
   transition: all 0.2s ease;
   background: #292929;
   box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
@@ -45,24 +45,4 @@ a {
 .miniFilmsCardEnjoyForFree:hover {
   background: #444444;
   box-shadow: 0px 12px 24px rgba(255, 255, 255, 0.2), 0px 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.cardFilmsContainer {
-    padding: 0.5rem;
-    justify-content: center;
-}
-  
-.cardFilmsTitle {
-    font-size: 20px;
-    color: white;
-    transition: all 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 30px;
-    padding: 0.25rem 0.5rem;
-    width: fit-content;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-  
-.miniFilmsCardEnjoyForFree:hover .cardFilmsTitle {
-    color: yellow;
 }
