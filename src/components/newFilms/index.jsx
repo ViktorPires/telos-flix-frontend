@@ -20,7 +20,7 @@ export function FilmDescription({ movie }) {
           <img
             style={{ height: "600px", objectFit: "contain", marginTop: "3rem" }}
             src={movie?.image}
-            alt=""
+            alt={movie?.title}
           />
           <div
             style={{
@@ -31,10 +31,10 @@ export function FilmDescription({ movie }) {
           >
             <h1>{movie?.title}</h1>
             <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-              {savedUser ? (
+              {savedUser || movie?.isFree ? (
                 <Link
                   style={{ textDecoration: "none" }}
-                  to={`/video/${movie._id}`}
+                  to={`/video/${movie?._id}`}
                 >
                   <PrimaryGradientButton
                     icon={<PlayArrowOutlined />}
