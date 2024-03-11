@@ -13,7 +13,7 @@ function HomeCarousel() {
       <div className="slideTrack">
         <Slide top>
           <div className="slide">
-            {movies.slice(1, 9).map((movie) => (
+            {movies.map((movie) => (
               <Link to={`/films/${movie._id}`}>
                 <img
                   style={{
@@ -23,7 +23,7 @@ function HomeCarousel() {
                     borderRadius: "18px",
                   }}
                   src={movie.image}
-                  alt=""
+                  alt={movie.title}
                 />
               </Link>
             ))}

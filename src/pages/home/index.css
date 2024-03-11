@@ -1,5 +1,5 @@
-.sectionsGrid{
-    display: grid;
-    grid-template-rows: auto;
-    gap: 72px;
+.sectionsGrid {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 72px;
 }

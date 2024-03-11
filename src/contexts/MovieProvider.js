@@ -1,22 +1,47 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
 
 export default function MovieProvider({ children }) {
-
-  const [movies, setMovies] = useState([]);
-  const [movieGenres, setMovieGenres] = useState([])
   const [movieComments, setMovieComments] = useState([])
-  const [freeMovies, setFreeMovies] = useState([])
-  const { savedUser } = useContext(AuthenticateContext)
-
+  const { savedUser } = useContext(AuthenticateContext);
 
   const Authorization = savedUser ? {
     'Authorization': 'Bearer ' + savedUser.token
-  } : {}
+  } : {};
 
-  const apiUrl = "http://localhost:3333"
+  const apiUrl = "http://localhost:3333";
+
+  const { data: movies, isLoading: isMoviesLoading } = useQuery(
+    "movies",
+    async () => {
+      const response = await axios.get(`${apiUrl}/movies`, { headers: Authorization });
+      return response.data;
+    },
+    { refetchOnWindowFocus: false }
+  );
+
+  const { data: freeMovies, isLoading: isFreeMoviesLoading } = useQuery(
+    "freeMovies",
+    async () => {
+      const response = await axios.get(`${apiUrl}/movies/free`, { headers: Authorization });
+      return response.data;
+    },
+    { refetchOnWindowFocus: false }
+  );
+
+  const { data: movieGenres, isLoading: isMovieGenresLoading } = useQuery(
+    "movieGenres",
+    async () => {
+      const response = await axios.get(`${apiUrl}/movies/genres`, { headers: Authorization });
+      return response.data;
+    },
+    { refetchOnWindowFocus: false }
+  );
+
+  const isLoading = isMoviesLoading || isFreeMoviesLoading || isMovieGenresLoading;
   const createComment = (content, rating, id) => {
     try {
       axios.post(`${apiUrl}/comments/movie/${id}`, { content, rating }, { headers: Authorization }).then((response) => {
@@ -54,37 +79,8 @@ export default function MovieProvider({ children }) {
     }
   }
 
-  useEffect(() => {
-    try {
-      axios.get("http://localhost:3333/movies/genres").then((response) => { setMovieGenres(response.data) })
-    } catch (err) {
-      return console.log(err)
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      axios.get("http://localhost:3333/movies/free").then((response) => { setFreeMovies(response.data) })
-    } catch (err) {
-      return console.log(err)
-    }
-  }, [])
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3333/movies", { headers: Authorization })
-      .then((response) => {
-        setMovies(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-  }, []);
-
   const values = {
     search: search,
-    setMovies: setMovies,
     movies: movies,
     freeMovies: freeMovies,
     movieGenres: movieGenres,
@@ -92,6 +88,7 @@ export default function MovieProvider({ children }) {
     comments: movieComments,
     getComments: getComments,
     searchById: searchById,
+    isLoading: isLoading,
   }
 
   return <MovieContext.Provider value={values}>{children}</MovieContext.Provider>;
