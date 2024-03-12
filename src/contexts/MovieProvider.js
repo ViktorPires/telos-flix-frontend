@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
-import { apiUrl } from "../constants/ApiConstant";
+import { API_URL } from "../constants/ApiConstant";
 
 export default function MovieProvider({ children }) {
   const [movieComments, setMovieComments] = useState([])
@@ -16,7 +16,7 @@ export default function MovieProvider({ children }) {
   const { data: movies, isLoading: isMoviesLoading } = useQuery(
     "movies",
     async () => {
-      const response = await axios.get(`${apiUrl}/movies`, { headers: Authorization });
+      const response = await axios.get(`${API_URL}/movies`, { headers: Authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -25,7 +25,7 @@ export default function MovieProvider({ children }) {
   const { data: freeMovies, isLoading: isFreeMoviesLoading } = useQuery(
     "freeMovies",
     async () => {
-      const response = await axios.get(`${apiUrl}/movies/free`, { headers: Authorization });
+      const response = await axios.get(`${API_URL}/movies/free`, { headers: Authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -34,7 +34,7 @@ export default function MovieProvider({ children }) {
   const { data: movieGenres, isLoading: isMovieGenresLoading } = useQuery(
     "movieGenres",
     async () => {
-      const response = await axios.get(`${apiUrl}/movies/genres`, { headers: Authorization });
+      const response = await axios.get(`${API_URL}/movies/genres`, { headers: Authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -43,7 +43,7 @@ export default function MovieProvider({ children }) {
   const isLoading = isMoviesLoading || isFreeMoviesLoading || isMovieGenresLoading;
   const createComment = (content, rating, id) => {
     try {
-      axios.post(`${apiUrl}/comments/movie/${id}`, { content, rating }, { headers: Authorization }).then((response) => {
+      axios.post(`${API_URL}/comments/movie/${id}`, { content, rating }, { headers: Authorization }).then((response) => {
         setMovieComments([...movieComments, response.data])
       })
     } catch (err) {
@@ -52,7 +52,7 @@ export default function MovieProvider({ children }) {
   }
   const getComments = (id) => {
     try {
-      axios.get(`${apiUrl}/comments/movie/${id}`, { headers: Authorization }).then((response) => {
+      axios.get(`${API_URL}/comments/movie/${id}`, { headers: Authorization }).then((response) => {
         setMovieComments(response.data)
         return response.data
       })
@@ -62,7 +62,7 @@ export default function MovieProvider({ children }) {
   }
   const search = async (title, genre) => {
     try {
-      const { data } = await axios.get(`${apiUrl}/movies`, { params: { title, genres: genre }, headers: Authorization })
+      const { data } = await axios.get(`${API_URL}/movies`, { params: { title, genres: genre }, headers: Authorization })
       return data
     } catch (err) {
       return console.log(err)
@@ -71,7 +71,7 @@ export default function MovieProvider({ children }) {
 
   const searchById = async (id) => {
     try {
-      return await axios.get(`${apiUrl}/movies/${id}`, { headers: Authorization })
+      return await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
     } catch (err) {
       return console.log(err)
     }

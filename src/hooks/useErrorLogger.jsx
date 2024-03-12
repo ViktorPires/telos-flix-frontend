@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiUrl } from "../constants/ApiConstant";
+import { API_URL } from "../constants/ApiConstant";
 
 function useErrorLogger() {
   const logError = async (error) => {
@@ -10,7 +10,7 @@ function useErrorLogger() {
         stack: error.stack,
         timestamp: new Date(),
       };
-      await axios.post(`${apiUrl}/errors`, errorData);
+      await axios.post(`${API_URL}/errors`, errorData);
     } catch (error) {
       const errors = JSON.parse(localStorage.getItem("errors")) || [];
       errors.push(error);

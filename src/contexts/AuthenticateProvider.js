@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDialog }  from "../hooks/DialogProvider";
 import useErrorLogger from "../hooks/useErrorLogger";
 import { AuthenticateContext } from "./AuthenticateContext";
-import { apiUrl } from "../constants/ApiConstant";
+import { API_URL } from "../constants/ApiConstant";
 
 export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
@@ -18,7 +18,7 @@ export default function AuthenticateProvider({ children }) {
 
   const createUser = async ({ name, email, password, age }) => {
     try {
-      await axios.post(`${apiUrl}/users`, { name, email, password, age })
+      await axios.post(`${API_URL}/users`, { name, email, password, age })
     } catch (error) {
       handleOpenDialog({
         message: "An error occurred while creating the user. Please try again later.",
@@ -35,7 +35,7 @@ export default function AuthenticateProvider({ children }) {
 
   const login = async ({ email, password }) => {
     try {
-      const { data } = await axios.post(`${apiUrl}/authenticate`, { email, password })
+      const { data } = await axios.post(`${API_URL}/authenticate`, { email, password })
       setAuthenticateData(data);
       localStorage.setItem("user", JSON.stringify(data));
       return data
@@ -55,7 +55,7 @@ export default function AuthenticateProvider({ children }) {
 
   async function updateProfile({ id, name, email, cellphone }) {
     try {
-      await axios.put(`${apiUrl}/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization }).then(response => {
+      await axios.put(`${API_URL}/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization }).then(response => {
         const { token } = JSON.parse(localStorage.getItem("user"));
         response.data.token = token
         localStorage.setItem("user", JSON.stringify(response.data))
@@ -76,7 +76,7 @@ export default function AuthenticateProvider({ children }) {
 
   async function updateProfilePassword({ id, password, confirmPassword }) {
     try {
-      await axios.put(`${apiUrl}/users/${id}`, { password, confirmPassword }, { headers: Authorization });
+      await axios.put(`${API_URL}/users/${id}`, { password, confirmPassword }, { headers: Authorization });
     } catch (error) {
       handleOpenDialog({
         message: "An error occurred while updating the password. Please try again later.",
