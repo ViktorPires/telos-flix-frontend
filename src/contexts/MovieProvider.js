@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
+import { apiUrl } from "../constants/ApiConstant";
 
 export default function MovieProvider({ children }) {
   const [movieComments, setMovieComments] = useState([])
@@ -11,8 +12,6 @@ export default function MovieProvider({ children }) {
   const Authorization = savedUser ? {
     'Authorization': 'Bearer ' + savedUser.token
   } : {};
-
-  const apiUrl = "http://localhost:3333";
 
   const { data: movies, isLoading: isMoviesLoading } = useQuery(
     "movies",
@@ -63,7 +62,7 @@ export default function MovieProvider({ children }) {
   }
   const search = async (title, genre) => {
     try {
-      const { data } = await axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, headers: Authorization })
+      const { data } = await axios.get(`${apiUrl}/movies`, { params: { title, genres: genre }, headers: Authorization })
       return data
     } catch (err) {
       return console.log(err)
@@ -72,7 +71,7 @@ export default function MovieProvider({ children }) {
 
   const searchById = async (id) => {
     try {
-      return await axios.get(`http://localhost:3333/movies/${id}`, { headers: Authorization })
+      return await axios.get(`${apiUrl}/movies/${id}`, { headers: Authorization })
     } catch (err) {
       return console.log(err)
     }
