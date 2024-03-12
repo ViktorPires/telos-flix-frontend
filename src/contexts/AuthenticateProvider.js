@@ -30,9 +30,7 @@ export default function AuthenticateProvider({ children }) {
   async function updateProfile({ id, name, email, cellphone }) {
     try {
       await axios.put(`http://localhost:3333/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization }).then(response => {
-        console.log(savedUser)
         const { token } = JSON.parse(localStorage.getItem("user"));
-        console.log(Authorization)
         response.data.token = token
 
         localStorage.setItem("user", JSON.stringify(response.data))

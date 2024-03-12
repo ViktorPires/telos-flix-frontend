@@ -19,7 +19,6 @@ export default function CardsFilms() {
   useEffect(() => {
     async function handleMovies() {
       const movies = await search(searchTerm, selectedCategory)
-      console.log(movies)
       setMovies(movies)
     }
     handleMovies()

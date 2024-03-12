@@ -64,7 +64,6 @@ export default function MovieProvider({ children }) {
   const search = async (title, genre) => {
     try {
       const { data } = await axios.get("http://localhost:3333/movies", { params: { title, genres: genre }, headers: Authorization })
-      console.log(data)
       return data
     } catch (err) {
       return console.log(err)

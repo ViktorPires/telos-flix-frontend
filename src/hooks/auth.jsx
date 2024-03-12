@@ -23,16 +23,11 @@ function AuthProvider({ children }) {
 
     api.defaults.headers.authorization = `Bearer ${token}`;
     setData({ user, token })
-    console.log(response)
   }
-
-
-
 
   async function addMovies({ movie }) {
     try {
       await api.post(`movies`, movie);
-
     } catch (err) {
       console.log(err)
     }
