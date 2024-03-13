@@ -4,10 +4,12 @@ import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
 import { API_URL } from "../constants/ApiConstant";
+import useDialog from "../hooks/useDialog";
 
 export default function MovieProvider({ children }) {
   const [movieComments, setMovieComments] = useState([])
   const { savedUser } = useContext(AuthenticateContext);
+  const { dialog } = useDialog();
 
   const Authorization = savedUser ? {
     'Authorization': 'Bearer ' + savedUser.token
@@ -46,8 +48,10 @@ export default function MovieProvider({ children }) {
       axios.post(`${API_URL}/comments/movie/${id}`, { content, rating }, { headers: Authorization }).then((response) => {
         setMovieComments([...movieComments, response.data])
       })
-    } catch (err) {
-      return console.log(err)
+    } catch (error) {
+      dialog.handleApiError(error, {
+        message: "An error occurred while creating the comment. Please try again later.",
+      })
     }
   }
   const getComments = (id) => {
@@ -56,24 +60,30 @@ export default function MovieProvider({ children }) {
         setMovieComments(response.data)
         return response.data
       })
-    } catch (err) {
-      return console.log(err)
+    } catch (error) {
+      dialog.handleApiError(error, {
+        message: "An error occurred while getting the comments. Please try again later.",
+      })
     }
   }
   const search = async (title, genre) => {
     try {
       const { data } = await axios.get(`${API_URL}/movies`, { params: { title, genres: genre }, headers: Authorization })
       return data
-    } catch (err) {
-      return console.log(err)
+    } catch (error) {
+      dialog.handleApiError(error, {
+        message: "An error occurred while searching. Please try again later.",
+      })
     }
   }
 
   const searchById = async (id) => {
     try {
       return await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
-    } catch (err) {
-      return console.log(err)
+    } catch (error) {
+      dialog.handleApiError(error, {
+        message: "An error occurred while searching. Please try again later.",
+      })
     }
   }
 
@@ -89,6 +99,11 @@ export default function MovieProvider({ children }) {
     isLoading: isLoading,
   }
 
-  return <MovieContext.Provider value={values}>{children}</MovieContext.Provider>;
+  return (
+    <MovieContext.Provider value={values}>
+      {children}
+      {dialog.dialogComponent}
+    </MovieContext.Provider>
+  );
 }
 
