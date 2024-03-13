@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../constants/ApiConstant";
 
-function useErrorLogger() {
+const useErrorLogger = () => {
   const logError = async (error) => {
     try {
       const errorData = {

@@ -17,31 +17,25 @@ const styles = {
 function DialogComponent({
   open,
   handleCloseDialog,
-  message,
-  title,
-  ariaLabelledBy,
-  buttonColor,
-  buttonText,
-  severity,
-  titleStyle,
+  dialogProps,
 }) {
   return (
     <Dialog
       open={open}
       onClose={handleCloseDialog}
-      aria-labelledby={ariaLabelledBy}
+      aria-labelledby={dialogProps.ariaLabelledBy}
       sx={styles.dialog}
     >
-      <DialogTitle id={ariaLabelledBy} sx={titleStyle}>
-        {title}
+      <DialogTitle id={dialogProps.ariaLabelledBy} sx={dialogProps.titleStyle}>
+        {dialogProps.title}
       </DialogTitle>
       <DialogContent>
-        <Alert severity={severity} sx={styles.alert}>
-          {message}
+        <Alert severity={dialogProps.severity} sx={styles.alert}>
+          {dialogProps.message}
         </Alert>
       </DialogContent>
-      <Button onClick={handleCloseDialog} color={buttonColor} autoFocus>
-        {buttonText}
+      <Button onClick={handleCloseDialog} color={dialogProps.buttonColor} autoFocus>
+        {dialogProps.buttonText}
       </Button>
     </Dialog>
   );
