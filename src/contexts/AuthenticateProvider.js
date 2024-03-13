@@ -70,5 +70,10 @@ export default function AuthenticateProvider({ children }) {
     updateProfilePassword: updateProfilePassword,
   }
 
-  return <AuthenticateContext.Provider value={values}>{children}{dialog.dialogComponent}</AuthenticateContext.Provider>;
+  return (
+    <AuthenticateContext.Provider value={values}>
+      {children}
+      {dialog.dialogComponent}
+    </AuthenticateContext.Provider>
+  );
 }
