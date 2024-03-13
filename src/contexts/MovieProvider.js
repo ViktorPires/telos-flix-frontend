@@ -4,12 +4,12 @@ import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
 import { API_URL } from "../constants/ApiConstant";
-import useDialog from "../hooks/useDialog";
+import useApiError from "../hooks/useApiError";
 
 export default function MovieProvider({ children }) {
   const [movieComments, setMovieComments] = useState([])
   const { savedUser } = useContext(AuthenticateContext);
-  const { dialog } = useDialog();
+  const { handleApiError, dialogComponent } = useApiError();
 
   const Authorization = savedUser ? {
     'Authorization': 'Bearer ' + savedUser.token
@@ -49,7 +49,7 @@ export default function MovieProvider({ children }) {
         setMovieComments([...movieComments, response.data])
       })
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while creating the comment. Please try again later.",
       })
     }
@@ -61,7 +61,7 @@ export default function MovieProvider({ children }) {
         return response.data
       })
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while getting the comments. Please try again later.",
       })
     }
@@ -71,7 +71,7 @@ export default function MovieProvider({ children }) {
       const { data } = await axios.get(`${API_URL}/movies`, { params: { title, genres: genre }, headers: Authorization })
       return data
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while searching. Please try again later.",
       })
     }
@@ -81,7 +81,7 @@ export default function MovieProvider({ children }) {
     try {
       return await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while searching. Please try again later.",
       })
     }
@@ -102,7 +102,7 @@ export default function MovieProvider({ children }) {
   return (
     <MovieContext.Provider value={values}>
       {children}
-      {dialog.dialogComponent}
+      {dialogComponent}
     </MovieContext.Provider>
   );
 }

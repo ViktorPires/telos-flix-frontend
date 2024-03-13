@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import useDialog from "../hooks/useDialog";
+import useApiError from "../hooks/useApiError";
 import { AuthenticateContext } from "./AuthenticateContext";
 import { API_URL } from "../constants/ApiConstant";
 
 export default function AuthenticateProvider({ children }) {
   const [authenticateData, setAuthenticateData] = useState([]);
-  const { dialog } = useDialog();
+  const { handleApiError, dialogComponent } = useApiError();
 
   const savedUser = JSON.parse(localStorage.getItem("user"));
 
@@ -18,7 +18,7 @@ export default function AuthenticateProvider({ children }) {
     try {
       await axios.post(`${API_URL}/users`, { name, email, password, age })
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while creating the user. Please try again later.",
       })
     }
@@ -31,7 +31,7 @@ export default function AuthenticateProvider({ children }) {
       localStorage.setItem("user", JSON.stringify(data));
       return data
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while logging in. Please try again later.",
       });
     };
@@ -45,7 +45,7 @@ export default function AuthenticateProvider({ children }) {
         localStorage.setItem("user", JSON.stringify(response.data))
       })
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while updating the profile. Please try again later.",
       })
     }
@@ -55,7 +55,7 @@ export default function AuthenticateProvider({ children }) {
     try {
       await axios.put(`${API_URL}/users/${id}`, { password, confirmPassword }, { headers: Authorization });
     } catch (error) {
-      dialog.handleApiError(error, {
+      handleApiError(error, {
         message: "An error occurred while updating the password. Please try again later.",
       })
     }
@@ -73,7 +73,7 @@ export default function AuthenticateProvider({ children }) {
   return (
     <AuthenticateContext.Provider value={values}>
       {children}
-      {dialog.dialogComponent}
+      {dialogComponent}
     </AuthenticateContext.Provider>
   );
 }
