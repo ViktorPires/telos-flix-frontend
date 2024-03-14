@@ -15,7 +15,7 @@ export default function MovieProvider({ children }) {
     'Authorization': 'Bearer ' + savedUser.token
   } : {};
 
-  const { data: movies, isLoading: isMoviesLoading } = useQuery(
+  const { data: movies, isLoading: isMoviesLoading, isError: isMoviesError, error: moviesError } = useQuery(
     "movies",
     async () => {
       const response = await axios.get(`${API_URL}/movies`, { headers: Authorization });
@@ -24,7 +24,13 @@ export default function MovieProvider({ children }) {
     { refetchOnWindowFocus: false }
   );
 
-  const { data: freeMovies, isLoading: isFreeMoviesLoading } = useQuery(
+  if (isMoviesError) {
+    handleApiError(moviesError, {
+      message: "An error occurred while getting the movies. Please try again later.",
+    });
+  }
+
+  const { data: freeMovies, isLoading: isFreeMoviesLoading, isError: isFreeMoviesError, error: freeMoviesError } = useQuery(
     "freeMovies",
     async () => {
       const response = await axios.get(`${API_URL}/movies/free`, { headers: Authorization });
@@ -33,7 +39,13 @@ export default function MovieProvider({ children }) {
     { refetchOnWindowFocus: false }
   );
 
-  const { data: movieGenres, isLoading: isMovieGenresLoading } = useQuery(
+  if (isFreeMoviesError) {
+    handleApiError(freeMoviesError, {
+      message: "An error occurred while getting the free movies. Please try again later.",
+    });
+  }
+
+  const { data: movieGenres, isLoading: isMovieGenresLoading, isError: isMovieGenresError, error: movieGenresError } = useQuery(
     "movieGenres",
     async () => {
       const response = await axios.get(`${API_URL}/movies/genres`, { headers: Authorization });
@@ -41,6 +53,12 @@ export default function MovieProvider({ children }) {
     },
     { refetchOnWindowFocus: false }
   );
+
+  if (isMovieGenresError) {
+    handleApiError(movieGenresError, {
+      message: "An error occurred while getting the movie genres. Please try again later.",
+    });
+  }
 
   const isLoading = isMoviesLoading || isFreeMoviesLoading || isMovieGenresLoading;
   const createComment = (content, rating, id) => {
