@@ -6,6 +6,7 @@ import { MovieContext } from "../../contexts/MovieContext";
 import { Link, useParams } from "react-router-dom";
 import { Zoom } from "react-reveal";
 import Loading from "../../components/loading";
+import SearchLoading from "../../components/searchLoading";
 
 export default function CardsFilms() {
   const { genre } = useParams();
@@ -14,11 +15,14 @@ export default function CardsFilms() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(genre);
   const [movies, setMovies] = useState([]);
+  const [isSearchLoading, setSearchIsLoading] = useState(true);
 
   useEffect(() => {
+    setSearchIsLoading(true);
     async function handleMovies() {
       const movies = await search(searchTerm, selectedCategory);
       setMovies(movies);
+      setSearchIsLoading(false);
     }
     handleMovies();
   }, [searchTerm, selectedCategory]);
@@ -61,7 +65,9 @@ export default function CardsFilms() {
             </form>
           </div>
           <div className="grid-cardsFilms">
-            {movies.length === 0 ? (
+            {isSearchLoading ? (
+              <SearchLoading />
+            ) : movies.length === 0 ? (
               <h1>No movies were found</h1>
             ) : (
               movies.map((movie) => (
