@@ -10,8 +10,7 @@ import Loading from "../../components/loading";
 export default function CardsFilms() {
   const { genre } = useParams();
 
-  const { search, movieGenres, isLoading, isMovieGenresLoading } =
-    useContext(MovieContext);
+  const { search, movieGenres, isLoading } = useContext(MovieContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(genre);
   const [movies, setMovies] = useState([]);
