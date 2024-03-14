@@ -61,31 +61,35 @@ export default function CardsFilms() {
             </form>
           </div>
           <div className="grid-cardsFilms">
-            {movies.map((movie) => (
-              <Zoom top distance="30%" duraction={1500}>
-                <Link
-                  to={`/films/${movie._id}`}
-                  key={movie._id}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className="miniVideoCard">
-                    <img
-                      style={{
-                        marginTop: "1rem",
-                        objectFit: "cover",
-                        height: "100%",
-                        borderRadius: 12,
-                      }}
-                      src={movie.image}
-                      alt={movie.title}
-                    />
-                    <div style={{ margin: "0 auto" }}>
-                      <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
+            {movies.length === 0 ? (
+              <h1>No movies were found</h1>
+            ) : (
+              movies.map((movie) => (
+                <Zoom top distance="30%" duraction={1500}>
+                  <Link
+                    to={`/films/${movie._id}`}
+                    key={movie._id}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className="miniVideoCard">
+                      <img
+                        style={{
+                          marginTop: "1rem",
+                          objectFit: "cover",
+                          height: "100%",
+                          borderRadius: 12,
+                        }}
+                        src={movie.image}
+                        alt={movie.title}
+                      />
+                      <div style={{ margin: "0 auto" }}>
+                        <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </Zoom>
-            ))}
+                  </Link>
+                </Zoom>
+              ))
+            )}
           </div>
         </div>
       </div>
