@@ -1,126 +1,142 @@
-
 .cardsFilms-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 450px;
 }
 
 .cardsFilms-container .cardsFilms-content {
-    background-color: transparent;
-
+  background-color: transparent;
 }
 
 .cardsFilms-container .cardsFilms-content .grid-cardsFilms {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: center;
-    align-content: center;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+  gap: 20px;
+  min-width: calc(
+    367px * 3 + 40px
+  ); /* size of cards multiplied by number of cards and summed with 40px for the gap */
 }
 
-.cardsFilms-container .cardsFilms-content .grid-cardsFilms a>div {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    padding: 3px 10px;
-    border-radius: 18px;
-    width: 367px;
-    background-color: #292929;
-    border: 2px solid rgba(238, 238, 238, 0.05);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    color: white;
-    transition: all 0.2s ease;
+.cardsFilms-container .cardsFilms-content .grid-cardsFilms a > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 3px 10px;
+  border-radius: 18px;
+  width: 367px;
+  background-color: #292929;
+  border: 2px solid rgba(238, 238, 238, 0.05);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+  transition: all 0.2s ease;
 }
 
-.cardsFilms-container .cardsFilms-content .grid-cardsFilms a>div:hover {
-    background: #444444;
-    box-shadow: 0px 12px 24px rgba(255, 255, 255, 0.2), 0px 8px 16px rgba(0, 0, 0, 0.3);
+.cardsFilms-container .cardsFilms-content .grid-cardsFilms a > div:hover {
+  background: #444444;
+  box-shadow: 0px 12px 24px rgba(255, 255, 255, 0.2),
+    0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .cardsFilms-container .cardsFilms-content .input-content-cardsFilms {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 20px;
 }
 
 .cardsFilms-container .cardsFilms-content .input-content-cardsFilms form {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    gap: 22px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 22px;
 }
 
-.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form>.input-name-cardsFilm {
+.cardsFilms-container
+  .cardsFilms-content
+  .input-content-cardsFilms
+  form
+  > .input-name-cardsFilm {
+  width: 366px;
+  height: 42px;
 
-    width: 366px;
-    height: 42px;
+  background: rgba(238, 238, 238, 0.05);
+  border: 1px solid rgba(238, 238, 238, 0.05);
+  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 14px;
+  border: none;
 
-    background: rgba(238, 238, 238, 0.05);
-    border: 1px solid rgba(238, 238, 238, 0.05);
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.05);
-    border-radius: 14px;
-    border: none;
+  padding: 10px 16px 10px 16px;
 
-    padding: 10px 16px 10px 16px;
-
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 22px;
-    display: flex;
-    align-items: center;
-    color: #EEEEEE;
-
-
-
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #eeeeee;
 }
 
-.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form>.input-name-cardsFilm:focus {
-    outline: none;
+.cardsFilms-container
+  .cardsFilms-content
+  .input-content-cardsFilms
+  form
+  > .input-name-cardsFilm:focus {
+  outline: none;
 }
 
-.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form>.input-name-cardsFilm::placeholder {
-
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 22px;
-    display: flex;
-    align-items: center;
-    color: #EEEEEE;
-    opacity: 0.5;
+.cardsFilms-container
+  .cardsFilms-content
+  .input-content-cardsFilms
+  form
+  > .input-name-cardsFilm::placeholder {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #eeeeee;
+  opacity: 0.5;
 }
 
-.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form>.select-category-cardsFilm {
-    display: flex;
-    justify-content: start;
-    width: 364px;
-    height: 39px;
-    background: #292929;
-    border: 1px solid rgba(238, 238, 238, 0.05);
-    border-radius: 20px;
+.cardsFilms-container
+  .cardsFilms-content
+  .input-content-cardsFilms
+  form
+  > .select-category-cardsFilm {
+  display: flex;
+  justify-content: start;
+  width: 364px;
+  height: 39px;
+  background: #292929;
+  border: 1px solid rgba(238, 238, 238, 0.05);
+  border-radius: 20px;
 
-    margin-right: 20px;
+  margin-right: 20px;
 
-
-    font-style: normal;
-    font-weight: 800;
-    font-size: 14px;
-    line-height: 18px;
-    text-align: center;
-    color: #EEEEEE;
-    cursor: pointer;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #eeeeee;
+  cursor: pointer;
 }
 
-.cardsFilms-container .cardsFilms-content .input-content-cardsFilms form>.select-category-cardsFilm:focus {
-    outline: none;
+.cardsFilms-container
+  .cardsFilms-content
+  .input-content-cardsFilms
+  form
+  > .select-category-cardsFilm:focus {
+  outline: none;
 }
