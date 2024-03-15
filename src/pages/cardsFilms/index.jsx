@@ -18,8 +18,8 @@ export default function CardsFilms() {
   const [isSearchLoading, setSearchIsLoading] = useState(true);
 
   useEffect(() => {
-    setSearchIsLoading(true);
     async function handleMovies() {
+      setSearchIsLoading(true);
       const movies = await search(searchTerm, selectedCategory);
       setMovies(movies);
       setSearchIsLoading(false);
