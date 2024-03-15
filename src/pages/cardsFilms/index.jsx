@@ -33,7 +33,7 @@ export default function CardsFilms() {
     <>
       <Header />
       <div data-testid="cards-films-component" className="cardsFilms-container">
-        <div className="cardsFilms-content">
+        <div className="cardsFilms-content" >
           <div className="input-content-cardsFilms">
             <form action="#" method="get" autoComplete="off">
               <input
@@ -56,7 +56,7 @@ export default function CardsFilms() {
                 <option value="" disabled>
                   Category <ArrowForward />
                 </option>
-                {movieGenres.map((genre) => (
+                {movieGenres && movieGenres.map((genre) => (
                   <option key={genre} value={genre}>
                     {genre}
                   </option>
@@ -67,34 +67,38 @@ export default function CardsFilms() {
           <div className="grid-cardsFilms">
             {isSearchLoading ? (
               <SearchLoading />
-            ) : movies.length === 0 ? (
-              <h1>No movies were found</h1>
             ) : (
-              movies.map((movie) => (
-                <Zoom top distance="30%" duraction={1500}>
-                  <Link
-                    to={`/films/${movie._id}`}
-                    key={movie._id}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <div className="miniVideoCard">
-                      <img
-                        style={{
-                          marginTop: "1rem",
-                          objectFit: "cover",
-                          height: "100%",
-                          borderRadius: 12,
-                        }}
-                        src={movie.image}
-                        alt={movie.title}
-                      />
-                      <div style={{ margin: "0 auto" }}>
-                        <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
-                      </div>
-                    </div>
-                  </Link>
-                </Zoom>
-              ))
+              <>
+                {movies && movies.length === 0 ? (
+                  <h1>No movies were found</h1>
+                ) : (
+                  movies && movies.map((movie) => (
+                    <Zoom top distance="30%" duraction={1500}>
+                      <Link
+                        to={`/films/${movie._id}`}
+                        key={movie._id}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div className="miniVideoCard">
+                          <img
+                            style={{
+                              marginTop: "1rem",
+                              objectFit: "cover",
+                              height: "100%",
+                              borderRadius: 12,
+                            }}
+                            src={movie.image}
+                            alt={movie.title}
+                          />
+                          <div style={{ margin: "0 auto" }}>
+                            <h1 style={{ fontSize: "14px" }}>{movie.title}</h1>
+                          </div>
+                        </div>
+                      </Link>
+                    </Zoom>
+                  ))
+                )}
+              </>
             )}
           </div>
         </div>
