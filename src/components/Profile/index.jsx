@@ -85,6 +85,7 @@ export function Profile() {
                         <SecondaryGradientButton
                             icon={<DnsRounded />}
                             text="Personal data"
+                            alwaysActive={true}
                         />
                     </div>
                 </div>

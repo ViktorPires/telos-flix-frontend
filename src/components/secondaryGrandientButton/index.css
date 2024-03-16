@@ -34,4 +34,12 @@ button.secondaryGrandientButton {
 
 button.secondaryGrandientButton:hover {
   cursor: pointer;
+  border-color: #e0c3fc;
+  color: #e0c3fc;
+}
+
+button.secondaryGrandientButton.always-active {
+  cursor: default;
+  border-color: #e0c3fc;
+  color: #e0c3fc;
 }
