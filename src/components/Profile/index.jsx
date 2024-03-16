@@ -68,6 +68,10 @@ export function Profile() {
         }
     }, [updateTrigger, navigate]);
 
+    if (!savedUser) {
+        return <h1>You need to be logged in to update your profile</h1>
+    }
+
     return (
         <div>
             <Snackbar open={open} autoHideDuration={6000} onClose={() => { setOpen(false) }}>
