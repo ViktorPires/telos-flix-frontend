@@ -1,5 +1,4 @@
 import {
-  PlayArrowOutlined,
   Star,
   StarBorderOutlined,
   StarBorderPurple500Outlined,
@@ -13,7 +12,6 @@ import "./index.css";
 import { useState, useEffect } from "react";
 import RatingModal from "../avaliation";
 import { Link } from "react-router-dom";
-import PrimaryGradientButton from "../primaryGrandientButton";
 import CreateAccountModalContent from "../createAccountModalContent";
 import { useContext } from "react";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
@@ -121,7 +119,6 @@ export function CarouselNote({ comments, movieId }) {
       <div
         style={{
           width: "1222px",
-          position: "relative",
           margin: "auto",
           marginBottom: "5rem",
         }}

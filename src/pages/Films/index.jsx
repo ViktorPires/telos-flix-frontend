@@ -1,15 +1,14 @@
 import { useContext, useState } from "react";
 import { CarouselNote } from "../../components/carouselNote";
-import { FilmDescription } from "../../components/newFilms";
+import { FilmDescription } from "../../components/filmsDescription";
 import { useParams } from "react-router-dom";
 import { MovieContext } from "../../contexts/MovieContext";
 import { useEffect } from "react";
 import Header from "../../components/header";
-import PrimaryGradientButton from "../../components/primaryGrandientButton";
-import { PlayArrowOutlined } from "@mui/icons-material";
+import Loading from "../../components/loading";
 
 function Films() {
-  const { movies, createComment, comments, getComments, searchById } = useContext(MovieContext);
+  const { comments, searchById, isLoading } = useContext(MovieContext);
   const { id } = useParams()
   const [movie, setMovie] = useState({
     title: "",
@@ -24,7 +23,9 @@ function Films() {
     fetchData()
   }, [id, searchById])
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div data-testid="films-component">
       <Header />
       <FilmDescription movie={movie} />
