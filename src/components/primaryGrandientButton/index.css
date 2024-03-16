@@ -40,3 +40,15 @@ button.primaryGrandientButton:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+button.disabled {
+  transition: none;
+  opacity: 0.3;
+  box-shadow: none;
+}
+
+button.disabled:hover {
+  transform: none;
+  cursor: not-allowed;
+  background: linear-gradient(272.56deg, #8ec5fc -13.13%, #e0c3fc 42.75%, #fae69f 82.67%);
+}

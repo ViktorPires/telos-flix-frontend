@@ -5,39 +5,32 @@ import { EmailOutlined, PersonOutlined, PhoneOutlined } from "@mui/icons-materia
 import PasswordOutlinedInput from "../passwordOutlinedInput";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
-
 import { useNavigate } from "react-router-dom";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 
 function CreateAccountModalContent() {
-  const { createUser } = useContext(AuthenticateContext)
+  const { createUser } = useContext(AuthenticateContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
 
-  async function handleSignUp() {
-
+  async function handleSignUp(event) {
+    event.preventDefault();
     if (!name || !email || !password) {
       setErrorMessage('Fill all fields')
       return
     }
     if (confirmPassword !== password) {
-      setErrorMessage('the passwords must match')
+      setErrorMessage('The passwords must match')
       return
     }
-    try {
-      await createUser({ name, email, password, age, confirmPassword })
-      window.location.reload(false);
-
-    } catch (err) {
-
-    }
-
+    await createUser({ name, email, password, age, confirmPassword })
   }
 
   return (
@@ -105,15 +98,15 @@ function CreateAccountModalContent() {
             <label className="inputLabel">Confirm password</label>
             <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirm password" />
           </div>
-          <span style={{ color: "red" }}>{errorMessage}</span>
+          <span style={{ color: "red", marginTop: "1rem" }}>{errorMessage}</span>
 
           <FormControlLabel
             sx={{ marginTop: "42px" }}
-            control={<Checkbox style={{ color: "#404040" }} defaultChecked />}
-            label="I agree with terms and service of the plataform"
+            control={<Checkbox style={{ color: "#404040" }} onChange={(e) => setAgreeToTerms(e.target.checked)} />}
+            label="I agree with the terms and services of the plataform"
           />
           <div className="buttonsSection">
-            <PrimaryGradientButton onClick={handleSignUp} text="Register" />
+            <PrimaryGradientButton onClick={handleSignUp} text="Register" disabled={!agreeToTerms}/>
           </div>
         </FormControl>
       </div>
