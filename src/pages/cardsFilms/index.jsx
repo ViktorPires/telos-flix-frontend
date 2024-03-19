@@ -17,13 +17,14 @@ export default function CardsFilms() {
   const [movies, setMovies] = useState([]);
   const [isSearchLoading, setSearchIsLoading] = useState(true);
 
+  async function handleMovies() {
+    setSearchIsLoading(true);
+    const movies = await search(searchTerm, selectedCategory);
+    setMovies(movies);
+    setSearchIsLoading(false);
+  }
+
   useEffect(() => {
-    async function handleMovies() {
-      setSearchIsLoading(true);
-      const movies = await search(searchTerm, selectedCategory);
-      setMovies(movies);
-      setSearchIsLoading(false);
-    }
     handleMovies();
   }, [searchTerm, selectedCategory]);
 
@@ -73,10 +74,9 @@ export default function CardsFilms() {
                   <h1>No movies were found</h1>
                 ) : (
                   movies && movies.map((movie) => (
-                    <Zoom top distance="30%" duraction={1500}>
+                    <Zoom key={movie._id} top distance="30%" duraction={1500}>
                       <Link
                         to={`/films/${movie._id}`}
-                        key={movie._id}
                         style={{ textDecoration: "none" }}
                       >
                         <div className="miniVideoCard">
