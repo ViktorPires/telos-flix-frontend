@@ -27,11 +27,11 @@ export function CarouselNote({ comments, movieId }) {
     const totalVotes = comments.length;
     if (!totalVotes) {
       return [
-        { rate: 1, percentage: 0 },
-        { rate: 2, percentage: 0 },
-        { rate: 3, percentage: 0 },
-        { rate: 4, percentage: 0 },
         { rate: 5, percentage: 0 },
+        { rate: 4, percentage: 0 },
+        { rate: 3, percentage: 0 },
+        { rate: 2, percentage: 0 },
+        { rate: 1, percentage: 0 },
       ]
     }
     const counts = [0, 0, 0, 0, 0];
@@ -42,11 +42,11 @@ export function CarouselNote({ comments, movieId }) {
 
     const percentage = counts.map((count) => (count / totalVotes) * 100);
     const values = [
-      { rate: 1, percentage: percentage[0] },
-      { rate: 2, percentage: percentage[1] },
-      { rate: 3, percentage: percentage[2] },
-      { rate: 4, percentage: percentage[3] },
       { rate: 5, percentage: percentage[4] },
+      { rate: 4, percentage: percentage[3] },
+      { rate: 3, percentage: percentage[2] },
+      { rate: 2, percentage: percentage[1] },
+      { rate: 1, percentage: percentage[0] },
     ]
 
     return values
