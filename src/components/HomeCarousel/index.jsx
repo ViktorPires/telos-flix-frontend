@@ -14,7 +14,7 @@ function HomeCarousel() {
         <Slide top>
           <div className="slide">
             {movies.map((movie) => (
-              <Link to={`/films/${movie._id}`}>
+              <Link key={movie._id} to={`/films/${movie._id}`}>
                 <img
                   style={{
                     width: "400px",

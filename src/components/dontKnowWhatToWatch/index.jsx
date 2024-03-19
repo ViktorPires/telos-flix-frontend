@@ -21,6 +21,7 @@ function DontKnowWhatToWatch() {
         <div className="dontKnowWhatToWatchgrid">
           {movieGenres.map((genre) => (
             <Link
+              key={genre}
               to={`/cardsFilms/${genre}`}
               style={{ textDecoration: "none", color: "white" }}
             >

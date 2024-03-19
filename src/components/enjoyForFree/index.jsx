@@ -16,7 +16,7 @@ function EnjoyForFree() {
 
         <div className="enjoyForfreeVideosGrid">
           {freeMovies.map((movie, index) => (
-            <Link to={`/films/${movie._id}`}>
+            <Link key={movie._id} to={`/films/${movie._id}`}>
               <div className="miniFilmsCardEnjoyForFree" key={index}>
                 <img
                   style={{
