@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/system";
 import "./index.css";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
-import { MovieContext } from "../../contexts/MovieContext";
+import { CommentContext } from "../../contexts/CommentContext";
 
 const CenteredContainer = styled("div")`
   position: absolute;
@@ -51,7 +51,7 @@ const StyledRating = styled(Rating)`
 `;
 
 export default function RatingModal({ movieId }) {
-  const { createComment } = useContext(MovieContext);
+  const { createComment } = useContext(CommentContext);
   const [show, setShow] = useState(true);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
@@ -94,7 +94,7 @@ export default function RatingModal({ movieId }) {
           >
             <h1>What did you think of the movie?</h1>
             <p>
-              Give five stars if you recommend it to your friends and one if you can even speak ill of the
+              Give it five stars if you would recommend it to your friends, and one star if you found it so bad that you can't even discuss about it
             </p>
           </div>
           <Stack spacing={1}>

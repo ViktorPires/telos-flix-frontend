@@ -3,17 +3,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
 import Films from "../pages/Films";
 import MovieProvider from "../contexts/MovieProvider";
+import CommentProvider from "../contexts/CommentProvider";
 import Person from "../pages/Person";
 import AuthenticateProvider from "../contexts/AuthenticateProvider";
 import CardsFilms from "../pages/cardsFilms";
 import Video from "../pages/video";
 
-
-
-
 export default function AppRoutes() {
   return (
-
     <AuthenticateProvider>
       <BrowserRouter>
         <Routes>
@@ -25,7 +22,9 @@ export default function AppRoutes() {
 
           <Route element={
             <MovieProvider>
-              <Films />
+              <CommentProvider>
+                <Films />
+              </CommentProvider>
             </MovieProvider>
           } path="/films/:id" exact />
 

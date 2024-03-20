@@ -3,12 +3,14 @@ import { CarouselNote } from "../../components/carouselNote";
 import { FilmDescription } from "../../components/filmsDescription";
 import { useParams } from "react-router-dom";
 import { MovieContext } from "../../contexts/MovieContext";
+import { CommentContext } from "../../contexts/CommentContext";
 import { useEffect } from "react";
 import Header from "../../components/header";
 import Loading from "../../components/loading";
 
 function Films() {
-  const { getComments, comments, searchById, isLoading } = useContext(MovieContext);
+  const { searchById, isLoading } = useContext(MovieContext);
+  const { getComments, comments } = useContext(CommentContext);
   const { id } = useParams()
   const [movie, setMovie] = useState({})
   const [isLoadingComments, setIsLoadingComments] = useState(true);
