@@ -13,7 +13,7 @@ function HomeCarousel() {
       <div className="slideTrack">
         <Slide top>
           <div className="slide">
-            {movies.map((movie) => (
+            {movies?.map((movie) => (
               <Link key={movie._id} to={`/films/${movie._id}`}>
                 <img
                   style={{
