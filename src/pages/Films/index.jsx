@@ -8,20 +8,26 @@ import Header from "../../components/header";
 import Loading from "../../components/loading";
 
 function Films() {
-  const { comments, searchById, isLoading } = useContext(MovieContext);
+  const { getComments, comments, searchById, isLoading } = useContext(MovieContext);
   const { id } = useParams()
-  const [movie, setMovie] = useState({
-    title: "",
-    src: ""
-  })
+  const [movie, setMovie] = useState({})
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
+
+  const fetchData = async () => {
+    const { data } = await searchById(id);
+    setMovie(data);
+  };
+  
+  const fetchDataComments = async () => {
+    setIsLoadingComments(true);
+    await getComments(id);
+    setIsLoadingComments(false);
+  };
 
   useEffect(() => {
-    async function fetchData() {
-      const { data } = await searchById(id)
-      setMovie(data)
-    }
     fetchData()
-  }, [id, searchById])
+    fetchDataComments()
+  }, [id])
 
   return isLoading ? (
     <Loading />
@@ -29,7 +35,7 @@ function Films() {
     <div data-testid="films-component">
       <Header />
       <FilmDescription movie={movie} />
-      <CarouselNote comments={comments} movieId={id} />
+      <CarouselNote comments={comments} movieId={id} isLoading={isLoadingComments} />
     </div>
   );
 }
