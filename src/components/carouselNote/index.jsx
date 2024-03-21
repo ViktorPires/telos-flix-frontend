@@ -86,19 +86,17 @@ export function CarouselNote({ comments, movieId, isLoading }) {
     });
     return formattedDate;
   };
-
   const mountStars = (rating) => {
     const stars = [];
     for (let currentRating = 1; currentRating <= 5; currentRating++) {
       if (currentRating <= rating) {
-        stars.push(<Star />);
+        stars.push(<Star key={`star-${currentRating}`} />);
       } else {
-        stars.push(<StarBorderPurple500Outlined />);
+        stars.push(<StarBorderPurple500Outlined key={`star-border-${currentRating}`} />);
       }
     }
-    return <>{stars.map((component) => component)}</>;
+    return <>{stars}</>;
   };
-
   const handleClick = () => {
     setShow(!show);
   };
@@ -211,9 +209,9 @@ export function CarouselNote({ comments, movieId, isLoading }) {
                 color: "white",
               }}
             >
-              {percentages?.map((percentage) => {
-                return (
+              {percentages?.map((percentage) => (
                   <div
+                    key={percentage.rate}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -240,8 +238,7 @@ export function CarouselNote({ comments, movieId, isLoading }) {
                       />
                     </h6>
                   </div>
-                );
-              })}
+                ))}
             </div>
             {comments && (
               <div style={{ position: "absolute" }}>
@@ -254,9 +251,9 @@ export function CarouselNote({ comments, movieId, isLoading }) {
                     left: "20rem",
                   }}
                 >
-                  {comments.map((comment) => {
-                    return (
+                  {comments.map((comment) => (
                       <div
+                        key={comment._id}
                         className="carouselCard keen-slider__slide"
                         style={{ textAlign: "start" }}
                       >
@@ -278,8 +275,7 @@ export function CarouselNote({ comments, movieId, isLoading }) {
                           {mountStars(comment?.rating)}
                         </div>
                       </div>
-                    );
-                  })}
+                    ))}
                 </div>
                 {loadedSlider && internalSlider.current && totalVotes > 2 && (
                   <div
