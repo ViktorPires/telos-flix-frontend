@@ -37,21 +37,20 @@ export default function AuthenticateProvider({ children }) {
     };
   }
 
-  async function updateProfile({ id, name, email, cellphone }) {
+  const updateProfile = async({ id, name, email, cellphone }) => {
     try {
-      await axios.put(`${API_URL}/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization }).then(response => {
+        const response = await axios.put(`${API_URL}/users/${id}`, { name, email, cellphone, password: null }, { headers: Authorization });
         const { token } = JSON.parse(localStorage.getItem("user"));
-        response.data.token = token
-        localStorage.setItem("user", JSON.stringify(response.data))
-      })
+        response.data.token = token;
+        localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
-      handleApiError(error, {
-        message: "An error occurred while updating the profile. Please try again later.",
-      })
+        handleApiError(error, {
+            message: "An error occurred while updating the profile. Please try again later.",
+        });
     }
-  }
+}
 
-  async function updateProfilePassword({ id, password, confirmPassword }) {
+  const updateProfilePassword = async ({ id, password, confirmPassword }) => {
     try {
       await axios.put(`${API_URL}/users/${id}`, { password, confirmPassword }, { headers: Authorization });
     } catch (error) {
