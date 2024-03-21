@@ -7,6 +7,7 @@ import SecondaryGradientButton from "../secondaryGrandientButton";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import Arrow from "../arrow/index";
 
 import "./index.css";
 import { useState, useEffect } from "react";
@@ -17,12 +18,14 @@ import { useContext } from "react";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
-import SearchLoading from "../searchLoading";
+import SearchLoading from "../searchLoading/index";
 
 export function CarouselNote({ comments, movieId, isLoading }) {
   const { savedUser } = useContext(AuthenticateContext);
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
+  const [loadedSlider, setLoadedSlider] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const getPercentage = () => {
     const totalVotes = comments?.length;
@@ -76,13 +79,13 @@ export function CarouselNote({ comments, movieId, isLoading }) {
   }
 
   const getFormattedDate = (date) => {
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
     return formattedDate;
-  }
+  };
 
   const mountStars = (rating) => {
     const stars = [];
@@ -101,9 +104,16 @@ export function CarouselNote({ comments, movieId, isLoading }) {
   };
 
   const [sliderRef, internalSlider] = useKeenSlider({
+    initial: 0,
     slides: {
       perView: 2,
       spacing: 15,
+    },
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoadedSlider(true);
     },
   });
 
@@ -234,35 +244,69 @@ export function CarouselNote({ comments, movieId, isLoading }) {
               })}
             </div>
             {comments && (
-              <div
-                ref={sliderRef}
-                className="keen-slider"
-                style={{ width: "800px" }}
-              >
-                {comments.map((comment) => {
-                  return (
-                    <div
-                      className="carouselCard keen-slider__slide"
-                      style={{ textAlign: "start" }}
-                    >
-                      <div className="cardHeader">
-                        <h1>{comment?.user_id?.name}</h1>
-                        <span>{getFormattedDate(comment?.createdAt)}</span>
-                      </div>
-                      <p style={{ width: "300px", fontSize: "15px" }}>{comment?.content}</p>
+              <div style={{ position: "absolute" }}>
+                <div
+                  ref={sliderRef}
+                  className="keen-slider"
+                  style={{
+                    width: "800px",
+                    position: "relative",
+                    left: "20rem",
+                  }}
+                >
+                  {comments.map((comment) => {
+                    return (
                       <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "15px",
-                        }}
+                        className="carouselCard keen-slider__slide"
+                        style={{ textAlign: "start" }}
                       >
-                        <span>{comment?.rating.toFixed(1)}</span>
-                        {mountStars(comment?.rating)}
+                        <div className="cardHeader">
+                          <h1>{comment?.user_id?.name}</h1>
+                          <span>{getFormattedDate(comment?.createdAt)}</span>
+                        </div>
+                        <p style={{ width: "300px", fontSize: "15px" }}>
+                          {comment?.content}
+                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "15px",
+                          }}
+                        >
+                          <span>{comment?.rating.toFixed(1)}</span>
+                          {mountStars(comment?.rating)}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+                {loadedSlider && internalSlider.current && totalVotes > 2 && (
+                  <div
+                    style={{
+                      position: "relative",
+                      bottom: "6rem",
+                      left: "20rem",
+                    }}
+                  >
+                    <Arrow
+                      left
+                      onClick={(e) =>
+                        e.stopPropagation() || internalSlider.current?.prev()
+                      }
+                      disabled={currentSlide === 0}
+                    />
+
+                    <Arrow
+                      onClick={(e) =>
+                        e.stopPropagation() || internalSlider.current?.next()
+                      }
+                      disabled={
+                        currentSlide === internalSlider.current.track.details.slides.length - 2
+                      }
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
