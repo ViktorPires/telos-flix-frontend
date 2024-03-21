@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import {CommentContext } from "./CommentContext";
+import { CommentContext } from "./CommentContext";
 import { AuthenticateContext } from "./AuthenticateContext";
 import { API_URL } from "../constants/ApiConstant";
 import useApiError from "../hooks/useApiError";
@@ -14,27 +14,26 @@ export default function CommentProvider({ children }) {
         'Authorization': 'Bearer ' + savedUser.token
     } : {};
 
-    const createComment = (content, rating, id) => {
+    const createComment = async (content, rating, id) => {
         try {
-            axios.post(`${API_URL}/comments/movie/${id}`, { content, rating }, { headers: Authorization }).then((response) => {
-                setComments([...comments, response.data])
-            })
+            const response = await axios.post(`${API_URL}/comments/movie/${id}`, { content, rating }, { headers: Authorization });
+            setComments([...comments, response.data]);
         } catch (error) {
             handleApiError(error, {
                 message: "An error occurred while creating the comment. Please try again later.",
-            })
+            });
         }
     }
-    const getComments = (id) => {
+
+    const getComments = async (id) => {
         try {
-            axios.get(`${API_URL}/comments/movie/${id}`, { headers: Authorization }).then((response) => {
-                setComments(response.data)
-                return response.data
-            })
+            const response = await axios.get(`${API_URL}/comments/movie/${id}`, { headers: Authorization });
+            setComments(response.data);
+            return response.data;
         } catch (error) {
             handleApiError(error, {
                 message: "An error occurred while getting the comments. Please try again later.",
-            })
+            });
         }
     }
 

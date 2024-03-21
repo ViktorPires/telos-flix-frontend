@@ -6,9 +6,9 @@ const useErrorLogger = () => {
     try {
       const errorData = {
         message: error.message,
-        type: error.name,
-        stack: error.stack,
-        timestamp: new Date(),
+        type: error.name || "Error",
+        stack: error.stack || "No stack trace",
+        timestamp: new Date() || "No timestamp",
       };
       await axios.post(`${API_URL}/errors`, errorData);
     } catch (error) {
