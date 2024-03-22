@@ -5,8 +5,8 @@ import Header from "../../components/header";
 import { MovieContext } from "../../contexts/MovieContext";
 import { Link, useParams } from "react-router-dom";
 import { Zoom } from "react-reveal";
-import Loading from "../../components/loading";
-import SearchLoading from "../../components/searchLoading";
+import PageLoading from "../../components/pageLoading";
+import ContentLoading from "../../components/contentLoading";
 
 export default function CardsFilms() {
   const { genre } = useParams();
@@ -29,7 +29,7 @@ export default function CardsFilms() {
   }, [searchTerm, selectedCategory]);
 
   return isLoading ? (
-    <Loading />
+    <PageLoading />
   ) : (
     <>
       <Header />
@@ -67,7 +67,7 @@ export default function CardsFilms() {
           </div>
           <div className="grid-cardsFilms">
             {isSearchLoading ? (
-              <SearchLoading />
+              <ContentLoading text="Searching..." />
             ) : (
               <>
                 {movies && movies.length === 0 ? (

@@ -18,7 +18,7 @@ import { useContext } from "react";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
-import SearchLoading from "../searchLoading/index";
+import ContentLoading from "../contentLoading/index";
 
 export function CarouselNote({ comments, movieId, isLoading }) {
   const { savedUser } = useContext(AuthenticateContext);
@@ -120,7 +120,7 @@ export function CarouselNote({ comments, movieId, isLoading }) {
   }, [comments, internalSlider]);
 
   return isLoading ? (
-    <SearchLoading />
+    <ContentLoading />
   ) : (
     <>
       <div

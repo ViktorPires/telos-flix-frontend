@@ -5,14 +5,14 @@ import "./index.css";
 import DontKnowWhatToWatch from "../../components/dontKnowWhatToWatch";
 import Header from "../../components/header";
 import HomeCarousel from "../../components/HomeCarousel";
-import Loading from "../../components/loading";
+import PageLoading from "../../components/pageLoading";
 import { MovieContext } from "../../contexts/MovieContext";
 
 function Home() {
   const { isLoading } = useContext(MovieContext);
 
   return isLoading ? (
-    <Loading />
+    <PageLoading />
   ) : (
     <div data-testid="home-component">
       <Header />

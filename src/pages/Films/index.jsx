@@ -6,7 +6,7 @@ import { MovieContext } from "../../contexts/MovieContext";
 import { CommentContext } from "../../contexts/CommentContext";
 import { useEffect } from "react";
 import Header from "../../components/header";
-import Loading from "../../components/loading";
+import PageLoading from "../../components/pageLoading";
 
 function Films() {
   const { searchById, isLoading } = useContext(MovieContext);
@@ -16,7 +16,7 @@ function Films() {
   const [isLoadingComments, setIsLoadingComments] = useState(true);
 
   const fetchData = async () => {
-    const { data } = await searchById(id);
+    const data = await searchById(id);
     setMovie(data);
   };
   
@@ -32,7 +32,7 @@ function Films() {
   }, [id])
 
   return isLoading ? (
-    <Loading />
+    <PageLoading />
   ) : (
     <div data-testid="films-component">
       <Header />
