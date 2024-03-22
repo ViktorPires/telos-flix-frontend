@@ -74,7 +74,8 @@ export default function MovieProvider({ children }) {
 
   const searchById = async (id) => {
     try {
-      return await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
+      const { data } = await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
+      return data
     } catch (error) {
       handleApiError(error, {
         message: "An error occurred while searching. Please try again later.",
