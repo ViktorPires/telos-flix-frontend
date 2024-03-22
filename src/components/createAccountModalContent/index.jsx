@@ -5,11 +5,10 @@ import { EmailOutlined, PersonOutlined, PhoneOutlined } from "@mui/icons-materia
 import PasswordOutlinedInput from "../passwordOutlinedInput";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
-import { AuthenticateContext } from "../../contexts/AuthenticateContext";
+import { UserContext } from "../../contexts/UserContext";
 
 function CreateAccountModalContent() {
-  const { createUser } = useContext(AuthenticateContext);
+  const { createUser } = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

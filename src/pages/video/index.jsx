@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { MovieContext } from "../../contexts/MovieContext";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import Header from "../../components/header";
