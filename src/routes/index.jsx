@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
 import Films from "../pages/Films";
 import MovieProvider from "../contexts/MovieProvider";
@@ -14,53 +14,23 @@ export default function AppRoutes() {
   return (
     <AuthenticateProvider>
       <UserProvider>
-        <BrowserRouter>
+        <MovieProvider>
           <Routes>
+            <Route element={<Home />} path="/" exact />
             <Route
               element={
-                <MovieProvider>
-                  <Home />
-                </MovieProvider>
-              }
-              path="/"
-              exact
-            />
-
-            <Route
-              element={
-                <MovieProvider>
-                  <CommentProvider>
-                    <Films />
-                  </CommentProvider>
-                </MovieProvider>
+                <CommentProvider>
+                  <Films />
+                </CommentProvider>
               }
               path="/films/:id"
               exact
             />
-
             <Route element={<Person />} path="/person" exact />
-
-            <Route
-              element={
-                <MovieProvider>
-                  <CardsFilms />
-                </MovieProvider>
-              }
-              path="/cardsFilms/:genre?"
-              exact
-            />
-
-            <Route
-              element={
-                <MovieProvider>
-                  <Video />
-                </MovieProvider>
-              }
-              path="/video/:id"
-              exact
-            />
+            <Route element={<CardsFilms />} path="/cardsFilms/:genre?" exact />
+            <Route element={<Video />} path="/video/:id" exact />
           </Routes>
-        </BrowserRouter>
+        </MovieProvider>
       </UserProvider>
     </AuthenticateProvider>
   );

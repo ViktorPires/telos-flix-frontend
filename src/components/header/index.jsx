@@ -1,16 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
-import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Home, Search, Book } from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "./Brand.png";
 import LoginButton from "../loginButton";
 import CreateAccountButton from "../createAccountButton";
@@ -19,104 +16,28 @@ import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
 import CreateAccountModalContent from "../createAccountModalContent";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
-import { NavButton } from "./styles";
+import { StyledNavLinkButton, StyledMenuLink, AppBar, Drawer, DrawerHeader, StyledAccordionDetails } from "./styles";
 import CreateFilms from "../../pages/createFilms";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const drawerWidth = 240;
-
-const openedMixin = (theme) => ({
-  border: "none",
-  width: drawerWidth,
-  backgroundColor: "#212121",
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme) => ({
-  border: "none",
-  backgroundColor: "#212121",
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  backgroundColor: "#212121",
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
-
 export default function Header(setCreateAccountContent) {
-  const { savedUser } = useContext(AuthenticateContext);
-
-  const theme = useTheme();
+  const { authenticateData, isAuthenticated, logout } = useContext(AuthenticateContext);
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
-
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   useEffect(() => {
-    if (savedUser) {
+    if (isAuthenticated) {
       setOpen(false);
     }
-  }, [savedUser]);
+  }, [isAuthenticated]);
 
   return (
     <div data-testid="header-component">
@@ -155,7 +76,7 @@ export default function Header(setCreateAccountContent) {
                 </h1>
               </Link>
             </div>
-            {savedUser ? (
+            {isAuthenticated ? (
               <Box
                 sx={{
                   display: "flex",
@@ -177,21 +98,18 @@ export default function Header(setCreateAccountContent) {
                     marginTop: "-0.1rem",
                   }}
                 >
-                  {savedUser.name.charAt(0).toUpperCase()}
+                  {authenticateData?.name.charAt(0).toUpperCase()}
                 </h1>
-                <h1 style={{ marginRight: "6rem" }}>{savedUser.name}</h1>
-                <div
-                  style={{
-                    position: "absolute",
-                    right: "0",
-                    marginLeft: "0.5rem",
-                  }}
-                >
+                <h1 style={{ marginRight: "8rem" }}>{authenticateData?.name}</h1>
                   <Accordion
                     sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
                       backgroundColor: "#737070",
                       borderRadius: "18px",
-                      padding: "0rem 0.5rem",
+                      position: "absolute",
+                      right: "0",
                     }}
                     expanded={expanded === "panel1"}
                     onChange={handleChange("panel1")}
@@ -200,33 +118,20 @@ export default function Header(setCreateAccountContent) {
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1bh-content"
                       id="panel1bh-header"
-                    ></AccordionSummary>
-                    <div style={{ marginTop: "-1rem" }}>
-                      <Typography sx={{ padding: "0.8rem 0rem" }}>
-                        <Link
-                          style={{ textDecoration: "none", color: "#ffff" }}
-                          to="/Person"
-                        >
-                          {" "}
-                          Profile{" "}
-                        </Link>
-                      </Typography>
-                      <Typography sx={{ padding: "0.2rem 0rem 0.8rem" }}>
-                        <Link
-                          style={{ textDecoration: "none", color: "#ffff" }}
-                          onClick={() => {
-                            localStorage.removeItem("user");
-                            window.location.reload(false);
-                          }}
-                          to="/"
-                        >
-                          {" "}
-                          Log out{" "}
-                        </Link>
-                      </Typography>
-                    </div>
+                    >
+                      <span style={{ marginRight: "0.4rem" }}>Menu</span>
+                    </AccordionSummary>
+                    <StyledAccordionDetails>
+                      <StyledMenuLink to="/Person">
+                        <AccountCircleIcon sx={{ right: "0.2rem" }} />
+                        <Typography>Profile</Typography>
+                      </StyledMenuLink>
+                      <StyledMenuLink onClick={(event) => { event.preventDefault(); logout(); }} >
+                        <LogoutIcon />
+                        <Typography>Logout</Typography>
+                      </StyledMenuLink>
+                    </StyledAccordionDetails>
                   </Accordion>
-                </div>
               </Box>
             ) : (
               <AppBarActions
@@ -254,132 +159,8 @@ export default function Header(setCreateAccountContent) {
             )}
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent">
-          <DrawerHeader>
-            <IconButton sx={{ color: "#fff" }}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <List
-            sx={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-              >
-                <img src={logo} alt="logo" />
-                <h1 style={{ fontWeight: "400", letterSpacing: "5px" }}>
-                  Télos
-                </h1>
-              </div>
-              {savedUser ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    position: "relative",
-                  }}
-                >
-                  {" "}
-                  <h1 style={{ marginRight: "5rem" }}>{savedUser.name}</h1>
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "0",
-                      marginLeft: "0.5rem",
-                    }}
-                  >
-                    <Accordion
-                      sx={{ backgroundColor: "#737070", borderRadius: "18px" }}
-                      expanded={expanded === "panel1"}
-                      onChange={handleChange("panel1")}
-                    >
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                      ></AccordionSummary>
-                      <div style={{ marginTop: "-1rem" }}>
-                        <Typography sx={{ padding: "0.8rem 0rem" }}>
-                          <Link
-                            style={{ textDecoration: "none", color: "#ffff" }}
-                            to="/Person"
-                          >
-                            {" "}
-                            Perfil{" "}
-                          </Link>
-                        </Typography>
-                        <Typography sx={{ padding: "0.2rem 0rem 0.8rem" }}>
-                          <Link
-                            style={{ textDecoration: "none", color: "#ffff" }}
-                            onClick={() => {
-                              localStorage.removeItem("user");
-                              window.location.reload(false);
-                            }}
-                            to="/"
-                          >
-                            {" "}
-                            Sair{" "}
-                          </Link>
-                        </Typography>
-                      </div>
-                    </Accordion>
-                  </div>
-                </Box>
-              ) : (
-                <AppBarActions
-                  actions={[
-                    <CreateAccountButton
-                      onClick={() => {
-                        setContentToShow(<CreateAccountModalContent />);
-                        setOpen(true);
-                      }}
-                    />,
-                    <LoginButton
-                      onClick={() => {
-                        setContentToShow(
-                          <LoginModalContent
-                            setCreateAccountContent={() => {
-                              setContentToShow(<CreateAccountModalContent />);
-                            }}
-                          />
-                        );
-                        setOpen(true);
-                      }}
-                    />,
-                  ]}
-                />
-              )}
-            </Box>
-          </List>
-        </Drawer>
 
         <Drawer variant="permanent">
-          <DrawerHeader>
-            <IconButton sx={{ color: "#fff" }}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-
           <List
             sx={{
               height: "100%",
@@ -395,20 +176,20 @@ export default function Header(setCreateAccountContent) {
                 flexDirection: "column",
               }}
             >
-              <NavButton to="/">
+              <StyledNavLinkButton to="/">
                 <Home sx={{ height: 23, width: 23, color: "#EEEEEE" }} />
-              </NavButton>
+              </StyledNavLinkButton>
 
-              <NavButton to="/cardsFilms">
+              <StyledNavLinkButton to="/cardsFilms">
                 <Search
                   className="svg"
                   color="#fff"
                   sx={{ height: 23, width: 23, color: "#EEEEEE" }}
                 />
-              </NavButton>
+              </StyledNavLinkButton>
 
-              {savedUser && savedUser.role === "admin" ? (
-                <NavButton
+              {isAuthenticated && authenticateData.role === "admin" ? (
+                <StyledNavLinkButton
                   onClick={() => {
                     setOpen(true);
                     setContentToShow(<CreateFilms />);
@@ -418,7 +199,7 @@ export default function Header(setCreateAccountContent) {
                     color="#fff"
                     sx={{ height: 23, width: 23, color: "#EEEEEE" }}
                   />
-                </NavButton>
+                </StyledNavLinkButton>
               ) : (
                 ""
               )}

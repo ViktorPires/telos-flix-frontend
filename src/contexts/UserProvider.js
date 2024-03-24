@@ -1,21 +1,16 @@
-import axios from "axios";
 import React, { useContext } from "react";
+import { api } from '../server/api'
 import { UserContext } from "./UserContext";
 import { AuthenticateContext } from "./AuthenticateContext";
-import { API_URL } from "../constants/ApiConstant";
 import useApiError from "../hooks/useApiError";
 
 export default function UserProvider({ children }) {
-    const { savedUser } = useContext(AuthenticateContext);
+    const { authorization } = useContext(AuthenticateContext);
     const { handleApiError, dialogComponent } = useApiError();
 
-    const Authorization = savedUser ? {
-        'Authorization': 'Bearer ' + savedUser.token
-    } : {};
-
-    const createUser = async ({ name, email, password, age }) => {
+    const createUser = async ({ name, email, password, cellphone }) => {
         try {
-            const response = await axios.post(`${API_URL}/users`, { name, email, password, age })
+            const response = await api.post(`/users`, { name, email, password, cellphone })
             return response.status
         } catch (error) {
             handleApiError(error, {
@@ -26,7 +21,7 @@ export default function UserProvider({ children }) {
 
     const updateProfile = async ({ id, name, email, cellphone }) => {
         try {
-            const response = await axios.put(`${API_URL}/users/${id}`, { name, email, cellphone }, { headers: Authorization });
+            const response = await api.put(`/users/${id}`, { name, email, cellphone }, { headers: authorization });
             const { token } = JSON.parse(localStorage.getItem("user"));
             response.data.token = token;
             localStorage.setItem("user", JSON.stringify(response.data));
@@ -40,7 +35,7 @@ export default function UserProvider({ children }) {
 
     const updatePassword = async ({ id, password }) => {
         try {
-            const response = await axios.put(`${API_URL}/users/${id}`, { password }, { headers: Authorization });
+            const response = await api.put(`/users/${id}`, { password }, { headers: authorization });
             return response.status
         } catch (error) {
             handleApiError(error, {

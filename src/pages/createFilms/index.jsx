@@ -12,7 +12,7 @@ import "./index.css";
 import { useContext } from "react";
 
 export default function CreateFilms() {
-  const { savedUser } = useContext(AuthenticateContext)
+  const { authorization } = useContext(AuthenticateContext)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
@@ -29,7 +29,7 @@ export default function CreateFilms() {
 
     const movie = { title, description, year, genres, image, video };
     try {
-      api.post("/movies", { ...movie }, { headers: { 'Authorization': 'Bearer ' + savedUser.token } })
+      api.post("/movies", { ...movie }, { headers:  authorization})
       setMessage({ message: "Movie created successfully", color: "#5cb85c" })
 
     } catch (err) {

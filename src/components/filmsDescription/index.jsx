@@ -10,7 +10,7 @@ import CustomModal from "../customModal";
 import LoginModalContent from "../loginModalContent";
 
 export function FilmDescription({ movie }) {
-  const { savedUser } = useContext(AuthenticateContext);
+  const { isAuthenticated } = useContext(AuthenticateContext);
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
   return (
@@ -61,7 +61,7 @@ export function FilmDescription({ movie }) {
                   alignItems: "center",
                 }}
               >
-                {savedUser || movie?.isFree ? (
+                {isAuthenticated || movie?.isFree ? (
                   <Link
                     style={{ textDecoration: "none" }}
                     to={`/video/${movie?._id}`}

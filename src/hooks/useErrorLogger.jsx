@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL } from "../constants/ApiConstant";
+import { api } from '../server/api'
 
 const useErrorLogger = () => {
   const logError = async (error) => {
@@ -10,7 +9,7 @@ const useErrorLogger = () => {
         stack: error.stack || "No stack trace",
         timestamp: new Date() || "No timestamp",
       };
-      await axios.post(`${API_URL}/errors`, errorData);
+      await api.post(`/errors`, errorData);
     } catch (error) {
       const errors = JSON.parse(localStorage.getItem("errors")) || [];
       errors.push(error);

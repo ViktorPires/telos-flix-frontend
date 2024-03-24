@@ -13,15 +13,7 @@ import SecondaryGradientButton from "../secondaryGrandientButton";
 export default function LoginModalContent({ setCreateAccountContent }) {
   const { login } = useContext(AuthenticateContext)
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("teste");
-  const [errorMessage, setErrorMessage] = React.useState('');
-
-  const onLoginButtonClicked = async () => {
-    const { response } = await login({ email, password });
-    if (response.status === 400) {
-      setErrorMessage('Email or password invalid')
-    }
-  }
+  const [password, setPassword] = useState("");
 
   return (
     <>
@@ -52,10 +44,9 @@ export default function LoginModalContent({ setCreateAccountContent }) {
             <div className="inputContainer" style={{ marginTop: "30px", marginBottom: 80 }}>
               <label className="inputLabel">Password</label>
               <PasswordOutlinedInput setValue={setPassword} placeholder="Password" />
-              <span style={{ color: "red" }}>{errorMessage}</span>
             </div>
             <div className="buttonsSection">
-              <PrimaryGradientButton text="Login" onClick={onLoginButtonClicked} />
+              <PrimaryGradientButton text="Login" onClick={() => login({ email, password })} />
               <SecondaryGradientButton text="Create account" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
             </div>
           </div>

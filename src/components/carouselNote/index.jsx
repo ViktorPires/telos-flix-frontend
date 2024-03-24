@@ -21,7 +21,7 @@ import LoginModalContent from "../loginModalContent";
 import ContentLoading from "../contentLoading/index";
 
 export function CarouselNote({ comments, movieId, isLoading }) {
-  const { savedUser } = useContext(AuthenticateContext);
+  const { isAuthenticated } = useContext(AuthenticateContext);
   const [open, setOpen] = useState(false);
   const [contentToShow, setContentToShow] = useState(<></>);
   const [loadedSlider, setLoadedSlider] = useState(false);
@@ -143,7 +143,7 @@ export function CarouselNote({ comments, movieId, isLoading }) {
           <Star />
           <h3>Rating</h3>
 
-          {savedUser ? (
+          {isAuthenticated ? (
             <div style={{ marginLeft: "105px" }}>
               <SecondaryGradientButton
                 onClick={handleClick}

@@ -26,11 +26,11 @@ import usePasswordValidation from "../../hooks/usePasswordValidation";
 import "./index.css";
 
 export function Profile() {
-  const { savedUser } = useContext(AuthenticateContext);
+  const { authenticateData, isAuthenticated } = useContext(AuthenticateContext);
   const { updateProfile, updatePassword } = useContext(UserContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState(savedUser?.email);
-  const [cellphone, setCellphone] = useState(savedUser?.cellphone);
+  const [name, setName] = useState(authenticateData?.name);
+  const [email, setEmail] = useState(authenticateData?.email);
+  const [cellphone, setCellphone] = useState(authenticateData?.cellphone);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export function Profile() {
 
   async function handleUpdate() {
     const payload = {
-      id: savedUser._id,
+      id: authenticateData?.id,
       name,
       email,
       cellphone,
@@ -66,7 +66,7 @@ async function handleUpdatePassword() {
     }
 
     const payloadPassword = {
-        id: savedUser._id,
+        id: authenticateData?.id,
         password,
     };
 
@@ -79,7 +79,7 @@ async function handleUpdatePassword() {
     }
 }
 
-  if (!savedUser) {
+  if (!isAuthenticated) {
     return <h1>You need to be logged in to update your profile</h1>;
   }
 
@@ -114,7 +114,7 @@ async function handleUpdatePassword() {
             <AccountCircleIcon
               sx={{ color: "#EEEEEE", fontSize: "2rem", marginRight: "0.5rem" }}
             />
-            <h1>{savedUser?.name}</h1>
+            <h1>{name}</h1>
           </div>
           <div>
             <SecondaryGradientButton
@@ -135,7 +135,7 @@ async function handleUpdatePassword() {
                 setValue={setName}
                 placeholder="Name"
                 type="text"
-                defaultValue={savedUser?.name}
+                defaultValue={name}
                 startAdornment={
                   <InputAdornment>
                     <IconButton>
@@ -152,7 +152,7 @@ async function handleUpdatePassword() {
                 setValue={setEmail}
                 placeholder="Email"
                 type="email"
-                defaultValue={savedUser?.email}
+                defaultValue={email}
                 startAdornment={
                   <InputAdornment>
                     <IconButton>
@@ -167,7 +167,7 @@ async function handleUpdatePassword() {
               <CustomOutlinedInput
                 onChange={(e) => setCellphone(e.target.value)}
                 setValue={setCellphone}
-                defaultValue={savedUser?.cellphone}
+                defaultValue={cellphone}
                 placeholder="Cellphone"
                 type="text"
               />

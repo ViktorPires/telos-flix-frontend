@@ -1,23 +1,18 @@
-import axios from "axios";
 import React, { useContext } from "react";
+import { api } from '../server/api';
 import { useQuery } from "react-query";
 import { MovieContext } from "./MovieContext";
 import { AuthenticateContext } from "./AuthenticateContext";
-import { API_URL } from "../constants/ApiConstant";
 import useApiError from "../hooks/useApiError";
 
 export default function MovieProvider({ children }) {
-  const { savedUser } = useContext(AuthenticateContext);
+  const { authorization } = useContext(AuthenticateContext);
   const { handleApiError, dialogComponent } = useApiError();
-
-  const Authorization = savedUser ? {
-    'Authorization': 'Bearer ' + savedUser.token
-  } : {};
 
   const { data: movies, isLoading: isMoviesLoading, isError: isMoviesError, error: moviesError } = useQuery(
     "movies",
     async () => {
-      const response = await axios.get(`${API_URL}/movies`, { headers: Authorization });
+      const response = await api.get(`/movies`, { headers: authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -32,7 +27,7 @@ export default function MovieProvider({ children }) {
   const { data: freeMovies, isLoading: isFreeMoviesLoading, isError: isFreeMoviesError, error: freeMoviesError } = useQuery(
     "freeMovies",
     async () => {
-      const response = await axios.get(`${API_URL}/movies/free`, { headers: Authorization });
+      const response = await api.get(`/movies/free`, { headers: authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -47,7 +42,7 @@ export default function MovieProvider({ children }) {
   const { data: movieGenres, isLoading: isMovieGenresLoading, isError: isMovieGenresError, error: movieGenresError } = useQuery(
     "movieGenres",
     async () => {
-      const response = await axios.get(`${API_URL}/movies/genres`, { headers: Authorization });
+      const response = await api.get(`/movies/genres`, { headers: authorization });
       return response.data;
     },
     { refetchOnWindowFocus: false }
@@ -63,7 +58,7 @@ export default function MovieProvider({ children }) {
   
   const search = async (title, genre) => {
     try {
-      const { data } = await axios.get(`${API_URL}/movies`, { params: { title, genres: genre }, headers: Authorization })
+      const { data } = await api.get(`/movies`, { params: { title, genres: genre }, headers: authorization })
       return data
     } catch (error) {
       handleApiError(error, {
@@ -74,7 +69,7 @@ export default function MovieProvider({ children }) {
 
   const searchById = async (id) => {
     try {
-      const { data } = await axios.get(`${API_URL}/movies/${id}`, { headers: Authorization })
+      const { data } = await api.get(`/movies/${id}`, { headers: authorization })
       return data
     } catch (error) {
       handleApiError(error, {

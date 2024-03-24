@@ -9,7 +9,7 @@ import ContentLoading from "../../components/contentLoading";
 function Video() {
   const { searchById, isLoading } = useContext(MovieContext);
   const { id } = useParams();
-  const { savedUser } = useContext(AuthenticateContext);
+  const { isAuthenticated } = useContext(AuthenticateContext);
   const [movieVideo, setMovieVideo] = useState("");
   const [isFreeMovie, setIsFreeMovie] = useState(false);
   const [isLoadingVideo, setIsLoadingVideo] = useState(true);
@@ -32,7 +32,7 @@ function Video() {
   ) : (
     <>
       <Header />
-      {savedUser || isFreeMovie ? (
+      {isAuthenticated || isFreeMovie ? (
         isLoadingVideo ? (
           <ContentLoading />
         ) : (
