@@ -2,21 +2,38 @@ import React, { useContext, useState } from "react";
 import "./index.css";
 import image from "./image.png";
 import { Email } from "@mui/icons-material";
-import { AddBoxOutlined } from "@mui/icons-material";
 import LoginButton from "../loginButton";
 import CreateAccountButton from "../createAccountButton";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import CustomInput from "../customInput";
-import SecondaryGradientButton from "../secondaryGrandientButton";
+import useEmailValidation from "../../hooks/useEmailValidation";
+import usePasswordValidation from "../../hooks/usePasswordValidation";
 
 export default function LoginModalContent({ setCreateAccountContent }) {
   const { login } = useContext(AuthenticateContext);
+  const { validateEmail, errorEmail } = useEmailValidation();
+  const { validateLoginPassword, errorPassword } = usePasswordValidation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleLogin = () => {
+    const isValidEmail = validateEmail(email);
+    const isValidPassword = validateLoginPassword(password);
+    if (!isValidEmail || !isValidPassword) {
+      return;
+    }
+    login({email, password});
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      handleLogin();
+    }
+  };
+
   return (
     <>
-      <div className="loginModalContent">
+      <div className="loginModalContent" onKeyDown={handleKeyDown}>
         <div className="firstSection">
           Login
           <div className="imageContainer">
@@ -25,7 +42,6 @@ export default function LoginModalContent({ setCreateAccountContent }) {
         </div>
         <div className="secondSection">
           <CustomInput
-            marginTop={"-10px"}
             setValue={setEmail}
             onChange={(e) => setEmail(e.target.value)}
             label={"Email"}
@@ -33,6 +49,7 @@ export default function LoginModalContent({ setCreateAccountContent }) {
             placeholder={"Email"}
             type={"email"}
             icon={<Email sx={{ color: "#EEEEEE" }} />}
+            error={errorEmail}
           />
           <CustomInput
             marginTop={"20px"}
@@ -43,9 +60,10 @@ export default function LoginModalContent({ setCreateAccountContent }) {
             placeholder={"Password"}
             type={"password"}
             isPassword={true}
+            error={errorPassword}
           />
           <div className="buttonsSection">
-            <LoginButton showIcon={false} onClick={() => login(email, password)} />
+            <LoginButton showIcon={false} onClick={handleLogin} />
             <CreateAccountButton onClick={setCreateAccountContent} />
           </div>
         </div>

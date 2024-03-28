@@ -21,6 +21,7 @@ export default function AuthenticateProvider({ children }) {
 
   const login = async ({ email, password }) => {
     try {
+      console.log("Login: " + email +  " " + password);
       const { data } = await api.post('/authenticate', { email, password });
       localStorage.setItem("token", data.token);
       setAuthenticateData({

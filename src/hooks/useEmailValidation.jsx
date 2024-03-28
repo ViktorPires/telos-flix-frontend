@@ -3,6 +3,11 @@ import { useCallback, useState } from "react";
 const useEmailValidation = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
+  const errorMessages = {
+    required: "The email field is required!",
+    format: "The email format is invalid!",
+  }
+
   const validateEmailFormat = useCallback((email) => {
     const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     return regex.test(email);
@@ -17,18 +22,19 @@ const useEmailValidation = () => {
   const validateEmail = useCallback((email) => {
     const formattedEmail = formatEmail(email);
       if (!formattedEmail) {
-        setErrorMessage("The email field is required!");
+        setErrorMessage(errorMessages.required);
         return false;
       }
 
       if (!validateEmailFormat(formattedEmail)) {
-        setErrorMessage("The email format is invalid!");
+        setErrorMessage(errorMessages.format);
         return false;
       }
 
       setErrorMessage("");
       return true;
-    },[validateEmailFormat]);
+      // eslint-disable-next-line
+    },[validateEmailFormat, formatEmail]);
 
   return { validateEmail, errorEmail: errorMessage };
 };

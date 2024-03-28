@@ -48,11 +48,26 @@
   width: 75%;
 }
 
+.loginModalContent .secondSection .inputContainer input::placeholder {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.loginModalContent .secondSection .inputContainer .inputError {
+  margin-top: 0.1rem;
+}
+
+.loginModalContent .secondSection .inputContainer--error {
+  margin-bottom: -34px;
+}
+
 .loginModalContent .secondSection .buttonsSection {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 5.5rem;
+  margin-top: 5.6rem;
   width: 75%;
 }
 

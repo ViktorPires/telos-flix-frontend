@@ -14,6 +14,7 @@
 
 .inputError {
   font-style: normal;
+  letter-spacing: normal;
   color: red;
   margin-top: 0.2rem;
   text-align: center;
