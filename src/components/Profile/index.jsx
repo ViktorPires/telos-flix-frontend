@@ -1,28 +1,25 @@
 import React, { useContext, useState } from "react";
-import {
-  Alert,
-  FormControl,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Snackbar,
-} from "@mui/material";
+import { FormControlLabel } from "@mui/material";
 import {
   DnsRounded,
   EastOutlined,
   EmailOutlined,
+  PhoneOutlined,
   InfoRounded,
   PersonOutlined,
   ShowChartOutlined,
 } from "@mui/icons-material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import CustomOutlinedInput from "../customOutlinedInput";
-import PasswordOutlinedInput from "../passwordOutlinedInput";
+import CustomInput from "../customInput";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
 import { UserContext } from "../../contexts/UserContext";
 import usePasswordValidation from "../../hooks/usePasswordValidation";
+import useEmailValidation from "../../hooks/useEmailValidation";
+import useCellphoneValidation from "../../hooks/useCellphoneValidation";
+import useNameValidation from "../../hooks/useNameValidation";
+import useSnackbar from "../../hooks/useSnackbar";
 import "./index.css";
 
 export function Profile() {
@@ -33,51 +30,51 @@ export function Profile() {
   const [cellphone, setCellphone] = useState(authenticateData?.cellphone);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [isSuccessMessage, setIsSuccessMessage] = useState(false);
-  const { validatePassword, errorMessage } = usePasswordValidation();
+  const { validateName, errorName } = useNameValidation();
+  const { validatePhone, errorPhone } = useCellphoneValidation();
+  const { validateEmail, errorEmail } = useEmailValidation();
+  const { validatePassword, errorPassword } = usePasswordValidation();
+  const { handleOpenSnackbar, snackbar } = useSnackbar();
 
   async function handleUpdate() {
+    const isValidName = validateName(name);
+    const isValidEmail = validateEmail(email);
+    const isValidPhone = validatePhone(cellphone);
+    if (!isValidName || !isValidEmail || !isValidPhone) {
+      return;
+    }
+
     const payload = {
       id: authenticateData?.id,
-      name,
-      email,
-      cellphone,
+      name: name,
+      email: email,
+      cellphone: cellphone,
     };
 
-    const statusCode = await updateProfile(payload);
+    const statusCode = await updateProfile({ ...payload });
 
     if (statusCode === 200) {
-      setMessage("Profile updated with success");
-      setIsSuccessMessage(true);
-      setOpen(true);
+      handleOpenSnackbar("Profile updated successfully!", "success");
     }
   }
 
-async function handleUpdatePassword() {
+  async function handleUpdatePassword() {
     const isValidPassword = validatePassword(password, confirmPassword);
-
     if (!isValidPassword) {
-        setMessage(errorMessage);
-        setIsSuccessMessage(false);
-        setOpen(true);
-        return;
+      return;
     }
 
     const payloadPassword = {
-        id: authenticateData?.id,
-        password,
+      id: authenticateData?.id,
+      password: password,
     };
 
-    const statusCode = await updatePassword(payloadPassword);
+    const statusCode = await updatePassword({ ...payloadPassword });
 
     if (statusCode === 200) {
-        setMessage("Password changed with success");
-        setIsSuccessMessage(true);
-        setOpen(true);
+      handleOpenSnackbar("Password updated successfuly!", "success");
     }
-}
+  }
 
   if (!isAuthenticated) {
     return <h1>You need to be logged in to update your profile</h1>;
@@ -85,23 +82,7 @@ async function handleUpdatePassword() {
 
   return (
     <div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => {
-          setOpen(false);
-        }}
-      >
-        <Alert
-          onClose={() => {
-            setOpen(false);
-          }}
-          severity={isSuccessMessage ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
+      {snackbar}
       <div className="modifyPerson">
         <div
           style={{
@@ -114,7 +95,7 @@ async function handleUpdatePassword() {
             <AccountCircleIcon
               sx={{ color: "#EEEEEE", fontSize: "2rem", marginRight: "0.5rem" }}
             />
-            <h1>{name}</h1>
+            <h1>{authenticateData?.name}</h1>
           </div>
           <div>
             <SecondaryGradientButton
@@ -127,54 +108,42 @@ async function handleUpdatePassword() {
 
         <div className="firstSection">
           <span style={{ letterSpacing: "1rem" }}>PROFILE</span>
-          <FormControl sx={{ m: 1, width: "366px" }}>
-            <div className="inputContainer" style={{ marginTop: "56px" }}>
-              <label className="inputLabel">Name</label>
-              <CustomOutlinedInput
-                onChange={(e) => setName(e.target.value)}
-                setValue={setName}
-                placeholder="Name"
-                type="text"
-                defaultValue={name}
-                startAdornment={
-                  <InputAdornment>
-                    <IconButton>
-                      <PersonOutlined sx={{ color: "#EEEEEE" }} />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </div>
-            <div className="inputContainer" style={{ marginTop: "46px" }}>
-              <label className="inputLabel">E-mail</label>
-              <CustomOutlinedInput
-                onChange={(e) => setEmail(e.target.value)}
-                setValue={setEmail}
-                placeholder="Email"
-                type="email"
-                defaultValue={email}
-                startAdornment={
-                  <InputAdornment>
-                    <IconButton>
-                      <EmailOutlined sx={{ color: "#EEEEEE" }} />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </div>
-            <div className="inputContainer" style={{ marginTop: "46px" }}>
-              <label className="inputLabel">Cellphone</label>
-              <CustomOutlinedInput
-                onChange={(e) => setCellphone(e.target.value)}
-                setValue={setCellphone}
-                defaultValue={cellphone}
-                placeholder="Cellphone"
-                type="text"
-              />
-            </div>
+            <CustomInput
+              marginTop="20px"
+              label="Name"
+              placeholder="Name"
+              type="text"
+              icon={<PersonOutlined sx={{ color: "#fff" }} />}
+              setValue={setName}
+              defaultValue={authenticateData?.name}
+              onChange={(e) => setName(e.target.value)}
+              error={errorName}
+            />
+            <CustomInput
+              marginTop="20px"
+              label="E-mail"
+              placeholder="E-mail"
+              type="email"
+              icon={<EmailOutlined sx={{ color: "#fff" }} />}
+              setValue={setEmail}
+              defaultValue={authenticateData?.email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={errorEmail}
+            />
+            <CustomInput
+              marginTop="20px"
+              label="Cellphone"
+              placeholder="Cellphone"
+              type="text"
+              icon={<PhoneOutlined sx={{ color: "#fff" }} />}
+              setValue={setCellphone}
+              defaultValue={authenticateData?.cellphone}
+              onChange={(e) => setCellphone(e.target.value)}
+              error={errorPhone}
+            />
             <FormControlLabel
               sx={{
-                marginTop: "42px",
+                marginTop: "55px",
                 width: "700px",
                 textAlign: "start",
                 fontSize: "14px",
@@ -195,24 +164,26 @@ async function handleUpdatePassword() {
               />
             </div>
 
-            <div>
-              <div className="inputContainer" style={{ marginTop: "56px" }}>
-                <label className="inputLabel">New password</label>
-                <PasswordOutlinedInput
-                    onChange={(e) => setPassword(e.target.value)}
-                    setValue={setPassword}
-                  placeholder="New password"
-                />
-              </div>
-              <div className="inputContainer" style={{ marginTop: "46px" }}>
-                <label className="inputLabel">Confirm password</label>
-                <PasswordOutlinedInput
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    setValue={setConfirmPassword}
-                    placeholder="Confirm password"
-                />
-              </div>
-
+            <div className="secondSection">
+              <CustomInput
+                marginTop="0px"
+                label="New password"
+                placeholder="New password"
+                onChange={(e) => setPassword(e.target.value)}
+                setValue={setPassword}
+                type="password"
+                isPassword={true}
+              />
+              <CustomInput
+                marginTop="20px"
+                label="Confirm password"
+                placeholder="Confirm password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                setValue={setConfirmPassword}
+                type="password"
+                isPassword={true}
+                error={errorPassword}
+              />
               <div className="buttonsSection">
                 <PrimaryGradientButton
                   icon={<ShowChartOutlined />}
@@ -222,7 +193,6 @@ async function handleUpdatePassword() {
                 />
               </div>
             </div>
-          </FormControl>
         </div>
       </div>
     </div>

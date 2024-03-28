@@ -40,10 +40,11 @@ const usePasswordValidation = () => {
             return false;
         }
 
+        setErrorMessage("");
         return true;
     }, [validateLength, validateComplexity, validateWhitespace]);
 
-    return { validatePassword, errorMessage };
+    return { validatePassword, errorPassword: errorMessage };
 };
 
 export default usePasswordValidation;

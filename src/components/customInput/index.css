@@ -1,0 +1,24 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputLabel {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  color: #eeeeee;
+}
+
+.inputError {
+  font-style: normal;
+  color: red;
+  margin-top: 0.2rem;
+  text-align: center;
+}
+
+.inputContainer--error {
+  margin-bottom: -35px;
+}

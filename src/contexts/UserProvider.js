@@ -5,7 +5,7 @@ import { AuthenticateContext } from "./AuthenticateContext";
 import useApiError from "../hooks/useApiError";
 
 export default function UserProvider({ children }) {
-    const { authorization } = useContext(AuthenticateContext);
+    const { authorization, setAuthenticateData } = useContext(AuthenticateContext);
     const { handleApiError, dialogComponent } = useApiError();
 
     const createUser = async ({ name, email, password, cellphone }) => {
@@ -22,9 +22,14 @@ export default function UserProvider({ children }) {
     const updateProfile = async ({ id, name, email, cellphone }) => {
         try {
             const response = await api.put(`/users/${id}`, { name, email, cellphone }, { headers: authorization });
-            const { token } = JSON.parse(localStorage.getItem("user"));
-            response.data.token = token;
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("token", response.data.token);
+            setAuthenticateData({
+                id: response.data._id,
+                name: response.data.name,
+                email: response.data.email,
+                role: response.data.role,
+                cellphone:response.data.cellphone,
+            });
             return response.status
         } catch (error) {
             handleApiError(error, {

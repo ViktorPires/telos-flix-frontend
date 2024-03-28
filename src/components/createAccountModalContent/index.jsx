@@ -1,114 +1,130 @@
-import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 import React, { useState, useContext } from "react";
-import CustomOutlinedInput from "../customOutlinedInput";
-import { EmailOutlined, PersonOutlined, PhoneOutlined } from "@mui/icons-material";
-import PasswordOutlinedInput from "../passwordOutlinedInput";
+import CustomInput from "../customInput";
+import {
+  EmailOutlined,
+  PersonOutlined,
+  PhoneOutlined,
+} from "@mui/icons-material";
 import PrimaryGradientButton from "../primaryGrandientButton";
 import "./index.css";
 import { UserContext } from "../../contexts/UserContext";
+import useNameValidation from "../../hooks/useNameValidation";
+import useEmailValidation from "../../hooks/useEmailValidation";
+import useCellphoneValidation from "../../hooks/useCellphoneValidation";
+import usePasswordValidation from "../../hooks/usePasswordValidation";
+import useSnackbar from "../../hooks/useSnackbar";
 
 function CreateAccountModalContent() {
   const { createUser } = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
+  const [cellphone, setCellphone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
-
+  const { validateName, errorName } = useNameValidation();
+  const { validateEmail, errorEmail } = useEmailValidation();
+  const { validatePhone, errorPhone } = useCellphoneValidation();
+  const { validatePassword, errorPassword } = usePasswordValidation();
+  const { handleOpenSnackbar, snackbar } = useSnackbar();
 
   async function handleSignUp(event) {
     event.preventDefault();
-    if (!name || !email || !password) {
-      setErrorMessage('Fill all fields')
-      return
+    const isValidName = validateName(name);
+    const isValidEmail = validateEmail(email);
+    const isValidPhone = validatePhone(cellphone);
+    const isValidPassword = validatePassword(password, confirmPassword);
+
+    if (!isValidName || !isValidEmail || !isValidPhone || !isValidPassword) {
+      return;
     }
-    if (confirmPassword !== password) {
-      setErrorMessage('The passwords must match')
-      return
+
+    const statusCode = await createUser({
+      name,
+      email,
+      password,
+      cellphone,
+      confirmPassword,
+    });
+    if (statusCode === 201) {
+      handleOpenSnackbar("User created successfully!", "success");
     }
-    await createUser({ name, email, password, age, confirmPassword })
   }
 
   return (
     <div className="createAccountModalContent">
       <div className="firstSection">
         <span>Create your account</span>
-        <FormControl sx={{ m: 1, width: "366px" }}>
-          <div className="inputContainer" style={{ marginTop: "56px" }}>
-            <label className="inputLabel">Name</label>
-            <CustomOutlinedInput
-              setValue={setName}
-              onChange={e => setName(e.target.value)}
-              placeholder="Name"
-              type="text"
-              startAdornment={
-                <InputAdornment>
-                  <IconButton>
-                    <PersonOutlined sx={{ color: "#EEEEEE" }} />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </div>
-          <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">E-mail</label>
-            <CustomOutlinedInput
-              setValue={setEmail}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="E-mail"
-              type="text"
-              startAdornment={
-                <InputAdornment>
-                  <IconButton>
-                    <EmailOutlined sx={{ color: "#EEEEEE" }} />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </div>
-          <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">Cellphone</label>
-            <CustomOutlinedInput
-              setValue={setAge}
-              onChange={e => setAge(e.target.value)}
-              placeholder="Cellphone"
-              type="text"
-              startAdornment={
-                <InputAdornment>
-                  <IconButton>
-                    <PhoneOutlined sx={{ color: "#EEEEEE" }} />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </div>
-        </FormControl>
+          <CustomInput
+            setValue={setName}
+            onChange={(e) => setName(e.target.value)}
+            label={"Name"}
+            placeholder={"Name"}
+            type={"text"}
+            icon={ <PersonOutlined sx={{ color: "#EEEEEE" }}/> }
+            error={errorName}
+          />
+          <CustomInput
+            setValue={setEmail}
+            onChange={(e) => setEmail(e.target.value)}
+            label={"E-mail"}
+            placeholder={"E-mail"}
+            type={"email"}
+            icon={ <EmailOutlined sx={{ color: "#EEEEEE" }}/> }
+            error={errorEmail}
+          />
+          <CustomInput
+            setValue={setCellphone}
+            onChange={(e) => setCellphone(e.target.value)}
+            label={"Cellphone"}
+            placeholder={"Cellphone"}
+            type={"text"}
+            icon={ <PhoneOutlined sx={{ color: "#EEEEEE" }}/> }
+            error={errorPhone}
+          />
       </div>
       <div className="secondSection">
-        <FormControl sx={{ m: 1, width: "366px" }}>
-          <div className="inputContainer" style={{ marginTop: "56px" }}>
-            <label className="inputLabel">Password</label>
-            <PasswordOutlinedInput setValue={setPassword} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-          </div>
-          <div className="inputContainer" style={{ marginTop: "46px" }}>
-            <label className="inputLabel">Confirm password</label>
-            <PasswordOutlinedInput setValue={setConfirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirm password" />
-          </div>
-          <span style={{ color: "red", marginTop: "1rem" }}>{errorMessage}</span>
+        <CustomInput
+            setValue={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
+            label={"Password"}
+            type={"password"}
+            isPassword={true}
+          />
+          <CustomInput
+            setValue={setConfirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            label={"Confirm password"}
+            placeholder={"Confirm password"}
+            type={"password"}
+            isPassword={true}
+            error={errorPassword}
+          />
 
           <FormControlLabel
-            sx={{ marginTop: "42px" }}
-            control={<Checkbox style={{ color: "#404040" }} onChange={(e) => setAgreeToTerms(e.target.checked)} />}
+            sx={{ marginTop: "60px" }}
+            control={
+              <Checkbox
+                style={{ color: "#404040" }}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+              />
+            }
             label="I agree with the terms and services of the plataform"
           />
           <div className="buttonsSection">
-            <PrimaryGradientButton onClick={handleSignUp} text="Register" disabled={!agreeToTerms}/>
+            <PrimaryGradientButton
+              onClick={handleSignUp}
+              text="Register"
+              disabled={!agreeToTerms}
+            />
           </div>
-        </FormControl>
       </div>
+      {snackbar}
     </div>
   );
 }

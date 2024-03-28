@@ -68,11 +68,12 @@ export default function AuthenticateProvider({ children }) {
   }
 
   const values = {
-    login: login,
-    logout: logout,
+    login,
+    logout,
     authorization: authorization,
     authenticateData: authenticateData,
     isAuthenticated: isAuthenticated,
+    setAuthenticateData,
   }
 
   return (
