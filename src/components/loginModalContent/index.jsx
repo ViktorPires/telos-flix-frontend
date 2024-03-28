@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
 import "./index.css";
 import image from "./image.png";
-import { IconButton, InputAdornment } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import { AddBoxOutlined } from "@mui/icons-material";
-import PrimaryGradientButton from "../primaryGrandientButton";
+import LoginButton from "../loginButton";
+import CreateAccountButton from "../createAccountButton";
 import { AuthenticateContext } from "../../contexts/AuthenticateContext";
-import CustomOutlinedInput from "../customOutlinedInput";
-import PasswordOutlinedInput from "../passwordOutlinedInput";
+import CustomInput from "../customInput";
 import SecondaryGradientButton from "../secondaryGrandientButton";
 
 export default function LoginModalContent({ setCreateAccountContent }) {
-  const { login } = useContext(AuthenticateContext)
+  const { login } = useContext(AuthenticateContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,30 +24,29 @@ export default function LoginModalContent({ setCreateAccountContent }) {
           </div>
         </div>
         <div className="secondSection">
-          <div style={{ m: 1, width: "366px" }} >
-            <div className="inputContainer">
-              <label className="inputLabel">Email</label>
-              <CustomOutlinedInput
-                setValue={setEmail}
-                placeholder="Email"
-                type="text"
-                startAdornment={
-                  <InputAdornment>
-                    <IconButton>
-                      <Email sx={{ color: "#EEEEEE" }} />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </div>
-            <div className="inputContainer" style={{ marginTop: "30px", marginBottom: 80 }}>
-              <label className="inputLabel">Password</label>
-              <PasswordOutlinedInput setValue={setPassword} placeholder="Password" />
-            </div>
-            <div className="buttonsSection">
-              <PrimaryGradientButton text="Login" onClick={() => login({ email, password })} />
-              <SecondaryGradientButton text="Create account" onClick={setCreateAccountContent} icon={<AddBoxOutlined />} />
-            </div>
+          <CustomInput
+            marginTop={"-10px"}
+            setValue={setEmail}
+            onChange={(e) => setEmail(e.target.value)}
+            label={"Email"}
+            styledClassLabel={"inputLabel"}
+            placeholder={"Email"}
+            type={"email"}
+            icon={<Email sx={{ color: "#EEEEEE" }} />}
+          />
+          <CustomInput
+            marginTop={"20px"}
+            setValue={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
+            label={"Password"}
+            styledClassLabel={"inputLabel"}
+            placeholder={"Password"}
+            type={"password"}
+            isPassword={true}
+          />
+          <div className="buttonsSection">
+            <LoginButton showIcon={false} onClick={() => login(email, password)} />
+            <CreateAccountButton onClick={setCreateAccountContent} />
           </div>
         </div>
       </div>
